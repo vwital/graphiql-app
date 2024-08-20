@@ -1,5 +1,7 @@
+import Header from "@/components/header/Header";
+
 const RootPage = (): React.ReactNode => {
-  return <h1>Hello world!</h1>;
+  return <Header />;
 };
 
 export default RootPage;

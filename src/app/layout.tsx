@@ -1,4 +1,6 @@
 import "@/assets/styles/main.scss";
+import Footer from "@/components/footer/Footer";
+import Header from "@/components/header/Header";
 
 export const metadata = {
   title: "JSXSquad team",
@@ -12,7 +14,11 @@ const RootLayout = ({
 }): React.ReactNode => {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Header />
+        <main className="main">{children}</main>
+        <Footer />
+      </body>
     </html>
   );
 };

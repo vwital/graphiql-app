@@ -1,0 +1,33 @@
+.header {
+  position: sticky;
+  top: 0;
+  background-color: #374785;
+  display: flex;
+  justify-content: center;
+  height: 100px;
+  transition: all 0.3s;
+
+  &_sticky {
+    height: 50px;
+    box-shadow: 0 0 1em 0 #374785;
+    background-color: #a8d0e6;
+  }
+
+  &__wrapper {
+    max-width: 80%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__controls {
+    display: flex;
+    gap: 1em;
+  }
+
+  &__links {
+    display: flex;
+    gap: 1em;
+  }
+}

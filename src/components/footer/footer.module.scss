@@ -1,37 +1,35 @@
 @import "@/assets/styles/abstracts/constans";
 @import "@/assets/styles/abstracts/placeholders";
 
-.header {
-  position: sticky;
-  top: 0;
+.footer {
   background-color: $color-background-light;
   display: flex;
   justify-content: center;
   height: 100px;
 
-  @extend %transition;
-
-  &_sticky {
-    height: 50px;
-    box-shadow: 0 0 1em 0 $color-background-light;
-    background-color: $color-additional;
-  }
-
   &__wrapper {
-    max-width: 80%;
-    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    max-width: 80%;
+    width: 100%;
   }
 
-  &__controls {
+  &__link {
     display: flex;
-    gap: 1em;
-  }
+    align-items: center;
+    justify-content: center;
+    width: 5em;
+    height: 5em;
 
-  &__links {
-    display: flex;
-    gap: 1em;
+    @extend %transition;
+
+    &:hover {
+      color: black;
+    }
+
+    &_rsschool {
+      width: 8em;
+    }
   }
 }

@@ -4,6 +4,7 @@ import styles from "./header.module.scss";
 import { useLayoutEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/navigation";
+import LocaleSwitcherButton from "../elements/LocaleSwitcherButton";
 
 const Header = (): React.ReactNode => {
   const [isSticky, setIsSticky] = useState(false);
@@ -30,7 +31,7 @@ const Header = (): React.ReactNode => {
         <div className={styles.header__wrapper}>
           <h1>REST/GraphiQL Client</h1>
           <div className={styles.header__controls}>
-            <button type="button">en</button>
+            <LocaleSwitcherButton />
             <div className={styles.header__links}>
               <Link href={"/sign-in"}>{t("login")}</Link>
               <Link href={"/sign-up"}>{t("register")}</Link>

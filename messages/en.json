@@ -1,5 +1,9 @@
 {
   "Header": {
-    "Hello": "Hello, world!"
+    "login": "Login",
+    "register": "Register"
+  },
+  "Main": {
+    "welcome": "Welcome!"
   }
 }

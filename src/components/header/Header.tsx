@@ -3,7 +3,6 @@
 import Link from "next/link";
 import styles from "./header.module.scss";
 import { useLayoutEffect, useState } from "react";
-
 import { useTranslations } from "next-intl";
 
 const Header = (): React.ReactNode => {

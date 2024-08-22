@@ -1,5 +1,7 @@
+import { useTranslations } from "next-intl";
 const RootPage = (): React.ReactNode => {
-  return <h2>Welcome Page</h2>;
+  const t = useTranslations("Main");
+  return <h2>{t("welcome")}</h2>;
 };
 
 export default RootPage;

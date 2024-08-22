@@ -1,5 +1,8 @@
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
+import "@/assets/styles/main.scss";
+import Footer from "@/components/footer/Footer";
+import Header from "@/components/header/Header";
 
 export const metadata = {
   title: "JSXSquad team",
@@ -19,7 +22,9 @@ const RootLayout = async ({
     <html lang={locale}>
       <body>
         <NextIntlClientProvider messages={messages}>
-          {children}
+          <Header />
+          <main className="main">{children}</main>
+          <Footer />
         </NextIntlClientProvider>
       </body>
     </html>

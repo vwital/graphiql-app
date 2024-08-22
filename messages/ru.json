@@ -1,5 +1,9 @@
 {
   "Header": {
-    "Hello": "Привет, мир!"
+    "login": "Войти",
+    "register": "Register"
+  },
+  "Main": {
+    "welcome": "Добро пожаловать!"
   }
 }

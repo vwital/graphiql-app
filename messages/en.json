@@ -5,5 +5,11 @@
   },
   "Main": {
     "welcome": "Welcome!"
+  },
+  "SignInPage": {
+    "signIn": "Sign In"
+  },
+  "SignUpPage": {
+    "signUp": "Sign Up"
   }
 }

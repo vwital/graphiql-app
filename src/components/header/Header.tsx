@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import styles from "./header.module.scss";
 import { useLayoutEffect, useState } from "react";
 import { useTranslations } from "next-intl";
+import { Link } from "@/navigation";
 
 const Header = (): React.ReactNode => {
   const [isSticky, setIsSticky] = useState(false);

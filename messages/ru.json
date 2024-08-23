@@ -1,0 +1,15 @@
+{
+  "Header": {
+    "login": "Войти",
+    "register": "Регистрация"
+  },
+  "Main": {
+    "welcome": "Добро пожаловать!"
+  },
+  "SignInPage": {
+    "signIn": "Войти"
+  },
+  "SignUpPage": {
+    "signUp": "Регистрация"
+  }
+}

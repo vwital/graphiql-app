@@ -1,0 +1,15 @@
+{
+  "Header": {
+    "login": "Login",
+    "register": "Register"
+  },
+  "Main": {
+    "welcome": "Welcome!"
+  },
+  "SignInPage": {
+    "signIn": "Sign In"
+  },
+  "SignUpPage": {
+    "signUp": "Sign Up"
+  }
+}

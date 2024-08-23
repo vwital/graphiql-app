@@ -1,0 +1,19 @@
+.author-card {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.author-img {
+  width: 180px;
+  height: 280px;
+  border-radius: 8px;
+}
+
+.author-text {
+  max-width: 380px;
+
+  a {
+    font-weight: 300;
+  }
+}

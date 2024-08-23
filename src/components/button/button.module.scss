@@ -1,0 +1,22 @@
+@import "@/assets/styles/abstracts/constants";
+
+.button {
+  width: 200px;
+  height: 75px;
+  background-color: $color-button;
+  color: $color-text;
+  border: 0;
+  border-radius: 12px;
+  font-size: 20px;
+  font-family: $font-dm-sans;
+  font-weight: $font-medium;
+  transition: all 0.3s ease-in;
+}
+
+.button:hover {
+  background-color: $color-hover;
+}
+
+.button:disabled {
+  background-color: $color-disabled;
+}

@@ -37,6 +37,7 @@
   display: flex;
   align-items: center;
   gap: 25px;
+  justify-content: space-around;
   @media (max-width: 550px) {
     flex-direction: column;
     justify-content: center;

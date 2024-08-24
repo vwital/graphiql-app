@@ -1,23 +1,20 @@
 import styles from "./author-card.module.scss";
 import AuthorText from "./author-text/Author-text";
-interface AuthorInfo {
-  nickname: string;
-  name: string;
-  role: string;
-  bio: string;
-  github: string;
-}
+import { IAuthorInfo } from "@/interfaces/interfaces";
+import Image from "next/image";
 
 const AuthorCard = ({
   src,
   text,
+  className,
 }: {
   src: string;
-  text: AuthorInfo;
+  text: IAuthorInfo;
+  className: string;
 }): React.ReactNode => {
   return (
-    <div className={styles["author-card"]}>
-      <img
+    <div className={className}>
+      <Image
         className={styles["author-img"]}
         src={src}
         alt="author-img"

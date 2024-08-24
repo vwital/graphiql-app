@@ -1,8 +1,4 @@
-.author-card {
-  display: flex;
-  align-items: center;
-  gap: 25px;
-}
+@import "@/assets/styles/abstracts/constants";
 
 .author-img {
   width: 180px;
@@ -11,9 +7,22 @@
 }
 
 .author-text {
-  max-width: 380px;
-
+  max-width: 100%;
+  background-color: $color-field;
+  border-radius: 8px;
+  color: $color-text-dark;
+  padding: 20px;
+  font-family: $font-poppins;
+  pre {
+    padding-left: 15px;
+    margin: 0;
+    white-space: pre-wrap;
+  }
   a {
-    font-weight: 300;
+    font-weight: 700;
+    transition: all 0.4s ease-in-out;
+    &:hover {
+      color: #aaa;
+    }
   }
 }

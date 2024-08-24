@@ -1,0 +1,66 @@
+@import "@/assets/styles/abstracts/constants";
+
+.slider-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+}
+
+.slides-wrapper {
+  position: relative;
+  overflow: hidden;
+  max-width: 700px;
+  background-color: #374785;
+  border-radius: 8px;
+  z-index: 1;
+  transition: all 0.5s ease-in-out;
+  @media (max-width: 730px) {
+    max-width: 500px;
+  }
+  @media (max-width: 550px) {
+    max-width: 300px;
+  }
+}
+
+.slides {
+  max-width: 300%;
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+  padding: 15px;
+  box-sizing: border-box;
+  width: 100%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  @media (max-width: 550px) {
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+.slider-controls {
+  display: flex;
+  padding-top: 20px;
+  gap: 10px;
+}
+
+.set-slide-btn {
+  box-sizing: border-box;
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  background-color: #a8d0e6;
+  &:hover {
+    background-color: #374785;
+  }
+}
+
+.btn-active {
+  border: 2px solid #a8d0e6;
+  background-color: #000;
+}

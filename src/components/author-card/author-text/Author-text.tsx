@@ -1,31 +1,35 @@
-interface AuthorInfo {
-  nickname: string;
-  name: string;
-  role: string;
-  bio: string;
-  github: string;
-}
+import { IAuthorInfo } from "@/interfaces/interfaces";
+import { useTranslations } from "next-intl";
+import styles from "./../author-card.module.scss";
 
 const AuthorText = ({
   authorInfo,
 }: {
-  authorInfo: AuthorInfo;
+  authorInfo: IAuthorInfo;
 }): React.ReactNode => {
+  const t = useTranslations("Author");
   return (
-    <pre className="author-text">
-      {`const ${authorInfo.nickname} = {
-    name: ${authorInfo.name},
-    role: ${authorInfo.role},
-    bio: ${authorInfo.bio},
-    `}
-      github:
-      <a
-        href={authorInfo.github}
-        target="_blank"
-      >
-        {authorInfo.github}
-      </a>
-    </pre>
+    <div className={styles["author-text"]}>
+      const {authorInfo.nickname} = {"{"}
+      <pre>
+        {t("name")}: {authorInfo.name}
+      </pre>
+      <pre>
+        {t("role")}: {authorInfo.role}
+      </pre>
+      <pre>
+        {t("bio")}: {authorInfo.bio}
+      </pre>
+      <pre>
+        {"github"}:{" "}
+        <a
+          href={authorInfo.github}
+          target="_blank"
+        >
+          {authorInfo.github}
+        </a>
+      </pre>
+    </div>
   );
 };
 

@@ -2,6 +2,7 @@
 
 import { usePathname, useRouter } from "@/navigation";
 import { useParams } from "next/navigation";
+import styles from "./switcher.module.scss";
 
 const LocaleSwitcherButton = (): React.ReactNode => {
   const router = useRouter();
@@ -16,6 +17,7 @@ const LocaleSwitcherButton = (): React.ReactNode => {
   return (
     <div>
       <button
+        className={styles["locate-switch"]}
         onClick={onChangeLocale}
         type="button"
       >

@@ -1,6 +1,7 @@
 "use client";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import styles from "./form.module.scss";
 
 interface FormProps {
   handleClick: (email: string, password: string) => void;
@@ -12,13 +13,15 @@ const Form = ({ handleClick }: FormProps): React.ReactNode => {
   const [password, setPassword] = useState("");
 
   return (
-    <div>
+    <div className={styles["form-container"]}>
+      <label>{t("email")}</label>
       <input
         type="email"
         placeholder={t("email")}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
+      <label>{t("password")}</label>
       <input
         type="password"
         placeholder={t("password")}

@@ -1,0 +1,45 @@
+@import "@/assets/styles/abstracts/constans";
+@import "@/assets/styles/abstracts/placeholders";
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 22px;
+  line-height: 33px;
+}
+
+.form-container label {
+  margin-bottom: 10px;
+  font-weight: 400;
+  color: $color-label;
+  text-align: start;
+  align-self: flex-start;
+}
+
+.form-container input {
+  width: 330px;
+  height: 50px;
+  margin-bottom: 36px;
+  padding: 5px 7px;
+  border: 2px solid $color-border;
+  border-radius: 8px;
+  color: $color-input-test;
+}
+
+.form-container button {
+  width: 200px;
+  height: 72px;
+  background-color: $color-button;
+  color: $color-text;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  @extend %transition;
+}
+
+.form-container button:hover {
+  background-color: $color-hover;
+}

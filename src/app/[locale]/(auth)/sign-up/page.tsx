@@ -3,6 +3,8 @@ import Form from "@/components/form/Form";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { useTranslations } from "next-intl";
 import { app } from "@/firebase";
+import styles from "../sign.module.scss";
+
 const SingUpPage = (): React.ReactNode => {
   const t = useTranslations("SignUpPage");
 
@@ -12,9 +14,13 @@ const SingUpPage = (): React.ReactNode => {
   };
 
   return (
-    <div>
-      <h2>{t("signUp")}</h2>
-      <Form handleClick={handleRegister} />
+    <div className={styles["sign-container"]}>
+      <div className={styles["sign-block"]}>
+        <h2>{t("signUp")}</h2>
+        <div>
+          <Form handleClick={handleRegister} />
+        </div>
+      </div>
     </div>
   );
 };

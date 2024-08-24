@@ -1,6 +1,6 @@
 @import "@/assets/styles/abstracts/constants";
 
-.slider-wrapper {
+.slider {
   display: flex;
   flex-direction: column;
   align-content: center;
@@ -48,6 +48,7 @@
   display: flex;
   padding-top: 20px;
   gap: 10px;
+  justify-content: center;
 }
 
 .set-slide-btn {

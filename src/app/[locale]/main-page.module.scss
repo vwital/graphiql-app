@@ -9,6 +9,7 @@
   }
 
   h2 {
+    margin: 30px;
     @media (max-width: 400px) {
       font-size: 40px;
     }
@@ -24,6 +25,12 @@
     gap: 30px;
     @media (max-width: 550px) {
       flex-direction: column;
+    }
+  }
+
+  &__link {
+    :hover {
+      color: #aaa;
     }
   }
 }

@@ -22,7 +22,7 @@ const RootPage = (): React.ReactNode => {
       <AuthorsSlider />
       <h2>{t("aboutCourse")}</h2>
       <p className={styles["welcome__text"]}>{t("courseDescription")}</p>
-      <p>
+      <p className={styles["welcome__link"]}>
         <a href="https://rs.school/courses/reactjs">
           https://rs.school/courses/reactjs
         </a>

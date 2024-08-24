@@ -11,5 +11,10 @@
   },
   "SignUpPage": {
     "signUp": "Sign Up"
+  },
+  "Form": {
+    "email": "Email",
+    "password": "Password",
+    "submit": "Submit"
   }
 }

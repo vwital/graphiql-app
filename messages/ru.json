@@ -11,5 +11,10 @@
   },
   "SignUpPage": {
     "signUp": "Регистрация"
+  },
+  "Form": {
+    "email": "Почта",
+    "password": "Пароль",
+    "submit": "Отправить"
   }
 }

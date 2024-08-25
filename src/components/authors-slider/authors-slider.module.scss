@@ -11,7 +11,7 @@
   position: relative;
   overflow: hidden;
   max-width: 700px;
-  background-color: #374785;
+  background-color: $color-background-light;
   border-radius: 8px;
   z-index: 1;
   transition: all 0.5s ease-in-out;
@@ -56,13 +56,13 @@
   width: 30px;
   height: 30px;
   border-radius: 100%;
-  background-color: #a8d0e6;
+  background-color: $color-additional;
   &:hover {
-    background-color: #374785;
+    background-color: $color-background-light;
   }
 }
 
 .btn-active {
-  border: 2px solid #a8d0e6;
-  background-color: #000;
+  border: 2px solid $color-additional;
+  background-color: $color-text-dark;
 }

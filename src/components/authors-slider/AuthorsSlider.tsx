@@ -53,9 +53,9 @@ const AuthorsSlider = (): React.ReactNode => {
           className={styles["slides"]}
           style={{ transform: `translateX(-${currentSlide * 100}%)` }}
         >
-          {slides.map((elem) => {
-            return elem.elem;
-          })}
+          {slides[0].elem}
+          {slides[1].elem}
+          {slides[2].elem}
         </div>
       </div>
       <div className={styles["slider-controls"]}>

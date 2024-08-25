@@ -8,4 +8,29 @@ body {
 .main {
   flex: 1 0 auto;
   background-color: $color-background;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button,
+.input,
+.select {
+  border: 1px solid transparent;
+  padding: 1em 1.5em;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 400;
+  outline: none;
+}
+
+.button {
+  width: 200px;
+  font-size: 20px;
+  background-color: $color-button;
+  color: inherit;
+}
+
+.textarea {
+  resize: none;
 }

@@ -3,6 +3,7 @@ import { getMessages } from "next-intl/server";
 import "@/assets/styles/main.scss";
 import Footer from "@/components/footer/Footer";
 import Header from "@/components/header/Header";
+import { Providers } from "../Providers";
 
 export const metadata = {
   title: "JSXSquad team",
@@ -19,15 +20,17 @@ const RootLayout = async ({
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
-      <body>
-        <NextIntlClientProvider messages={messages}>
-          <Header />
-          <main className="main">{children}</main>
-          <Footer />
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <Providers>
+      <html lang={locale}>
+        <body>
+          <NextIntlClientProvider messages={messages}>
+            <Header />
+            <main className="main">{children}</main>
+            <Footer />
+          </NextIntlClientProvider>
+        </body>
+      </html>
+    </Providers>
   );
 };
 

@@ -1,10 +1,11 @@
 {
   "Header": {
-    "login": "Login",
-    "register": "Register"
+    "login": "Sign In",
+    "register": "Sign Up"
   },
   "Main": {
-    "welcome": "Welcome!"
+    "welcome": "Welcome",
+    "welcome-back": "Welcome Back"
   },
   "SignInPage": {
     "signIn": "Sign In"

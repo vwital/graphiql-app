@@ -4,13 +4,43 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import Form from "@/components/form/Form";
 import { app } from "@/firebase";
 import styles from "../sign.module.scss";
+import { setUser } from "@/store/slices/userSlice";
+import { useAppDispatch } from "@/hooks/redux-hooks";
+import { useRouter } from "@/navigation";
 
 const SignInPage = (): React.ReactNode => {
   const t = useTranslations("SignInPage");
+  const router = useRouter();
+  const dispatch = useAppDispatch();
 
-  const handleLogin = (email: string, password: string): void => {
-    const auth = getAuth(app);
-    signInWithEmailAndPassword(auth, email, password).then().catch();
+  const handleLogin = async (
+    _: string,
+    email: string,
+    password: string
+  ): Promise<void> => {
+    try {
+      const auth = getAuth(app);
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const { user } = userCredential;
+
+      dispatch(
+        setUser({
+          id: user.uid,
+          token: user.refreshToken,
+          username: user.displayName,
+          email: user.email,
+          lastSignInTime: user.metadata.lastSignInTime,
+        })
+      );
+
+      router.replace("/");
+    } catch (error) {
+      alert("Something went wrong" + error);
+    }
   };
 
   return (

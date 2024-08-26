@@ -4,10 +4,11 @@ import { useState } from "react";
 import styles from "./form.module.scss";
 
 interface FormProps {
-  handleClick: (email: string, password: string) => void;
+  handleClick: (username: string, email: string, password: string) => void;
+  signUp?: boolean;
 }
 
-const Form = ({ handleClick }: FormProps): React.ReactNode => {
+const Form = ({ handleClick, signUp = false }: FormProps): React.ReactNode => {
   const t = useTranslations("Form");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -15,14 +16,16 @@ const Form = ({ handleClick }: FormProps): React.ReactNode => {
 
   return (
     <div className={styles.form}>
-      <label className={styles.form__label}>{t("username")}</label>
-      <input
-        className={styles.form__input}
-        type="text"
-        placeholder={t("username")}
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
+      {signUp && <label className={styles.form__label}>{t("username")}</label>}
+      {signUp && (
+        <input
+          className={styles.form__input}
+          type="text"
+          placeholder={t("username")}
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+      )}
       <label className={styles.form__label}>{t("email")}</label>
       <input
         className={styles.form__input}
@@ -41,7 +44,7 @@ const Form = ({ handleClick }: FormProps): React.ReactNode => {
       />
       <button
         className={styles.form__button}
-        onClick={() => handleClick(email, password)}
+        onClick={() => handleClick(username, email, password)}
         type="button"
       >
         {t("submit")}

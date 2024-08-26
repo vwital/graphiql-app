@@ -15,6 +15,7 @@
   "Form": {
     "email": "Email",
     "password": "Password",
-    "submit": "Submit"
+    "submit": "Submit",
+    "username": "Username"
   }
 }

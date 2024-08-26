@@ -14,8 +14,8 @@ const SingUpPage = (): React.ReactNode => {
   };
 
   return (
-    <div className={styles["sign-container"]}>
-      <div className={styles["sign-block"]}>
+    <div className={styles.sign}>
+      <div className={styles.sign__block}>
         <h2>{t("signUp")}</h2>
         <div>
           <Form handleClick={handleRegister} />

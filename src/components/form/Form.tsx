@@ -9,26 +9,38 @@ interface FormProps {
 
 const Form = ({ handleClick }: FormProps): React.ReactNode => {
   const t = useTranslations("Form");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   return (
-    <div className={styles["form-container"]}>
-      <label>{t("email")}</label>
+    <div className={styles.form}>
+      <label className={styles.form__label}>{t("username")}</label>
       <input
-        type="email"
+        className={styles.form__input}
+        type="text"
+        placeholder={t("username")}
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+      />
+      <label className={styles.form__label}>{t("email")}</label>
+      <input
+        className={styles.form__input}
+        type="text"
         placeholder={t("email")}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-      <label>{t("password")}</label>
+      <label className={styles.form__label}>{t("password")}</label>
       <input
+        className={styles.form__input}
         type="password"
         placeholder={t("password")}
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
       <button
+        className={styles.form__button}
         onClick={() => handleClick(email, password)}
         type="button"
       >

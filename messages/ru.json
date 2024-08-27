@@ -1,7 +1,8 @@
 {
   "Header": {
     "login": "Войти",
-    "register": "Регистрация"
+    "register": "Регистрация",
+    "logout": "Выйти"
   },
   "Main": {
     "welcome": "Добро пожаловать",

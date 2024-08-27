@@ -3,7 +3,7 @@ import { getMessages } from "next-intl/server";
 import "@/assets/styles/main.scss";
 import Footer from "@/components/footer/Footer";
 import Header from "@/components/header/Header";
-import { Providers } from "../Providers";
+import { Providers } from "./Providers";
 
 export const metadata = {
   title: "JSXSquad team",

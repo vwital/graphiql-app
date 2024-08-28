@@ -65,6 +65,26 @@ export default tseslint.config(
       "require-await": "error",
       "no-unused-vars": "off",
       "@typescript-eslint/no-unused-vars": ["error"],
+      "no-restricted-imports": [
+        "error",
+        {
+          name: "next/link",
+          message: "Use import { Link } from `@/navigation` instead",
+          importNames: ["default"],
+        },
+        {
+          name: "next/navigation",
+          message:
+            "Use import { redirect, useRouter, usePathname, getPathname, permanentRedirect } from `@/navigation` instead",
+          importNames: [
+            "redirect",
+            "useRouter",
+            "usePathname",
+            "getPathname",
+            "permanentRedirect",
+          ],
+        },
+      ],
     },
   }
 );

@@ -42,5 +42,16 @@
     "name": "Aleh Dzehil",
     "role": "Developer",
     "bio": "Junior Frontend Developer"
+  },
+  "RestClientPage": {
+    "title": "REST клиент",
+    "method": "Метод",
+    "url": "Адрес",
+    "body": "Тело ответа",
+    "header": "Заголовок",
+    "addHeader": "Добавить заголовок",
+    "send": "Отпправить",
+    "response": "Ответ",
+    "statusCode": "Статус код ответа"
   }
 }

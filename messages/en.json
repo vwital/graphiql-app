@@ -42,5 +42,16 @@
     "name": "Aleh Dzehil",
     "role": "Developer",
     "bio": "Junior Frontend Developer"
+  },
+  "RestClientPage": {
+    "title": "REST Client",
+    "method": "Method",
+    "url": "URL",
+    "body": "Body",
+    "header": "Header",
+    "addHeader": "Add header",
+    "send": "Send",
+    "response": "Response",
+    "statusCode": "Status code"
   }
 }

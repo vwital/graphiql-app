@@ -56,3 +56,49 @@ export default tseslint.config({
   },
 });
 ```
+
+## Adding Translations
+
+- The
+  [next-intl](https://next-intl-docs.vercel.app/docs/getting-started/app-router/with-i18n-routing)
+  library is used for translations.
+- Translations should be added to files: **en.json**, **ru.json** in the
+  **messages** directory. Example for Welcome Page:
+
+```js
+import { useTranslations } from "next-intl";
+
+const WelcomePage = (): React.ReactNode => {
+  const t = useTranslations("Welcome");
+
+  return (
+    <div>
+      <h1>{t("title")}</h1>
+      <p>{t("description")}</p>
+    </div>
+  );
+};
+```
+
+**Note that "Welcome"** here `const t = useTranslations("Welcome")` - is the key
+for translation. The key may not match the component name.
+
+```json
+// en.json
+{
+  "Welcome": {
+    "title": "Welcome to our app!",
+    "description": "This is a short description of our app."
+  }
+}
+```
+
+```json
+// ru.json
+{
+  "Welcome": {
+    "title": "Добро пожаловать в наше приложение!",
+    "description": "Это краткое описание нашего приложения."
+  }
+}
+```

@@ -9,7 +9,8 @@
     "skipLibCheck": true,
     "types": ["vitest/globals"],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@styles/*": ["./src/assets/styles/"]
     },
     "allowSyntheticDefaultImports": true,
     "plugins": [

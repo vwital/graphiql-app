@@ -1,9 +1,10 @@
 @import "normalize.css";
 
 // Abstracts
-@import "./abstracts/constans";
+@import "./abstracts/constants";
 @import "./abstracts/placeholders";
 
 // Base
+@import "./base/typography";
 @import "./base/reset";
 @import "./base/base";

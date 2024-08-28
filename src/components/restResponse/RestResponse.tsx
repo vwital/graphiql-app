@@ -1,17 +1,21 @@
+import { useTranslations } from "next-intl";
 import styles from "./response.module.scss";
 const RestResponse = (): React.ReactNode => {
+  const t = useTranslations("RestClientPage");
+
   return (
     <section className={styles.response__wrapper}>
-      <h2>Response</h2>
+      <h2>{t("response")}</h2>
       <div className={styles.response}>
         <p className={styles.response__text}>
-          Status code: <span>{`${200}`}</span>
+          {t("statusCode")}: <span>{`${200}`}</span>
         </p>
-        <label htmlFor="response">Body</label>
+        <label htmlFor="response">{t("body")}</label>
         <textarea
           className="textarea"
           name="response"
           id="response"
+          readOnly
           value={`{
   "userId": 1,
   "id": 1,

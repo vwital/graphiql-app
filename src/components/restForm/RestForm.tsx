@@ -1,9 +1,11 @@
+import { useTranslations } from "next-intl";
 import styles from "./restForm.module.scss";
 
 const RestForm = (): React.ReactNode => {
+  const t = useTranslations("RestClientPage");
   return (
     <>
-      <h2>REST client</h2>
+      <h2>{t("title")}</h2>
       <form className={styles.form}>
         <div className={styles.form__row}>
           <div className={styles.form__field}>
@@ -11,7 +13,7 @@ const RestForm = (): React.ReactNode => {
               className={styles.form__label}
               htmlFor="method"
             >
-              Method
+              {t("method")}
             </label>
             <select
               className="select"
@@ -29,7 +31,7 @@ const RestForm = (): React.ReactNode => {
               className={styles.form__label}
               htmlFor="url"
             >
-              URL
+              {t("url")}
             </label>
             <input
               className="input"
@@ -41,7 +43,7 @@ const RestForm = (): React.ReactNode => {
           </div>
         </div>
         <div className={styles.form__row + " " + styles.form__row_header}>
-          <label className={styles.form__label}>Header</label>
+          <label className={styles.form__label}>{t("header")}</label>
           <div className={styles.form__field_wrapper}>
             <input
               className="input"
@@ -62,14 +64,14 @@ const RestForm = (): React.ReactNode => {
             type="button"
             className={styles.form__button + " button"}
           >
-            Add header
+            {t("addHeader")}
           </button>
         </div>
         <button
           type="submit"
           className={styles.form__button + " button"}
         >
-          Send request
+          {t("send")}
         </button>
       </form>
     </>

@@ -57,5 +57,15 @@
     "stausCode": "Статус код",
     "body": "Тело",
     "documentation": "Документация"
+  "RestClientPage": {
+    "title": "REST клиент",
+    "method": "Метод",
+    "url": "Адрес",
+    "body": "Тело ответа",
+    "header": "Заголовок",
+    "addHeader": "Добавить заголовок",
+    "send": "Отпправить",
+    "response": "Ответ",
+    "statusCode": "Статус код ответа"
   }
 }

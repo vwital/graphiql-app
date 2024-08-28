@@ -23,7 +23,7 @@
   @extend %transition;
 
   &_sticky {
-    height: 50px;
+    height: 60px;
     box-shadow: 0 0 1em 0 $color-background-light;
     background-color: $color-additional;
   }

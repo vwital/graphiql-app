@@ -42,4 +42,12 @@
       background-color: $color-hover;
     }
   }
+
+  &__error {
+    font-size: 18px;
+    max-width: 350px;
+    color: red;
+    align-self: flex-start;
+    margin-top: -20px;
+  }
 }

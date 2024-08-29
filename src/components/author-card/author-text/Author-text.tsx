@@ -9,7 +9,7 @@ const AuthorText = ({
 }): React.ReactNode => {
   const t = useTranslations("Author");
   return (
-    <div className={styles["author-text"]}>
+    <div className={styles.author__text}>
       const {authorInfo.nickname} = {"{"}
       <pre>
         {t("name")}: {authorInfo.name}
@@ -23,6 +23,7 @@ const AuthorText = ({
       <pre>
         {"github"}:{" "}
         <a
+          className={styles.author__link + " link"}
           href={authorInfo.github}
           target="_blank"
         >

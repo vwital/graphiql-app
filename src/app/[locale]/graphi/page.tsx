@@ -43,7 +43,7 @@ const GraphiQlClientPage = (): React.ReactNode => {
             />
           </div>
         </div>
-        <button>{t("addHeader")}</button>
+        <button className="button">{t("addHeader")}</button>
         <div className={styles["graphi__query"]}>
           <label htmlFor="endpoint">{t("query")}</label>
           <textarea
@@ -61,7 +61,7 @@ const GraphiQlClientPage = (): React.ReactNode => {
             placeholder=""
             rows={5}
           />
-          <button>Send</button>
+          <button className="button">Send</button>
         </div>
         <h2>{t("response")}</h2>
         <p>{t("stausCode")}:</p>

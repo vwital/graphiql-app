@@ -8,6 +8,14 @@ body {
 h1 {
   font-family: $font-poppins;
   font-weight: $font-bold;
+
+  @media (width <= 600px) {
+    font-size: 24px;
+  }
+
+  @media (width <= 380px) {
+    font-size: 14px;
+  }
 }
 
 h2 {
@@ -15,6 +23,10 @@ h2 {
   font-weight: $font-bold;
   font-size: 60px;
   text-align: center;
+
+  @media (width <= 400px) {
+    font-size: 40px;
+  }
 }
 
 p {
@@ -32,11 +44,6 @@ span {
   font-weight: $font-regular;
 }
 
-button {
-  font-family: $font-dm-sans;
-  font-weight: $font-medium;
-}
-
 .main {
   flex: 1 0 auto;
   background-color: $color-background;
@@ -50,7 +57,7 @@ button {
 .select {
   border: 1px solid transparent;
   padding: 1em 1.5em;
-  border-radius: 5px;
+  border-radius: 8px;
   font-size: 16px;
   font-weight: 400;
   outline: none;
@@ -61,29 +68,28 @@ button {
   font-size: 20px;
   background-color: $color-button;
   color: inherit;
+  font-family: $font-dm-sans;
+  font-weight: $font-medium;
+
+  @extend %transition;
+
+  &:hover {
+    background-color: $color-hover;
+  }
+
+  &:disabled {
+    background-color: $color-disabled;
+  }
+}
+
+.link {
+  @extend %transition;
+
+  &:hover {
+    color: $color-text-hover;
+  }
 }
 
 .textarea {
   resize: none;
-}
-
-button {
-  width: 200px;
-  height: 75px;
-  background-color: $color-button;
-  color: $color-text;
-  border: 0;
-  border-radius: 12px;
-  font-size: 20px;
-  font-family: $font-dm-sans;
-  font-weight: $font-medium;
-  transition: all 0.3s ease-in;
-}
-
-button:hover {
-  background-color: $color-hover;
-}
-
-button:disabled {
-  background-color: $color-disabled;
 }

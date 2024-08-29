@@ -57,6 +57,7 @@
     "stausCode": "Статус код",
     "body": "Тело",
     "documentation": "Документация"
+  },
   "RestClientPage": {
     "title": "REST клиент",
     "method": "Метод",

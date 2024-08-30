@@ -2,13 +2,14 @@
   "Header": {
     "login": "Sign In",
     "register": "Sign Up",
-    "logout": "Sign Out"
+    "logout": "Sign Out",
+    "mainPage": "Main Page"
   },
   "Main": {
     "welcome": "Welcome!",
     "welcome-back": "Welcome Back",
     "description": "This application combines the functionality of REST and GraphiQL client. Created as part of the final task of the RS School React course",
-    "signIn": "Login",
+    "signIn": "Sign In",
     "signUp": "Sign Up",
     "authors": "Authors",
     "aboutCourse": "About course",

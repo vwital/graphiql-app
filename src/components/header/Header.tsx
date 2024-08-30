@@ -43,7 +43,10 @@ const Header = (): React.ReactNode => {
             <LocaleSwitcherButton />
             <div className={styles.header__links}>
               {isAuth ? (
-                <button onClick={signOut}>{t("logout")}</button>
+                <>
+                  <Link href={"/"}>{t("mainPage")}</Link>
+                  <button onClick={signOut}>{t("logout")}</button>
+                </>
               ) : (
                 <>
                   <Link href={"/sign-in"}>{t("login")}</Link>

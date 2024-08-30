@@ -13,10 +13,10 @@ const RootPage = (): React.ReactNode => {
       <p className={styles["welcome__text"]}>{t("description")} </p>
       <div className={styles["welcome__buttons"]}>
         <button>
-          <Link href="/">{t("signIn")}</Link>
+          <Link href="/sign-in">{t("signIn")}</Link>
         </button>
         <button>
-          <Link href="/">{t("signUp")}</Link>
+          <Link href="/sign-up">{t("signUp")}</Link>
         </button>
       </div>
       <h2>{t("authors")}</h2>

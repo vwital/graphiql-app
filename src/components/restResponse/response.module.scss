@@ -1,0 +1,9 @@
+.response {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+
+  &__wrapper {
+    margin: 2em 0;
+  }
+}

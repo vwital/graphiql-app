@@ -47,3 +47,41 @@
     align-self: center;
   }
 }
+
+.headers {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 1em 0;
+
+  &__row {
+    margin: 0.5em 0;
+    display: flex;
+    align-items: flex-end;
+    gap: 1em;
+    width: 100%;
+
+    & + & {
+      margin: 0.5em 0;
+    }
+  }
+
+  &__label {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__button {
+    padding: 0 1em;
+    width: auto;
+    height: 53px;
+  }
+}
+
+.body {
+  &__buttons {
+    margin: 1em 0;
+    display: flex;
+    gap: 1em;
+  }
+}

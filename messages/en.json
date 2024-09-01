@@ -42,7 +42,7 @@
     "name": "Aleh Dzehil",
     "role": "Developer",
     "bio": "Junior Frontend Developer"
-  }
+  },
   "GraphiQL": {
     "header": "GraphiQL Client",
     "endpoint": "Endpoint URL",
@@ -57,6 +57,7 @@
     "stausCode": "Staus code",
     "body": "Body",
     "documentation": "Documentation"
+  },
   "RestClientPage": {
     "title": "REST Client",
     "method": "Method",

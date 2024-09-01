@@ -10,16 +10,6 @@
   height: 100px;
   z-index: 10;
 
-  h1 {
-    font-size: 10x;
-    @media (max-width: 550px) {
-      font-size: 24px;
-    }
-    @media (max-width: 380px) {
-      font-size: 14px;
-    }
-  }
-
   @extend %transition;
 
   &_sticky {
@@ -34,7 +24,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    @media (max-width: 550px) {
+    gap: 1em;
+
+    @media (width <= 550px) {
       max-width: 100%;
       padding: 0 10px;
     }
@@ -49,7 +41,8 @@
   &__links {
     display: flex;
     gap: 1em;
-    @media (max-width: 550px) {
+
+    @media (width <= 550px) {
       flex-direction: column;
     }
   }

@@ -10,18 +10,18 @@ const LocaleSwitcherButton = (): React.ReactNode => {
   const params = useParams();
 
   const onChangeLocale = (): void => {
-    const nextLocale = params.locale === "en" ? "ru" : "en";
+    const nextLocale = params?.locale === "en" ? "ru" : "en";
     router.replace({ pathname }, { locale: nextLocale });
   };
 
   return (
     <div>
       <button
-        className={styles["locate-switch"]}
+        className={styles.locateSwitch}
         onClick={onChangeLocale}
         type="button"
       >
-        {params.locale}
+        {params?.locale}
       </button>
     </div>
   );

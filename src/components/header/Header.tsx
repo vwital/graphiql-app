@@ -6,18 +6,11 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/navigation";
 import LocaleSwitcherButton from "../elements/LocaleSwitcherButton";
 import { useAuth } from "@/hooks/useAuth";
-import { useAppDispatch } from "@/hooks/redux-hooks";
-import { removeUser } from "@/store/slices/userSlice";
 
 const Header = (): React.ReactNode => {
   const [isSticky, setIsSticky] = useState(false);
-  const { isAuth } = useAuth();
-  const dispatch = useAppDispatch();
+  const { isAuth, logOut } = useAuth();
   const t = useTranslations("Header");
-
-  const signOut = (): void => {
-    dispatch(removeUser());
-  };
 
   const setSticked = (): void => {
     if (window.scrollY > 50) {
@@ -45,7 +38,7 @@ const Header = (): React.ReactNode => {
               {isAuth ? (
                 <>
                   <Link href={"/"}>{t("mainPage")}</Link>
-                  <button onClick={signOut}>{t("logout")}</button>
+                  <button onClick={logOut}>{t("logout")}</button>
                 </>
               ) : (
                 <>

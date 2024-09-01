@@ -1,4 +1,4 @@
-import RestClientPage from "@/pages/restClient/RestClientPage";
+import RestClientPage from "@/components/pages/restClient/RestClientPage";
 
 const Page = (): React.ReactNode => {
   return <RestClientPage />;

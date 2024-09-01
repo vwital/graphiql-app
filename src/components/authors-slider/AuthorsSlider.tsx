@@ -47,10 +47,10 @@ const AuthorsSlider = (): React.ReactNode => {
   };
 
   return (
-    <div className={styles["slider-wrapper"]}>
-      <div className={styles["slides-wrapper"]}>
+    <div className={styles.slider}>
+      <div className={styles.slides__wrapper}>
         <div
-          className={styles["slides"]}
+          className={styles.slides}
           style={{ transform: `translateX(-${currentSlide * 100}%)` }}
         >
           {slides[0].elem}
@@ -58,11 +58,11 @@ const AuthorsSlider = (): React.ReactNode => {
           {slides[2].elem}
         </div>
       </div>
-      <div className={styles["slider-controls"]}>
+      <div className={styles.slider__controls}>
         {[0, 1, 2].map((index) => (
           <button
             key={index}
-            className={`${styles["set-slide-btn"]} ${currentSlide === index ? styles["btn-active"] : ""}`}
+            className={`${styles.slider__btn} ${currentSlide === index ? styles.slider__btn_active : ""} button`}
             onClick={() => handleButtonClick(index)}
           ></button>
         ))}

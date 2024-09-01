@@ -1,0 +1,74 @@
+@import "@/assets/styles/abstracts/constants";
+
+.wrapper {
+  max-width: 785px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: $font-poppins;
+}
+
+.graphi {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  label,
+  p {
+    align-self: baseline;
+    margin: 7px 0;
+    font-size: 22px;
+    color: $color-text-info;
+  }
+  input,
+  textarea {
+    height: 45px;
+    border-radius: 8px;
+    border: none;
+    width: 100%;
+  }
+  label {
+    margin: 15px 0;
+  }
+  textarea {
+    height: 100px;
+  }
+  button {
+    margin-top: 20px;
+  }
+
+  &__headers {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    .input {
+      min-height: 220px;
+    }
+  }
+
+  &__headers-forms {
+    display: flex;
+    gap: 10px;
+  }
+
+  &__body {
+    min-height: 256px;
+    min-width: 100%;
+    background-color: $color-additional;
+    border-radius: 8px;
+  }
+
+  &__documentation {
+    min-height: 256px;
+    min-width: 100%;
+    background-color: $color-field;
+    border-radius: 8px;
+    margin-bottom: 50px;
+  }
+}
+
+.graphi__query {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}

@@ -11,6 +11,9 @@
     "description": "This application combines the functionality of REST and GraphiQL client. Created as part of the final task of the RS School React course",
     "signIn": "Sign In",
     "signUp": "Sign Up",
+    "rest": "REST Client",
+    "graphiql": "GraphiQL Client",
+    "history": "History",
     "authors": "Authors",
     "aboutCourse": "About course",
     "courseDescription": "The ReactJS course from RS School is designed for both beginners and experienced developers who want to master modern web application development. The curriculum covers React fundamentals, working with components, state management, event handling, routing, and API integration. The course includes practical assignments and projects to solidify theoretical knowledge and apply it in real-world scenarios. Students will learn to build scalable and high-performance interfaces and enhance their skills with contemporary frontend development tools."

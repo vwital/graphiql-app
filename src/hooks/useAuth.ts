@@ -21,6 +21,8 @@ export const useAuth = (): Auth => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         try {
+          await user.reload();
+          setUserName(user.displayName);
           const { expirationTime } = await user.getIdTokenResult(false);
           const expirationTimestamp = Date.parse(expirationTime);
           const isExpired =
@@ -28,11 +30,6 @@ export const useAuth = (): Auth => {
           if (isExpired) {
             throw new Error("Token expired");
           }
-
-          if (Date.now() >= expirationTimestamp) {
-            throw new Error("Token expired");
-          }
-          setUserName(user.displayName);
           setIsAuth(true);
         } catch (error) {
           if ((error as Error).message === "Token expired") {

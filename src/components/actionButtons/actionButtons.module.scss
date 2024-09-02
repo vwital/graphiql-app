@@ -1,0 +1,15 @@
+.welcome {
+  //   button {
+  //     font-size: 20px;
+  //     font-family: "DM Sans", sans-serif;
+  //   }
+
+  &__buttons {
+    display: flex;
+    gap: 30px;
+
+    @media (width <= 550px) {
+      flex-direction: column;
+    }
+  }
+}

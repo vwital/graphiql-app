@@ -1,3 +1,4 @@
+import { TOKEN_EXPIRATION } from "@/constants/constants";
 import { app } from "@/firebase";
 import { useRouter } from "@/navigation";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
@@ -20,19 +21,26 @@ export const useAuth = (): Auth => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         try {
-          const { expirationTime } = await user.getIdTokenResult();
+          const { expirationTime } = await user.getIdTokenResult(false);
           const expirationTimestamp = Date.parse(expirationTime);
+          const isExpired =
+            expirationTimestamp - Date.now() - TOKEN_EXPIRATION < 0;
+          if (isExpired) {
+            throw new Error("Token expired");
+          }
+
           if (Date.now() >= expirationTimestamp) {
             throw new Error("Token expired");
           }
           setUserName(user.displayName);
           setIsAuth(true);
         } catch (error) {
-          alert("Error fetching token");
           if ((error as Error).message === "Token expired") {
+            await signOut(auth);
             setIsAuth(false);
             router.push("/");
           }
+          alert("Error fetching token " + (error as Error).message);
         }
       } else {
         setIsAuth(false);

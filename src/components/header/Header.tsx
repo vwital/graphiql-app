@@ -31,7 +31,9 @@ const Header = (): React.ReactNode => {
         className={`${styles.header} ${isSticky ? `${styles.header_sticky}` : null}`}
       >
         <div className={styles.header__wrapper}>
-          <h1>REST/GraphiQL Client</h1>
+          <h1>
+            <Link href={"/"}>REST/GraphiQL Client</Link>
+          </h1>
           <div className={styles.header__controls}>
             <LocaleSwitcherButton />
             <div className={styles.header__links}>

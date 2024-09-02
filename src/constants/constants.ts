@@ -4,5 +4,5 @@ export const regExpPassword = new RegExp(
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$/
 );
 
-// expiration time in milliseconds
-export const TOKEN_EXPIRATION = 600000;
+// Milliseconds to subtract from token expiration time (60 minutes)
+export const TOKEN_EXPIRATION_SUBTRACT = 3000000;

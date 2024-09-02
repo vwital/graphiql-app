@@ -1,5 +1,7 @@
-const RestClientPage = (): React.ReactNode => {
-  return <h2>Rest Client Page</h2>;
+import RestClientPage from "@/pages/restClient/RestClientPage";
+
+const Page = (): React.ReactNode => {
+  return <RestClientPage />;
 };
 
-export default RestClientPage;
+export default Page;

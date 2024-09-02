@@ -38,9 +38,18 @@
     align-items: center;
   }
 
+  &__logout {
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    color: inherit;
+    background-color: transparent;
+    border: none;
+  }
+
   &__links {
     display: flex;
     gap: 1em;
+    align-items: center;
 
     @media (width <= 550px) {
       flex-direction: column;

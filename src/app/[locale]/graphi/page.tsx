@@ -1,3 +1,6 @@
+import { useTranslations } from "next-intl";
+import styles from "./graphi-page.module.scss";
+
 const GraphiQlClientPage = (): React.ReactNode => {
   const t = useTranslations("GraphiQL");
   return (

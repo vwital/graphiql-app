@@ -40,7 +40,12 @@ const Header = (): React.ReactNode => {
               {isAuth ? (
                 <>
                   <Link href={"/"}>{t("mainPage")}</Link>
-                  <button onClick={logOut}>{t("logout")}</button>
+                  <button
+                    className={styles.header__logout}
+                    onClick={logOut}
+                  >
+                    {t("logout")}
+                  </button>
                 </>
               ) : (
                 <>

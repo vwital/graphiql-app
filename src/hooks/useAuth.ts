@@ -1,4 +1,4 @@
-import { TOKEN_EXPIRATION } from "@/constants/constants";
+import { TOKEN_EXPIRATION_SUBTRACT } from "@/constants/constants";
 import { app } from "@/firebase";
 import { useRouter } from "@/navigation";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
@@ -24,7 +24,7 @@ export const useAuth = (): Auth => {
           const { expirationTime } = await user.getIdTokenResult(false);
           const expirationTimestamp = Date.parse(expirationTime);
           const isExpired =
-            expirationTimestamp - Date.now() - TOKEN_EXPIRATION < 0;
+            expirationTimestamp - Date.now() - TOKEN_EXPIRATION_SUBTRACT < 0;
           if (isExpired) {
             throw new Error("Token expired");
           }

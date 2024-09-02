@@ -72,7 +72,7 @@ const LoginForm = (): React.ReactNode => {
         {...register("email")}
       />
       {errors.email && (
-        <p className={styles.form__error}>{errors.email.message}</p>
+        <p className={styles.form__error}>{t(errors.email.message)}</p>
       )}
       <label className={styles.form__label}>{t("password")}</label>
       <input
@@ -82,7 +82,7 @@ const LoginForm = (): React.ReactNode => {
         {...register("password")}
       />
       {errors.password && (
-        <p className={styles.form__error}>{errors.password.message}</p>
+        <p className={styles.form__error}>{t(errors.password.message)}</p>
       )}
       <button
         className={styles.form__button}

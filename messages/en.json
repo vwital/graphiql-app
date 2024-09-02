@@ -81,6 +81,12 @@
     "email": "Email",
     "password": "Password",
     "submit": "Submit",
-    "username": "Username"
+    "username": "Username",
+    "usernameRequired": "Name is required",
+    "usernameInvalid": "Name should start with an uppercase letter",
+    "emailRequired": "Email is required",
+    "emailInvalid": "Email is not valid",
+    "passwordRequired": "Password is required",
+    "passwordInvalid": "Password strength requirements: minimum 8 symbols, at least one letter, one digit, one special character"
   }
 }

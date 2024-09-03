@@ -1,4 +1,3 @@
-"use client";
 import { useTranslations } from "next-intl";
 import styles from "./actionButtons.module.scss";
 import { Link } from "@/navigation";

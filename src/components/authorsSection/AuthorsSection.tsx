@@ -1,4 +1,3 @@
-"use client";
 import { useTranslations } from "next-intl";
 import AuthorsSlider from "../authors-slider/AuthorsSlider";
 import styles from "./authorsSection.module.scss";

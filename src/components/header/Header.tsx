@@ -7,9 +7,9 @@ import { Link } from "@/navigation";
 import LocaleSwitcherButton from "../elements/LocaleSwitcherButton";
 import { useAuth } from "@/hooks/useAuth";
 
-const Header = (): React.ReactNode => {
+const Header = ({ session }: { session: string | null }): React.ReactNode => {
   const [isSticky, setIsSticky] = useState(false);
-  const { isAuth, logOut } = useAuth();
+  const { logOut } = useAuth();
   const t = useTranslations("Header");
 
   const setSticked = (): void => {
@@ -37,7 +37,7 @@ const Header = (): React.ReactNode => {
           <div className={styles.header__controls}>
             <LocaleSwitcherButton />
             <div className={styles.header__links}>
-              {isAuth ? (
+              {session ? (
                 <>
                   <Link href={"/"}>{t("mainPage")}</Link>
                   <button

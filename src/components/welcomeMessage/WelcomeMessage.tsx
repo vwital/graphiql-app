@@ -1,16 +1,16 @@
-"use client";
 import { useTranslations } from "next-intl";
 import styles from "./welcomeMessage.module.scss";
-import { useAuth } from "@/hooks/useAuth";
 
 interface WelcomeMessageProps {
-  isAuth: boolean;
+  isAuth: boolean | null;
   userName?: string | null;
 }
 
-const WelcomeMessage = ({ isAuth }: WelcomeMessageProps): React.ReactNode => {
+const WelcomeMessage = ({
+  isAuth,
+  userName,
+}: WelcomeMessageProps): React.ReactNode => {
   const t = useTranslations("Main");
-  const { userName } = useAuth();
 
   return (
     <>

@@ -1,4 +1,4 @@
-import WelcomePage from "@/pages/welcomePage/WelcomePage";
+import WelcomePage from "@/components/pages/welcomePage/WelcomePage";
 
 const RootPage = (): React.ReactNode => {
   return <WelcomePage />;

@@ -6,15 +6,11 @@ import { LoginInterface } from "./types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaLogin } from "./schema";
 import { app } from "@/firebase";
-import { useAppDispatch } from "@/hooks/redux-hooks";
-import { setUser } from "@/store/slices/userSlice";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { useRouter } from "@/navigation";
+import { createSession } from "@/actions/auth-actions";
 
 const LoginForm = (): React.ReactNode => {
   const t = useTranslations("Form");
-  const router = useRouter();
-  const dispatch = useAppDispatch();
 
   const {
     register,
@@ -37,18 +33,9 @@ const LoginForm = (): React.ReactNode => {
         password
       );
       const { user } = userCredential;
-
-      dispatch(
-        setUser({
-          id: user.uid,
-          token: user.refreshToken,
-          username: user.displayName,
-          email: user.email,
-          lastSignInTime: user.metadata.lastSignInTime,
-        })
-      );
-
-      router.replace("/");
+      const { expirationTime } = await user.getIdTokenResult(false);
+      const expirationTimestamp = Date.parse(expirationTime);
+      await createSession(expirationTimestamp.toString(), user.displayName);
     } catch (error) {
       alert("Something went wrong" + error);
     }

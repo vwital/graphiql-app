@@ -1,3 +1,4 @@
+import { removeSession } from "@/actions/auth-actions";
 import { TOKEN_EXPIRATION_SUBTRACT } from "@/constants/constants";
 import { app } from "@/firebase";
 import { useRouter } from "@/navigation";
@@ -33,9 +34,7 @@ export const useAuth = (): Auth => {
           setIsAuth(true);
         } catch (error) {
           if ((error as Error).message === "Token expired") {
-            await signOut(auth);
-            setIsAuth(false);
-            router.push("/");
+            await logOut();
           }
           alert("Error fetching token " + (error as Error).message);
         }
@@ -50,6 +49,7 @@ export const useAuth = (): Auth => {
   const logOut = async (): Promise<void> => {
     const auth = getAuth(app);
     await signOut(auth);
+    await removeSession();
     setIsAuth(false);
     router.push("/");
   };

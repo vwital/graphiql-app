@@ -7,18 +7,14 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { app } from "@/firebase";
-import { setUser } from "@/store/slices/userSlice";
-import { useAppDispatch } from "@/hooks/redux-hooks";
-import { useRouter } from "@/navigation";
 import { RegInterface } from "./types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { schemaReg } from "./schema";
+import { createSession } from "@/actions/auth-actions";
 
 const RegForm = (): React.ReactNode => {
   const t = useTranslations("Form");
-  const router = useRouter();
-  const dispatch = useAppDispatch();
 
   const {
     register,
@@ -42,20 +38,10 @@ const RegForm = (): React.ReactNode => {
         password
       );
       const { user } = userCredential;
-
       await updateProfile(auth.currentUser!, { displayName: username });
-
-      dispatch(
-        setUser({
-          id: user.uid,
-          token: user.refreshToken,
-          username,
-          email: user.email,
-          lastSignInTime: user.metadata.lastSignInTime,
-        })
-      );
-
-      router.replace("/");
+      const { expirationTime } = await user.getIdTokenResult(false);
+      const expirationTimestamp = Date.parse(expirationTime);
+      await createSession(expirationTimestamp.toString(), user.displayName);
     } catch (error) {
       alert("Something went wrong" + error);
     }

@@ -1,4 +1,3 @@
-"use server";
 import WelcomeMessage from "@/components/welcomeMessage/WelcomeMessage";
 import ActionButtons from "@/components/actionButtons/ActionButtons";
 import AuthorsSection from "@/components/authorsSection/AuthorsSection";

@@ -84,4 +84,10 @@
     display: flex;
     gap: 1em;
   }
+
+  &__row {
+    display: flex;
+    gap: 0;
+    flex-direction: column;
+  }
 }

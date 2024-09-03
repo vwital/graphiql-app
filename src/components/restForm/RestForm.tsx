@@ -6,12 +6,14 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { usePathname, useRouter } from "@/navigation";
 import { useParams } from "next/navigation";
 import { convertFromBase64, convertToBase64 } from "@/utils/convertBase64";
+import React, { useState } from "react";
+import isJson from "@/utils/isJson";
 
 type FormValues = {
   method: string;
   url: string;
   headers: { key: string; value: string }[];
-  body: { value: string }[];
+  body: { value: string | null }[];
 };
 
 const RestForm = (): React.ReactNode => {
@@ -19,9 +21,21 @@ const RestForm = (): React.ReactNode => {
   const router = useRouter();
   const urlParams = useParams();
   const pathname = usePathname();
-  const { register, handleSubmit, control } = useForm<FormValues>({
-    mode: "onSubmit",
-    defaultValues: {},
+  const [json, setJson] = useState<string>();
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<FormValues>({
+    mode: "onChange",
+    defaultValues: {
+      body: [
+        {
+          value: handleDefaultValue()?.body ?? null,
+        },
+      ],
+    },
   });
 
   const {
@@ -70,10 +84,33 @@ const RestForm = (): React.ReactNode => {
     }
   };
 
-  const handleDefValue = (): string => {
-    const valueBase64 = urlParams.requestUrl ? urlParams.requestUrl : "";
-    if (!valueBase64) return "";
-    return convertFromBase64(valueBase64);
+  function handleDefaultValue(): { url: string | null; body: string | null } {
+    const [url, body] = urlParams.requestUrl ? urlParams.requestUrl : "";
+    const defaultValues = {
+      url: url ? convertFromBase64(url) : null,
+      body: body ? convertFromBase64(body) : null,
+    };
+
+    return defaultValues;
+  }
+
+  const handleBodyChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ): void => {
+    setJson(event.target.value);
+  };
+
+  const handlePrettyButtonClick = (): void => {
+    const prettyJson = json && JSON.stringify(JSON.parse(json), null, 2);
+    setJson(prettyJson);
+  };
+
+  const handleBodyBlur = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ): void => {
+    if (isJson(event.target.value)) {
+      router.push(`${pathname}/${convertToBase64(event.target.value)}`);
+    }
   };
 
   const onSubmit = (data: FormValues): FormValues => {
@@ -133,12 +170,81 @@ const RestForm = (): React.ReactNode => {
               type="text"
               name="url"
               id="url"
-              defaultValue={handleDefValue()}
+              defaultValue={handleDefaultValue().url || ""}
               placeholder="https://example.com"
               onBlur={(event) => {
                 handleUrlChange(event);
               }}
             />
+          </div>
+        </div>
+
+        <div className={`${styles.form__body} ${styles.form__body} `}>
+          {bodyFields.map((field, index) =>
+            !field.value ? null : (
+              <div
+                key={field.id}
+                className={styles.form__row + " " + styles.body__row}
+              >
+                <label className={styles.headers__label}>
+                  <span>Body</span>
+                  <textarea
+                    className="textarea"
+                    {...register(`body.${index}.value`, {
+                      validate: (value) =>
+                        (value && isJson(value)) || "Invalid JSON",
+                      onChange: (event) => handleBodyChange(event),
+                      onBlur: (event) => handleBodyBlur(event),
+                    })}
+                    key={field.id}
+                    name={`body.${index}.value`}
+                    id={`body.${index}.value`}
+                    rows={10}
+                    value={json ?? handleDefaultValue()?.body ?? ""}
+                  />
+                </label>
+                {errors?.body?.[index]?.value?.message ? (
+                  <p className="error error__text">
+                    The Data is not valid. It should be JSON
+                  </p>
+                ) : null}
+              </div>
+            )
+          )}
+
+          <div className={styles.body__buttons}>
+            <button
+              className="button"
+              type="button"
+              disabled={
+                bodyFields.length !== 1 ||
+                !urlParams.requestUrl ||
+                !!handleDefaultValue().body
+              }
+              title="Please, first fill the url field"
+              onClick={() => bodyAppend({ value: " " })}
+            >
+              Add body
+            </button>
+            {bodyFields.length !== 1 ? (
+              <>
+                <button
+                  className="button"
+                  type="button"
+                  onClick={() => bodyRemove(1)}
+                >
+                  Delete body
+                </button>
+                <button
+                  type="button"
+                  className="button"
+                  onClick={handlePrettyButtonClick}
+                  disabled={!!errors.body?.[0]?.value || !json}
+                >
+                  Pretty
+                </button>
+              </>
+            ) : null}
           </div>
         </div>
         <div className={styles.form__headers + " " + styles.headers}>
@@ -149,23 +255,23 @@ const RestForm = (): React.ReactNode => {
                 className={styles.headers__row}
               >
                 <label className={styles.headers__label}>
-                  <span>Header key</span>
+                  <span>Header key #{index + 1}</span>
                   <input
                     {...register(`headers.${index}.key`)}
                     className={`${styles.headers__input} input`}
                     type="text"
-                    name="headerKey"
-                    id="headerKey"
+                    name={`headerKey-${index}`}
+                    id={`headerKey-${index}`}
                   />
                 </label>
                 <label className={styles.headers__label}>
-                  <span>Header value</span>
+                  <span>Header value #{index + 1}</span>
                   <input
                     {...register(`headers.${index}.value`)}
                     className={`${styles.headers__input} input`}
                     type="text"
-                    name="headerValue"
-                    id="headerValue"
+                    name={`headerValue-${index}`}
+                    id={`headerValue-${index}`}
                   />
                 </label>
                 <button
@@ -185,44 +291,6 @@ const RestForm = (): React.ReactNode => {
           >
             {t("addHeader")}
           </button>
-        </div>
-        <div className={`${styles.form__body} ${styles.form__body} `}>
-          {bodyFields.map((field, index) => (
-            <div
-              key={field.id}
-              className={styles.form__row}
-            >
-              <label className={styles.headers__label}>
-                <span>Body</span>
-                <textarea
-                  {...register(`body.${index}.value`)}
-                  key={field.id}
-                  name={`body.${index}.value`}
-                  id={`body.${index}.value`}
-                  rows={10}
-                />
-              </label>
-            </div>
-          ))}
-          <div className={styles.body__buttons}>
-            <button
-              className="button"
-              type="button"
-              disabled={bodyFields.length === 1}
-              onClick={() => bodyAppend({ value: "" })}
-            >
-              Add body
-            </button>
-            {bodyFields.length === 1 ? (
-              <button
-                className="button"
-                type="button"
-                onClick={() => bodyRemove(0)}
-              >
-                Delete body
-              </button>
-            ) : null}
-          </div>
         </div>
         <button
           type="submit"

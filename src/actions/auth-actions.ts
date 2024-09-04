@@ -5,6 +5,8 @@ import { redirect } from "@/navigation";
 import {
   SESSION_COOKIE_NAME,
   SESSION_COOKIE_DISPLAY_NAME,
+  HOME_PAGE,
+  SESSION_COOKIE_EXPIRATION,
 } from "@/constants/constants";
 
 export async function createSession(
@@ -13,18 +15,18 @@ export async function createSession(
 ): Promise<void> {
   cookies().set(SESSION_COOKIE_NAME, expirationTimestamp, {
     httpOnly: true,
-    maxAge: 60 * 60 * 24,
+    maxAge: SESSION_COOKIE_EXPIRATION,
     sameSite: "none",
     secure: true,
-    path: "/",
+    path: HOME_PAGE,
   });
   if (username) {
     cookies().set(SESSION_COOKIE_DISPLAY_NAME, username, {
       httpOnly: true,
-      maxAge: 60 * 60 * 24,
+      maxAge: SESSION_COOKIE_EXPIRATION,
       sameSite: "none",
       secure: true,
-      path: "/",
+      path: HOME_PAGE,
     });
   }
 

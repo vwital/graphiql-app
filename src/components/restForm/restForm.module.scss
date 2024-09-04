@@ -1,3 +1,5 @@
+@import "@/assets/styles/abstracts/constants";
+
 .form {
   width: 768px;
   display: flex;
@@ -40,7 +42,9 @@
   }
 
   &__label {
-    font-weight: bold;
+    color: $color-field;
+    font-size: 22px;
+    font-weight: $font-bold;
   }
 
   &__button {

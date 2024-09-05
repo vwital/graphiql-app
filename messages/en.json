@@ -65,19 +65,12 @@
     "body": "Body",
     "header": "Header",
     "addHeader": "Add header",
+    "addBody": "Add body",
+    "deleteBody": "Delete body",
+    "prettyJson": "Pretty",
     "send": "Send",
     "response": "Response",
-    "statusCode": "Status code"
-  },
-  "RestClientPage": {
-    "title": "REST Client",
-    "method": "Method",
-    "url": "URL",
-    "body": "Body",
-    "header": "Header",
-    "addHeader": "Add header",
-    "send": "Send",
-    "response": "Response",
-    "statusCode": "Status code"
+    "statusCode": "Status code",
+    "delete": "delete"
   }
 }

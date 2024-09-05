@@ -11,6 +11,15 @@ const protectRoutes = (request: NextRequest): NextResponse | void => {
   ) {
     return NextResponse.redirect(new URL("/", request.url));
   }
+
+  if (
+    !session &&
+    (request.url.includes("/rest") ||
+      request.url.includes("/graphi") ||
+      request.url.includes("/history"))
+  ) {
+    return NextResponse.redirect(new URL("/", request.url));
+  }
   return;
 };
 

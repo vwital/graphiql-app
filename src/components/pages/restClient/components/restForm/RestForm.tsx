@@ -8,6 +8,7 @@ import { useParams } from "next/navigation";
 import { convertFromBase64, convertToBase64 } from "@/utils/convertBase64";
 import React, { useState } from "react";
 import isJson from "@/utils/isJson";
+import { METHODS } from "./constants";
 
 type FormValues = {
   method: string;
@@ -66,31 +67,38 @@ const RestForm = (): React.ReactNode => {
     router.push(newPathname);
   };
 
-  const handleUrlChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => {
+  const handleUrlBlur = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const base64 = convertToBase64(event.target.value);
     if (event.target.value === "") {
       return;
     }
     if (!urlParams.requestUrl) {
-      const newPath = urlParams.method
+      const newPathname = urlParams.method
         ? `${pathname}/${base64}`
         : `${pathname}/GET/${base64}`;
-      router.push(newPath);
+      router.push(newPathname);
+    }
+    if (handleDefaultValue().body && handleDefaultValue().body.length) {
+      const [, url] = pathname.split(`${urlParams.method}/`);
+      const [, body] = url.split("/");
+      const newPathname = pathname.split("/").slice(0, 3).join("/");
+      router.push(`${newPathname}/${base64}/${body}`);
     } else {
-      const newPath = pathname.split("/").slice(0, -1).join("/");
-      router.push(`${newPath}/${base64}`);
+      const newPathname = pathname.split("/").slice(0, 3).join("/");
+      router.push(`${newPathname}/${base64}`);
     }
   };
 
-  function handleDefaultValue(): { url: string | null; body: string | null } {
-    const [url, body] = urlParams.requestUrl ? urlParams.requestUrl : "";
+  function handleDefaultValue(): { url: string; body: string } {
     const defaultValues = {
-      url: url ? convertFromBase64(url) : null,
-      body: body ? convertFromBase64(body) : null,
+      url: "",
+      body: "",
     };
-
+    if (urlParams.requestUrl) {
+      const [url, body] = urlParams.requestUrl;
+      defaultValues.url = convertFromBase64(url);
+      defaultValues.body = body && convertFromBase64(body);
+    }
     return defaultValues;
   }
 
@@ -101,15 +109,36 @@ const RestForm = (): React.ReactNode => {
   };
 
   const handlePrettyButtonClick = (): void => {
-    const prettyJson = json && JSON.stringify(JSON.parse(json), null, 2);
+    let prettyJson;
+    if (json) {
+      prettyJson = JSON.stringify(JSON.parse(json), null, 2);
+    } else if (handleDefaultValue().body) {
+      prettyJson = JSON.stringify(
+        JSON.parse(handleDefaultValue().body),
+        null,
+        2
+      );
+    }
     setJson(prettyJson);
   };
 
   const handleBodyBlur = (
     event: React.ChangeEvent<HTMLTextAreaElement>
   ): void => {
-    if (isJson(event.target.value)) {
+    if (!json) {
+      return;
+    }
+    if (!errors.body) {
       router.push(`${pathname}/${convertToBase64(event.target.value)}`);
+    }
+  };
+
+  const handleDeleteBody = (): void => {
+    bodyRemove(bodyFields.length - 1);
+    setJson("");
+    if (handleDefaultValue().body && handleDefaultValue().body.length) {
+      const newPathname = pathname.split("/").slice(0, -1).join("/");
+      router.push(newPathname);
     }
   };
 
@@ -148,16 +177,17 @@ const RestForm = (): React.ReactNode => {
               >
                 Choose method
               </option>
-              <option value="GET">GET</option>
-              <option value="POST">POST</option>
-              <option value="PUT">PUT</option>
-              <option value="DELETE">DELETE</option>
-              <option value="PATCH">PATCH</option>
-              <option value="HEAD">HEAD</option>
-              <option value="OPTIONS">OPTIONS</option>
+              {METHODS.map((method) => (
+                <option
+                  key={method}
+                  value={method}
+                >
+                  {method}
+                </option>
+              ))}
             </select>
           </div>
-          <div className={styles.form__field + " " + styles.form__field_url}>
+          <div className={`${styles.form__field} ${styles.form__field_url}`}>
             <label
               className={styles.form__label}
               htmlFor="url"
@@ -173,7 +203,7 @@ const RestForm = (): React.ReactNode => {
               defaultValue={handleDefaultValue().url || ""}
               placeholder="https://example.com"
               onBlur={(event) => {
-                handleUrlChange(event);
+                handleUrlBlur(event);
               }}
             />
           </div>
@@ -184,7 +214,7 @@ const RestForm = (): React.ReactNode => {
             !field.value ? null : (
               <div
                 key={field.id}
-                className={styles.form__row + " " + styles.body__row}
+                className={`${styles.form__row} ${styles.body__row}`}
               >
                 <label className={styles.headers__label}>
                   <span>Body</span>
@@ -200,7 +230,7 @@ const RestForm = (): React.ReactNode => {
                     name={`body.${index}.value`}
                     id={`body.${index}.value`}
                     rows={10}
-                    value={json ?? handleDefaultValue()?.body ?? ""}
+                    value={json}
                   />
                 </label>
                 {errors?.body?.[index]?.value?.message ? (
@@ -224,30 +254,30 @@ const RestForm = (): React.ReactNode => {
               title="Please, first fill the url field"
               onClick={() => bodyAppend({ value: " " })}
             >
-              Add body
+              {t("addBody")}
             </button>
-            {bodyFields.length !== 1 ? (
+            {bodyFields.length > 1 || !!handleDefaultValue().body ? (
               <>
                 <button
                   className="button"
                   type="button"
-                  onClick={() => bodyRemove(1)}
+                  onClick={() => handleDeleteBody()}
                 >
-                  Delete body
+                  {t("deleteBody")}
                 </button>
                 <button
                   type="button"
                   className="button"
                   onClick={handlePrettyButtonClick}
-                  disabled={!!errors.body?.[0]?.value || !json}
+                  disabled={!!errors.body}
                 >
-                  Pretty
+                  {t("prettyJson")}
                 </button>
               </>
             ) : null}
           </div>
         </div>
-        <div className={styles.form__headers + " " + styles.headers}>
+        <div className={`${styles.form__headers} ${styles.headers}`}>
           {headersFields.map((field, index) => {
             return (
               <div
@@ -275,17 +305,17 @@ const RestForm = (): React.ReactNode => {
                   />
                 </label>
                 <button
-                  className={`${styles.headers__button} ${styles.headers__button_delete}  button`}
+                  className={`${styles.headers__button} ${styles.headers__button_delete} button`}
                   type="button"
                   onClick={() => headersRemove(index)}
                 >
-                  Delete
+                  {t("delete")}
                 </button>
               </div>
             );
           })}
           <button
-            className={styles.form__button + " button"}
+            className={`${styles.form__button} button`}
             type="button"
             onClick={() => headersAppend({ key: "", value: "" })}
           >
@@ -294,7 +324,7 @@ const RestForm = (): React.ReactNode => {
         </div>
         <button
           type="submit"
-          className={styles.form__button + " button"}
+          className={`${styles.form__button} button`}
         >
           {t("send")}
         </button>

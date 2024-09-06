@@ -62,15 +62,19 @@
     "title": "REST Client",
     "method": "Method",
     "url": "URL",
+    "responseBody": "Response body",
     "body": "Body",
     "header": "Header",
     "addHeader": "Add header",
+    "headerKey": "Header key",
+    "headerValue": "Header value",
     "addBody": "Add body",
     "deleteBody": "Delete body",
     "prettyJson": "Pretty",
     "send": "Send",
     "response": "Response",
     "statusCode": "Status code",
-    "delete": "delete"
+    "delete": "Delete",
+    "apply": "Apply"
   }
 }

@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import styles from "./restForm.module.scss";
 import { useFieldArray, useForm } from "react-hook-form";
 import { usePathname, useRouter } from "@/navigation";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { convertFromBase64, convertToBase64 } from "@/utils/convertBase64";
 import React, { useState } from "react";
 import isJson from "@/utils/isJson";
@@ -22,7 +22,11 @@ const RestForm = (): React.ReactNode => {
   const router = useRouter();
   const urlParams = useParams();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [json, setJson] = useState<string>();
+  const [headerKey, setHeaderKey] = useState<string>("");
+  const [headerValue, setHeaderValue] = useState<string>("");
+
   const {
     register,
     handleSubmit,
@@ -78,14 +82,15 @@ const RestForm = (): React.ReactNode => {
         : `${pathname}/GET/${base64}`;
       router.push(newPathname);
     }
+    if (handleDefaultValue().url && handleDefaultValue().url.length) {
+      const newPathname = pathname.split("/").slice(0, 3).join("/");
+      router.push(`${newPathname}/${base64}`);
+    }
     if (handleDefaultValue().body && handleDefaultValue().body.length) {
       const [, url] = pathname.split(`${urlParams.method}/`);
       const [, body] = url.split("/");
       const newPathname = pathname.split("/").slice(0, 3).join("/");
       router.push(`${newPathname}/${base64}/${body}`);
-    } else {
-      const newPathname = pathname.split("/").slice(0, 3).join("/");
-      router.push(`${newPathname}/${base64}`);
     }
   };
 
@@ -129,7 +134,14 @@ const RestForm = (): React.ReactNode => {
       return;
     }
     if (!errors.body) {
-      router.push(`${pathname}/${convertToBase64(event.target.value)}`);
+      const newPathname =
+        handleDefaultValue().body && handleDefaultValue().body.length > 0
+          ? `${pathname.split("/").slice(0, -1).join("/")}/${convertToBase64(
+              event.target.value
+            )}`
+          : `${pathname}/${convertToBase64(event.target.value)}`;
+
+      router.push(newPathname);
     }
   };
 
@@ -139,6 +151,28 @@ const RestForm = (): React.ReactNode => {
     if (handleDefaultValue().body && handleDefaultValue().body.length) {
       const newPathname = pathname.split("/").slice(0, -1).join("/");
       router.push(newPathname);
+    }
+  };
+
+  const handleHeaderKeyChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    setHeaderKey(event.target.value);
+  };
+
+  const handleHeaderValueChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    setHeaderValue(event.target.value);
+  };
+
+  const handleHeaderApplyClick = (): void => {
+    if (headerKey && headerValue) {
+      const params = new URLSearchParams(searchParams);
+      params.set(headerKey, headerValue);
+      router.push(`${pathname}?${params.toString()}`);
+      setHeaderKey("");
+      setHeaderValue("");
     }
   };
 
@@ -217,7 +251,9 @@ const RestForm = (): React.ReactNode => {
                 className={`${styles.form__row} ${styles.body__row}`}
               >
                 <label className={styles.headers__label}>
-                  <span>Body</span>
+                  <span className={styles.form__label}>
+                    {t("responseBody")}
+                  </span>
                   <textarea
                     className="textarea"
                     {...register(`body.${index}.value`, {
@@ -227,7 +263,7 @@ const RestForm = (): React.ReactNode => {
                       onBlur: (event) => handleBodyBlur(event),
                     })}
                     key={field.id}
-                    name={`body.${index}.value`}
+                    name="body"
                     id={`body.${index}.value`}
                     rows={10}
                     value={json}
@@ -285,27 +321,42 @@ const RestForm = (): React.ReactNode => {
                 className={styles.headers__row}
               >
                 <label className={styles.headers__label}>
-                  <span>Header key #{index + 1}</span>
+                  <span className={styles.form__label}>
+                    {t("headerKey")} #{index + 1}
+                  </span>
                   <input
                     {...register(`headers.${index}.key`)}
                     className={`${styles.headers__input} input`}
                     type="text"
                     name={`headerKey-${index}`}
                     id={`headerKey-${index}`}
+                    value={headerKey}
+                    onChange={(event) => handleHeaderKeyChange(event)}
                   />
                 </label>
                 <label className={styles.headers__label}>
-                  <span>Header value #{index + 1}</span>
+                  <span className={styles.form__label}>
+                    {t("headerValue")} #{index + 1}
+                  </span>
                   <input
                     {...register(`headers.${index}.value`)}
                     className={`${styles.headers__input} input`}
                     type="text"
                     name={`headerValue-${index}`}
                     id={`headerValue-${index}`}
+                    value={headerValue}
+                    onChange={(event) => handleHeaderValueChange(event)}
                   />
                 </label>
                 <button
-                  className={`${styles.headers__button} ${styles.headers__button_delete} button`}
+                  type="button"
+                  className={`${styles.headers__button} button`}
+                  onClick={handleHeaderApplyClick}
+                >
+                  {t("apply")}
+                </button>
+                <button
+                  className={`${styles.headers__button} button`}
                   type="button"
                   onClick={() => headersRemove(index)}
                 >
@@ -317,6 +368,7 @@ const RestForm = (): React.ReactNode => {
           <button
             className={`${styles.form__button} button`}
             type="button"
+            disabled={handleDefaultValue().url.length < 1}
             onClick={() => headersAppend({ key: "", value: "" })}
           >
             {t("addHeader")}

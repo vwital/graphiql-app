@@ -1,16 +1,23 @@
-import { useTranslations } from "next-intl";
+import React from "react";
 import styles from "./graphiResponse.module.scss";
-import { ReactNode } from "react";
+import { useTranslations } from "next-intl";
 
-const GraphiResponse = (): ReactNode => {
+interface ResponseProps {
+  status: number;
+  body: object;
+}
+
+const GraphiResponse = ({ status, body }: ResponseProps): React.ReactNode => {
   const t = useTranslations("GraphiQL");
+
   return (
-    <>
+    <div className={styles.responseSection}>
       <h2>{t("response")}</h2>
-      <p>{t("stausCode")}:</p>
-      <p>{t("body")}</p>
-      <div className={styles["graphi__body"]}></div>
-    </>
+      <p>
+        {t("statusCode")}: {status}
+      </p>
+      <pre>{JSON.stringify(body, null, 2)}</pre>
+    </div>
   );
 };
 

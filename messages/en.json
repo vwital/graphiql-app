@@ -54,7 +54,7 @@
     "variables": "Variables",
     "send": "Send",
     "response": "Response",
-    "stausCode": "Staus code",
+    "statusCode": "Staus code",
     "body": "Body",
     "documentation": "Documentation"
   },

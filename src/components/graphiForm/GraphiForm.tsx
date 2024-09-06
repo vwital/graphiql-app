@@ -1,72 +1,101 @@
+import React, { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { useTranslations } from "next-intl";
 import styles from "./graphiForm.module.scss";
 
-const GraphiForm = (): React.ReactNode => {
+interface FormData {
+  endpoint: string;
+  sdlEndpoint: string;
+  query: string;
+  variables: string;
+  headers: { key: string; value: string }[];
+}
+
+const GraphiForm = ({
+  onSubmit,
+}: {
+  onSubmit: (data: FormData) => void;
+}): React.ReactNode => {
+  const { register, handleSubmit, watch, setValue } = useForm<FormData>();
   const t = useTranslations("GraphiQL");
+  const endpointValue = watch("endpoint");
+
+  useEffect(() => {
+    setValue("sdlEndpoint", endpointValue ? `${endpointValue}?sdl` : "");
+  }, [endpointValue, setValue]);
+
   return (
-    <div className={styles["graphi"]}>
-      <div className={styles["wrapper"]}>
+    <form
+      className={styles.graphi}
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <div className={styles.wrapper}>
         <h2>{t("header")}</h2>
+
         <label htmlFor="endpoint">{t("endpoint")}</label>
         <input
           className="input"
-          type="text"
-          name="endpoint"
           id="endpoint"
           placeholder="URL"
+          {...register("endpoint", { required: true })}
         />
-        <label htmlFor="endpoint">SDL URL</label>
+
+        <label htmlFor="sdlEndpoint">SDL URL</label>
         <input
           className="input"
-          type="text"
-          name="endpoint"
-          id="endpoint"
-          placeholder="URL"
+          id="sdlEndpoint"
+          placeholder="SDL URL"
+          {...register("sdlEndpoint")}
         />
-        <div className={styles["graphi__headers"]}>
-          <p>{t("headers")}</p>
-          <div className={styles["graphi__headers-forms"]}>
-            <input
-              className="input"
-              type="text"
-              name="endpoint"
-              id="endpoint"
-              placeholder={t("key")}
-            />
 
-            <input
-              className="input"
-              type="text"
-              name="endpoint"
-              id="endpoint"
-              placeholder={t("value")}
-            />
+        <div className={styles.headersSection}>
+          <p>{t("headers")}</p>
+          <div>
+            {Array.from({ length: 2 }).map((_, index) => (
+              <div
+                key={index}
+                className={styles.headerRow}
+              >
+                <input
+                  className="input"
+                  placeholder={t("key")}
+                  {...register(`headers.${index}.key`)}
+                />
+                <input
+                  className="input"
+                  placeholder={t("value")}
+                  {...register(`headers.${index}.value`)}
+                />
+              </div>
+            ))}
           </div>
+          <button type="button">{t("addHeader")}</button>
         </div>
-        <button className="button">{t("addHeader")}</button>
-        <div className={styles["graphi__query"]}>
-          <label htmlFor="endpoint">{t("query")}</label>
-          <textarea
-            className="input"
-            name="endpoint"
-            id="endpoint"
-            placeholder=""
-            rows={5}
-          />
-          <label htmlFor="endpoint">{t("variables")}</label>
-          <textarea
-            className="input"
-            name="endpoint"
-            id="endpoint"
-            placeholder=""
-            rows={5}
-          />
-          <button className="button">Send</button>
-          <p>{t("documentation")}</p>
-          <div className={styles["graphi__documentation"]}></div>
-        </div>
+
+        <label htmlFor="query">{t("query")}</label>
+        <textarea
+          className="input"
+          {...register("query", { required: true })}
+          id="query"
+          rows={5}
+        />
+
+        <label htmlFor="variables">{t("variables")}</label>
+        <textarea
+          className="input"
+          id="variables"
+          rows={5}
+          {...register("variables")}
+        />
+
+        <button
+          type="submit"
+          className="button"
+        >
+          Send
+        </button>
       </div>
-    </div>
+    </form>
   );
 };
 

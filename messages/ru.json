@@ -54,7 +54,7 @@
     "variables": "Переменные",
     "send": "Отпрвыить",
     "response": "Ответ",
-    "stausCode": "Статус код",
+    "statusCode": "Статус код",
     "body": "Тело",
     "documentation": "Документация"
   },

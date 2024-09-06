@@ -14,7 +14,7 @@ type FormValues = {
   method: string;
   url: string;
   headers: { key: string; value: string }[];
-  body: { value: string | null }[];
+  body: { value: string }[];
 };
 
 const RestForm = (): React.ReactNode => {
@@ -263,7 +263,7 @@ const RestForm = (): React.ReactNode => {
                       onBlur: (event) => handleBodyBlur(event),
                     })}
                     key={field.id}
-                    name="body"
+                    name={`body.${index}.value`}
                     id={`body.${index}.value`}
                     rows={10}
                     value={json}

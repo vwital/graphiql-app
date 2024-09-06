@@ -56,7 +56,8 @@
     "response": "Ответ",
     "statusCode": "Статус код",
     "body": "Тело",
-    "documentation": "Документация"
+    "documentation": "Документация",
+    "documentationError": "Ошибка загрузки документации:"
   },
   "RestClientPage": {
     "title": "REST клиент",

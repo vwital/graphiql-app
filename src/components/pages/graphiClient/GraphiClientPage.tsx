@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import GraphiForm from "@/components/graphiForm/GraphiForm";
 import GraphiResponse from "@/components/graphiResponse/GraphiResponse";
+import { useTranslations } from "next-intl";
+import styles from "./graphiClientPage.module.scss";
 
 interface FormData {
   endpoint: string;
@@ -22,8 +24,11 @@ interface ErrorResponse {
 type ResponseData = SuccessResponse | ErrorResponse | null;
 
 const GraphiClientPage = (): React.ReactNode => {
+  const t = useTranslations("GraphiQL");
   const [response, setResponse] = useState<ResponseData>(null);
   const [status, setStatus] = useState<number | null>(null);
+  const [schema, setSchema] = useState<string | null>(null);
+  const [sdlError, setSDLError] = useState<string | null>(null);
 
   const handleFormSubmit = async (data: FormData): Promise<void> => {
     const { endpoint, query, variables, headers } = data;
@@ -47,21 +52,57 @@ const GraphiClientPage = (): React.ReactNode => {
       const result = await res.json();
       setStatus(res.status);
       setResponse(result);
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       setStatus(500);
       setResponse({ error: "Request failed" });
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
+    }
+  };
+
+  const fetchSDL = async (sdlEndpoint: string): Promise<void> => {
+    try {
+      const res = await fetch(sdlEndpoint);
+
+      if (!res.ok) {
+        throw new Error("Failed to fetch SDL");
+      }
+      const sdlData = await res.text();
+      setSchema(sdlData);
+      setSDLError(null);
+    } catch (e) {
+      setSchema(null);
+      setSDLError("Failed to load documentation");
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      }
     }
   };
 
   return (
     <section>
-      <GraphiForm onSubmit={handleFormSubmit} />
+      <GraphiForm
+        onSubmit={handleFormSubmit}
+        fetchSDL={fetchSDL}
+      />
       {response && (
         <GraphiResponse
           status={status || 500}
           body={response}
         />
+      )}
+      {schema && (
+        <section className={styles.documentation}>
+          <h2>{t("documentation")}</h2>
+          <pre className={styles.documentation__text}>{schema}</pre>
+        </section>
+      )}
+      {sdlError && (
+        <p>
+          {" "}
+          {t("documentationError")} {sdlError}
+        </p>
       )}
     </section>
   );

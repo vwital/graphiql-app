@@ -13,12 +13,21 @@ interface FormData {
 
 const GraphiForm = ({
   onSubmit,
+  fetchSDL,
 }: {
   onSubmit: (data: FormData) => void;
+  fetchSDL: (sdlEndpoint: string) => Promise<void>;
 }): React.ReactNode => {
   const { register, handleSubmit, watch, setValue } = useForm<FormData>();
   const t = useTranslations("GraphiQL");
   const endpointValue = watch("endpoint");
+  const sdlEndpoint = watch("sdlEndpoint") || `${endpointValue}?sdl`;
+
+  useEffect(() => {
+    if (sdlEndpoint) {
+      fetchSDL(sdlEndpoint);
+    }
+  }, [sdlEndpoint, fetchSDL]);
 
   useEffect(() => {
     setValue("sdlEndpoint", endpointValue ? `${endpointValue}?sdl` : "");

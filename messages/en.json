@@ -56,7 +56,8 @@
     "response": "Response",
     "statusCode": "Staus code",
     "body": "Body",
-    "documentation": "Documentation"
+    "documentation": "Documentation",
+    "documentationError": "Error loading documentation:"
   },
   "RestClientPage": {
     "title": "REST Client",

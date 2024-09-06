@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import React, { useEffect, useState } from "react";
+import { useForm, useFieldArray } from "react-hook-form";
 import { useTranslations } from "next-intl";
 import styles from "./graphiForm.module.scss";
 
@@ -18,20 +18,30 @@ const GraphiForm = ({
   onSubmit: (data: FormData) => void;
   fetchSDL: (sdlEndpoint: string) => Promise<void>;
 }): React.ReactNode => {
-  const { register, handleSubmit, watch, setValue } = useForm<FormData>();
+  const { register, handleSubmit, watch, setValue, control } =
+    useForm<FormData>();
+  const { fields, append } = useFieldArray({
+    control,
+    name: "headers",
+  });
+
   const t = useTranslations("GraphiQL");
   const endpointValue = watch("endpoint");
   const sdlEndpoint = watch("sdlEndpoint") || `${endpointValue}?sdl`;
 
   useEffect(() => {
-    if (sdlEndpoint) {
+    if (sdlEndpoint && sdlEndpoint !== "undefined?sdl") {
       fetchSDL(sdlEndpoint);
     }
-  }, [sdlEndpoint, fetchSDL]);
+  }, [sdlEndpoint]);
 
   useEffect(() => {
     setValue("sdlEndpoint", endpointValue ? `${endpointValue}?sdl` : "");
   }, [endpointValue, setValue]);
+
+  useState(() => {
+    append({ key: "", value: "" });
+  });
 
   return (
     <form
@@ -60,9 +70,9 @@ const GraphiForm = ({
         <div className={styles.headersSection}>
           <p>{t("headers")}</p>
           <div>
-            {Array.from({ length: 2 }).map((_, index) => (
+            {fields.map((field, index) => (
               <div
-                key={index}
+                key={field.id}
                 className={styles.headerRow}
               >
                 <input
@@ -78,7 +88,13 @@ const GraphiForm = ({
               </div>
             ))}
           </div>
-          <button type="button">{t("addHeader")}</button>
+          <button
+            type="button"
+            className="button"
+            onClick={() => append({ key: "", value: "" })}
+          >
+            {t("addHeader")}
+          </button>
         </div>
 
         <label htmlFor="query">{t("query")}</label>

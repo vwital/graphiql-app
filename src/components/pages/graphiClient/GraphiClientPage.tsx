@@ -34,14 +34,20 @@ const GraphiClientPage = (): React.ReactNode => {
     const { endpoint, query, variables, headers } = data;
 
     try {
+      const headersObject = headers.reduce(
+        (acc: Record<string, string>, { key, value }) => {
+          if (key.trim() && value.trim()) {
+            acc[key] = value;
+          }
+          return acc;
+        },
+        {}
+      );
       const res = await fetch(endpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          ...headers.reduce((acc: Record<string, string>, { key, value }) => {
-            if (key && value) acc[key] = value;
-            return acc;
-          }, {}),
+          ...headersObject,
         },
         body: JSON.stringify({
           query,

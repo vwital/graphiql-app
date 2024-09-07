@@ -3,7 +3,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/navigation";
 import styles from "./styles.module.scss";
 
-const ErrorPage = ({ error }: { error: Error }): JSX.Element => {
+const ErrorPageLocale = ({ error }: { error: Error }): JSX.Element => {
   const t = useTranslations("ErrorPage");
 
   return (
@@ -25,4 +25,4 @@ const ErrorPage = ({ error }: { error: Error }): JSX.Element => {
   );
 };
 
-export default ErrorPage;
+export default ErrorPageLocale;

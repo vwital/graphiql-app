@@ -37,6 +37,9 @@
     "mainPage": "Go to main page",
     "notFoundText": "Oops! The page you are looking for does not exist"
   },
+  "Loading": {
+    "loadingText": "Loading..."
+  },
   "Author": {
     "name": "name",
     "role": "role",

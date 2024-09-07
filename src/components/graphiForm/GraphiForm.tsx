@@ -30,7 +30,11 @@ const GraphiForm = ({
   const sdlEndpoint = watch("sdlEndpoint") || `${endpointValue}?sdl`;
 
   useEffect(() => {
-    if (sdlEndpoint && sdlEndpoint !== "undefined?sdl") {
+    if (
+      sdlEndpoint &&
+      sdlEndpoint !== "undefined?sdl" &&
+      sdlEndpoint !== "?sdl"
+    ) {
       fetchSDL(sdlEndpoint);
     }
   }, [sdlEndpoint]);

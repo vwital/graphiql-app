@@ -29,7 +29,8 @@
   "ErrorPage": {
     "errorHeader": "Oops...",
     "errorMessage": "Something went wrong",
-    "errorButton": "Return to main"
+    "errorButton": "Return to main",
+    "error": "Error"
   },
   "NotFoundPage": {
     "notFound": "Page not found",

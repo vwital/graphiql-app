@@ -29,7 +29,8 @@
   "ErrorPage": {
     "errorHeader": "Упс...",
     "errorMessage": "Что-то пошло не так",
-    "errorButton": "На главную"
+    "errorButton": "На главную",
+    "error": "Ошибка"
   },
   "NotFoundPage": {
     "notFound": "Страница не найдена",

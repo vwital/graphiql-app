@@ -31,6 +31,11 @@
     "errorMessage": "Something went wrong",
     "errorButton": "Return to main"
   },
+  "NotFoundPage": {
+    "notFound": "Page not found",
+    "mainPage": "Go to main page",
+    "notFoundText": "Oops! The page you are looking for does not exist"
+  },
   "Author": {
     "name": "name",
     "role": "role",

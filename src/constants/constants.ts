@@ -12,3 +12,6 @@ export const SESSION_COOKIE_NAME = "user_session";
 export const SESSION_COOKIE_DISPLAY_NAME = "user_name";
 export const SESSION_COOKIE_EXPIRATION = 60 * 60 * 24;
 export const HOME_PAGE = "/";
+
+export const protectedRoutes = ["/rest", "/graphi", "/history"];
+export const publicRoutes = ["/sign-in", "/sign-up"];

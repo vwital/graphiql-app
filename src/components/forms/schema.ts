@@ -5,12 +5,7 @@ import {
   regExpUsername,
 } from "../../constants/constants";
 
-export const schemaReg = yup.object().shape({
-  username: yup
-    .string()
-    .trim()
-    .required("usernameRequired")
-    .matches(regExpUsername, "usernameInvalid"),
+export const schemaLogin = yup.object().shape({
   email: yup
     .string()
     .required("emailRequired")
@@ -21,13 +16,10 @@ export const schemaReg = yup.object().shape({
     .matches(regExpPassword, "passwordInvalid"),
 });
 
-export const schemaLogin = yup.object().shape({
-  email: yup
+export const schemaReg = schemaLogin.shape({
+  username: yup
     .string()
-    .required("emailRequired")
-    .matches(regExpEmail, "emailInvalid"),
-  password: yup
-    .string()
-    .required("passwordRequired")
-    .matches(regExpPassword, "passwordInvalid"),
+    .trim()
+    .required("usernameRequired")
+    .matches(regExpUsername, "usernameInvalid"),
 });

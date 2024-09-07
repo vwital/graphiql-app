@@ -44,12 +44,12 @@
   "Panakir": {
     "name": "Кирилл Пономарёв",
     "role": "Разработчик",
-    "bio": "Junior Frontend разработчик"
+    "bio": "Frontend разработчик"
   },
   "Dzehil02": {
-    "name": "Aleh Dzehil",
-    "role": "Developer",
-    "bio": "Junior Frontend Developer"
+    "name": "Олег Дегиль",
+    "role": "Разработчик",
+    "bio": "Frontend разработчик"
   },
   "GraphiQL": {
     "header": "GraphiQL клиент",

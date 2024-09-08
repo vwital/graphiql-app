@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { useTranslations } from "next-intl";
@@ -11,13 +13,17 @@ interface FormData {
   headers: { key: string; value: string }[];
 }
 
-const GraphiForm = ({
-  onSubmit,
-  fetchSDL,
-}: {
-  onSubmit: (data: FormData) => void;
-  fetchSDL: (sdlEndpoint: string) => Promise<void>;
-}): React.ReactNode => {
+interface SuccessResponse {
+  data: Record<string, unknown>;
+}
+
+interface ErrorResponse {
+  error: string;
+}
+
+type ResponseData = SuccessResponse | ErrorResponse | null;
+
+const GraphiForm = (): React.ReactNode => {
   const { register, handleSubmit, watch, setValue, control } =
     useForm<FormData>();
   const { fields, append } = useFieldArray({
@@ -28,6 +34,66 @@ const GraphiForm = ({
   const t = useTranslations("GraphiQL");
   const endpointValue = watch("endpoint");
   const sdlEndpoint = watch("sdlEndpoint") || `${endpointValue}?sdl`;
+
+  const [response, setResponse] = useState<ResponseData>(null);
+  const [status, setStatus] = useState<number | null>(null);
+  const [schema, setSchema] = useState<string | null>(null);
+  const [sdlError, setSDLError] = useState<string | null>(null);
+
+  const handleFormSubmit = async (data: FormData): Promise<void> => {
+    const { endpoint, query, variables, headers } = data;
+
+    try {
+      const headersObject = headers.reduce(
+        (acc: Record<string, string>, { key, value }) => {
+          if (key.trim() && value.trim()) {
+            acc[key] = value;
+          }
+          return acc;
+        },
+        {}
+      );
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...headersObject,
+        },
+        body: JSON.stringify({
+          query,
+          variables: variables ? JSON.parse(variables) : {},
+        }),
+      });
+
+      const result = await res.json();
+      setStatus(res.status);
+      setResponse(result);
+    } catch (error) {
+      if (error instanceof Error) {
+        setResponse({ error: "Request failed" });
+      }
+      setStatus(500);
+    }
+  };
+
+  const fetchSDL = async (sdlEndpoint: string): Promise<void> => {
+    try {
+      const res = await fetch(sdlEndpoint);
+
+      if (!res.ok) {
+        throw new Error("Failed to fetch SDL");
+      }
+      const sdlData = await res.text();
+      setSchema(sdlData);
+      setSDLError(null);
+    } catch (e) {
+      setSchema(null);
+      setSDLError("Failed to load documentation");
+      if (e instanceof Error) {
+        throw new Error(e.message);
+      }
+    }
+  };
 
   useEffect(() => {
     if (
@@ -50,7 +116,7 @@ const GraphiForm = ({
   return (
     <form
       className={styles.graphi}
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(handleFormSubmit)}
     >
       <div className={styles.wrapper}>
         <h2>{t("header")}</h2>
@@ -124,6 +190,29 @@ const GraphiForm = ({
           Send
         </button>
       </div>
+
+      {response && (
+        <div className={styles.responseSection}>
+          <h2>{t("response")}</h2>
+          <p>
+            {t("statusCode")}: {status}
+          </p>
+          <pre>{JSON.stringify(response, null, 2)}</pre>
+        </div>
+      )}
+
+      {schema && (
+        <section className={styles.documentation}>
+          <h2>{t("documentation")}</h2>
+          <pre className={styles.documentation__text}>{schema}</pre>
+        </section>
+      )}
+
+      {sdlError && (
+        <p>
+          {t("documentationError")} {sdlError}
+        </p>
+      )}
     </form>
   );
 };

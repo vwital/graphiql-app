@@ -6,4 +6,18 @@
   &__wrapper {
     margin: 2em 0;
   }
+
+  &__text {
+    display: inline-block;
+  }
+
+  &__viewer {
+    box-sizing: border-box;
+    max-width: 100%;
+    height: 100%;
+    overflow: auto;
+    padding: 1em;
+    background-color: #fff;
+    border-radius: 0.5em;
+  }
 }

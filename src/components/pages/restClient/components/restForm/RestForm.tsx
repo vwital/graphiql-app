@@ -6,9 +6,13 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { usePathname, useRouter } from "@/navigation";
 import { useParams, useSearchParams } from "next/navigation";
 import { convertFromBase64, convertToBase64 } from "@/utils/convertBase64";
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import isJson from "@/utils/isJson";
 import { METHODS } from "./constants";
+import restClientFormAction from "@/app/actions/restClientFormAction";
+import { useFormState } from "react-dom";
+import { addResponse } from "@/app/lib/restClient/slice";
+import { useDispatch } from "react-redux";
 
 type FormValues = {
   method: string;
@@ -26,10 +30,17 @@ const RestForm = (): React.ReactNode => {
   const [json, setJson] = useState<string>();
   const [headerKey, setHeaderKey] = useState<string>("");
   const [headerValue, setHeaderValue] = useState<string>("");
+  const [state, submitAction] = useFormState(restClientFormAction, null);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (state !== null) {
+      dispatch(addResponse(state));
+    }
+  }, [state]);
 
   const {
     register,
-    handleSubmit,
     control,
     formState: { errors },
   } = useForm<FormValues>({
@@ -176,16 +187,12 @@ const RestForm = (): React.ReactNode => {
     }
   };
 
-  const onSubmit = (data: FormValues): FormValues => {
-    return data;
-  };
-
   return (
     <>
       <h2>{t("title")}</h2>
       <form
         className={styles.form}
-        onSubmit={handleSubmit(onSubmit)}
+        action={submitAction}
       >
         <div className={styles.form__row}>
           <div className={styles.form__field}>

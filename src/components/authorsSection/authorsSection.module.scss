@@ -1,0 +1,10 @@
+.welcome {
+  &__text {
+    width: clamp(320px, 90%, 700px);
+    text-align: center;
+  }
+
+  &__link {
+    margin-bottom: 1em;
+  }
+}

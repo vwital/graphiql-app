@@ -8,6 +8,9 @@ export const pathnames: Pathnames<Locales> = {
   "/": "/",
   "/sign-in": "/sign-in",
   "/sign-up": "/sign-up",
+  "/rest": "/rest",
+  "/graphi": "/graphi",
+  "/history": "/history",
 };
 
 export const localePrefix: LocalePrefix<Locales> = "always";

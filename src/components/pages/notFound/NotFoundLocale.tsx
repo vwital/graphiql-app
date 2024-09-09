@@ -11,7 +11,7 @@ const NotFoundLocale = (): React.ReactNode => {
       <h2 className={styles["not-found__subtitle"]}>{t("notFound")}</h2>
       <p className={styles["not-found__text"]}>{t("notFoundText")}</p>
       <Link
-        className="button"
+        className={styles["not-found__link"]}
         href="/"
       >
         {t("mainPage")}

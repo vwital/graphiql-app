@@ -62,7 +62,7 @@ export default tseslint.config(
         },
       ],
 
-      "require-await": "error",
+      "require-await": "off",
       "no-unused-vars": "off",
       "@typescript-eslint/no-unused-vars": ["error"],
       "no-restricted-imports": [

@@ -3,6 +3,8 @@ import { getMessages } from "next-intl/server";
 import "@/assets/styles/main.scss";
 import Footer from "@/components/footer/Footer";
 import Header from "@/components/header/Header";
+import { cookies } from "next/headers";
+import { SESSION_COOKIE_NAME } from "@/constants/constants";
 import StoreProvider from "../StoreProvider";
 
 export const metadata = {
@@ -18,19 +20,20 @@ const RootLayout = async ({
   params: { locale: string };
 }): Promise<React.ReactNode> => {
   const messages = await getMessages();
+  const session = cookies().get(SESSION_COOKIE_NAME)?.value || null;
 
   return (
-    <html lang={locale}>
-      <body>
-        <StoreProvider>
+    <StoreProvider>
+      <html lang={locale}>
+        <body>
           <NextIntlClientProvider messages={messages}>
-            <Header />
+            <Header session={session} />
             <main className="main">{children}</main>
             <Footer />
           </NextIntlClientProvider>
-        </StoreProvider>
-      </body>
-    </html>
+        </body>
+      </html>
+    </StoreProvider>
   );
 };
 

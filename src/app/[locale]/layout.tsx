@@ -23,17 +23,17 @@ const RootLayout = async ({
   const session = cookies().get(SESSION_COOKIE_NAME)?.value || null;
 
   return (
-    <StoreProvider>
-      <html lang={locale}>
-        <body>
+    <html lang={locale}>
+      <body>
+        <StoreProvider>
           <NextIntlClientProvider messages={messages}>
             <Header session={session} />
             <main className="main">{children}</main>
             <Footer />
           </NextIntlClientProvider>
-        </body>
-      </html>
-    </StoreProvider>
+        </StoreProvider>
+      </body>
+    </html>
   );
 };
 

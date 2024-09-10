@@ -5,9 +5,12 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/app/lib/store";
 import JsonView from "@uiw/react-json-view";
 import { githubLightTheme } from "@uiw/react-json-view/githubLight";
+import { useParams } from "next/navigation";
 const RestResponse = (): React.ReactNode => {
   const t = useTranslations("RestClientPage");
   const [response] = useSelector((state: RootState) => state.restClient);
+  const params = useParams();
+  if (!params.requestUrl) return null;
 
   return response ? (
     <section className={styles.response__wrapper}>

@@ -3,9 +3,9 @@ import { useTranslations } from "next-intl";
 import styles from "./response.module.scss";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/lib/store";
-import JsonView from "@uiw/react-json-view";
-import { githubLightTheme } from "@uiw/react-json-view/githubLight";
 import { useParams } from "next/navigation";
+import JsonViewer from "@/components/JsonViewer/JsonViewer";
+
 const RestResponse = (): React.ReactNode => {
   const t = useTranslations("RestClientPage");
   const [response] = useSelector((state: RootState) => state.restClient);
@@ -20,15 +20,7 @@ const RestResponse = (): React.ReactNode => {
           {t("statusCode")}: {response.statusCode ?? 0}
         </span>
         <span>{t("body")}</span>
-        <div className={styles.response__viewer}>
-          <JsonView
-            value={response.dataFromResponse}
-            style={githubLightTheme}
-            enableClipboard={false}
-            indentWidth={4}
-            shortenTextAfterLength={200}
-          />
-        </div>
+        <JsonViewer response={response.dataFromResponse} />
       </div>
     </section>
   ) : null;

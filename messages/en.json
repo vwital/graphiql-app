@@ -80,6 +80,7 @@
     "deleteBody": "Delete body",
     "prettyJson": "Pretty",
     "send": "Send",
+    "sending": "Sending...",
     "response": "Response",
     "statusCode": "Status code",
     "delete": "Delete",

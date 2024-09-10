@@ -13,6 +13,7 @@ import restClientFormAction from "@/app/actions/restClientFormAction";
 import { useFormState } from "react-dom";
 import { addResponse } from "@/app/lib/features/restClient/slice";
 import { useDispatch } from "react-redux";
+import SubmitButton from "./components/SubmitButton";
 
 type FormValues = {
   method: string;
@@ -381,12 +382,7 @@ const RestForm = (): React.ReactNode => {
             {t("addHeader")}
           </button>
         </div>
-        <button
-          type="submit"
-          className={`${styles.form__button} button`}
-        >
-          {t("send")}
-        </button>
+        <SubmitButton className={`${styles.form__button} button`} />
       </form>
     </>
   );

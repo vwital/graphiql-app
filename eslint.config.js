@@ -92,5 +92,11 @@ export default tseslint.config(
     rules: {
       "no-restricted-imports": "off",
     },
+  },
+  {
+    files: ["src/tests/**/*.ts", "src/tests/**/*.tsx"],
+    rules: {
+      "@typescript-eslint/explicit-function-return-type": "off",
+    },
   }
 );

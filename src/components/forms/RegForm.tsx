@@ -43,7 +43,7 @@ const RegForm = (): React.ReactNode => {
       const expirationTimestamp = Date.parse(expirationTime);
       await createSession(expirationTimestamp.toString(), user.displayName);
     } catch (error) {
-      alert("Something went wrong" + error);
+      alert("Something went wrong " + error);
     }
   };
 

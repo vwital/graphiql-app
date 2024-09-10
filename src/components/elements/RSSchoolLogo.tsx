@@ -1,6 +1,7 @@
 const RSSchoolLogo = (): React.ReactNode => {
   return (
     <svg
+      data-testid="rsschool-logo"
       width="200"
       height="70"
       viewBox="0 0 200 70"

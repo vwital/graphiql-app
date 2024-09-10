@@ -1,5 +1,5 @@
 import { configureStore, EnhancedStore } from "@reduxjs/toolkit";
-import restClient from "./restClient/slice";
+import restClient from "./features/restClient/slice";
 
 const store = (): EnhancedStore =>
   configureStore({

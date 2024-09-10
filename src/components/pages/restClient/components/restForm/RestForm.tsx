@@ -11,7 +11,7 @@ import isJson from "@/utils/isJson";
 import { METHODS } from "./constants";
 import restClientFormAction from "@/app/actions/restClientFormAction";
 import { useFormState } from "react-dom";
-import { addResponse } from "@/app/lib/restClient/slice";
+import { addResponse } from "@/app/lib/features/restClient/slice";
 import { useDispatch } from "react-redux";
 
 type FormValues = {

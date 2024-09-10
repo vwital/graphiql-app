@@ -10,6 +10,8 @@ vi.mock("firebase/auth", () => ({
 }));
 
 describe("LoginForm component", () => {
+  const alertMock = vi.spyOn(window, "alert").mockImplementation(() => null);
+
   it("renders form with email, password inputs and submit button", () => {
     render(
       <IntlProviderWrapper>
@@ -37,7 +39,7 @@ describe("LoginForm component", () => {
     });
   });
 
-  it("submits the form with valid data and calls signInWithEmailAndPassword and createSession", async () => {
+  it("submits the form with valid data and calls signInWithEmailAndPassword", async () => {
     render(
       <IntlProviderWrapper>
         <LoginForm />
@@ -66,8 +68,6 @@ describe("LoginForm component", () => {
     vi.mocked(signInWithEmailAndPassword).mockRejectedValueOnce(
       new Error("Login failed")
     );
-
-    const alertMock = vi.spyOn(window, "alert").mockImplementation(() => null);
 
     render(
       <IntlProviderWrapper>

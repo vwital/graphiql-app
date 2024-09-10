@@ -9,6 +9,8 @@ vi.mock("firebase/auth", () => ({
   createUserWithEmailAndPassword: vi.fn(),
 }));
 
+vi.spyOn(window, "alert").mockImplementation(() => null);
+
 describe("RegForm component", () => {
   it("renders form with username, email, password inputs and submit button", () => {
     render(

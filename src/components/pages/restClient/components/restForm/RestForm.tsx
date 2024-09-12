@@ -5,7 +5,7 @@ import styles from "./restForm.module.scss";
 import { useFieldArray, useForm } from "react-hook-form";
 import { usePathname, useRouter } from "@/navigation";
 import { useParams, useSearchParams } from "next/navigation";
-import { convertFromBase64, convertToBase64 } from "@/utils/convertBase64";
+import { convertToBase64 } from "@/utils/convertBase64";
 import { useEffect, useState } from "react";
 import isJson from "@/utils/isJson";
 import { METHODS, METHODS_WITH_BODY } from "./constants";
@@ -14,6 +14,7 @@ import { useFormState } from "react-dom";
 import { addResponse } from "@/app/lib/features/restClient/slice";
 import { useDispatch } from "react-redux";
 import SubmitButton from "./components/SubmitButton";
+import getDefaultValue from "./utils/getDefaultValue";
 
 type FormValues = {
   method: string;
@@ -29,15 +30,21 @@ const RestForm = (): React.ReactNode => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [json, setJson] = useState<string>();
+  const [url, setUrl] = useState<string>("");
   const [headerKey, setHeaderKey] = useState<string>("");
   const [headerValue, setHeaderValue] = useState<string>("");
   const [state, submitAction] = useFormState(restClientFormAction, null);
   const dispatch = useDispatch();
 
+  const { body } = getDefaultValue(urlParams);
+
   useEffect(() => {
     if (state !== null) {
       dispatch(addResponse(state));
     }
+    const { url } = getDefaultValue(urlParams);
+
+    setUrl(url);
   }, [state]);
 
   const {
@@ -49,7 +56,7 @@ const RestForm = (): React.ReactNode => {
     defaultValues: {
       body: [
         {
-          value: handleDefaultValue()?.body ?? null,
+          value: body ?? null,
         },
       ],
     },
@@ -77,10 +84,7 @@ const RestForm = (): React.ReactNode => {
     event: React.ChangeEvent<HTMLSelectElement>
   ): void => {
     let newPathname = "";
-    if (
-      !METHODS_WITH_BODY.includes(event.target.value) &&
-      handleDefaultValue().body
-    ) {
+    if (!METHODS_WITH_BODY.includes(event.target.value) && json) {
       newPathname = pathname
         .split("/")
         .slice(0, -1)
@@ -91,7 +95,6 @@ const RestForm = (): React.ReactNode => {
         ? pathname.replace(`/${urlParams.method}`, `/${event.target.value}`)
         : `${pathname}/${event.target.value}`;
     }
-
     router.push(newPathname);
   };
 
@@ -106,30 +109,17 @@ const RestForm = (): React.ReactNode => {
         : `${pathname}/GET/${base64}`;
       router.push(newPathname);
     }
-    if (handleDefaultValue().url && handleDefaultValue().url.length) {
+    if (url) {
       const newPathname = pathname.split("/").slice(0, 3).join("/");
       router.push(`${newPathname}/${base64}`);
     }
-    if (handleDefaultValue().body && handleDefaultValue().body.length) {
+    if (json) {
       const [, url] = pathname.split(`${urlParams.method}/`);
       const [, body] = url.split("/");
       const newPathname = pathname.split("/").slice(0, 3).join("/");
       router.push(`${newPathname}/${base64}/${body}`);
     }
   };
-
-  function handleDefaultValue(): { url: string; body: string } {
-    const defaultValues = {
-      url: "",
-      body: "",
-    };
-    if (urlParams.requestUrl) {
-      const [url, body] = urlParams.requestUrl;
-      defaultValues.url = convertFromBase64(url);
-      defaultValues.body = body && convertFromBase64(body);
-    }
-    return defaultValues;
-  }
 
   const handleBodyChange = (
     event: React.ChangeEvent<HTMLTextAreaElement>
@@ -141,13 +131,10 @@ const RestForm = (): React.ReactNode => {
     let prettyJson;
     if (json) {
       prettyJson = JSON.stringify(JSON.parse(json), null, 2);
-    } else if (handleDefaultValue().body) {
-      prettyJson = JSON.stringify(
-        JSON.parse(handleDefaultValue().body),
-        null,
-        2
-      );
+    } else {
+      prettyJson = JSON.stringify(JSON.parse(body), null, 2);
     }
+
     setJson(prettyJson);
   };
 
@@ -158,12 +145,11 @@ const RestForm = (): React.ReactNode => {
       return;
     }
     if (!errors.body) {
-      const newPathname =
-        handleDefaultValue().body && handleDefaultValue().body.length > 0
-          ? `${pathname.split("/").slice(0, -1).join("/")}/${convertToBase64(
-              event.target.value
-            )}`
-          : `${pathname}/${convertToBase64(event.target.value)}`;
+      const newPathname = body
+        ? `${pathname.split("/").slice(0, -1).join("/")}/${convertToBase64(
+            event.target.value
+          )}`
+        : `${pathname}/${convertToBase64(event.target.value)}`;
 
       router.push(newPathname);
     }
@@ -172,7 +158,7 @@ const RestForm = (): React.ReactNode => {
   const handleDeleteBody = (): void => {
     bodyRemove(bodyFields.length - 1);
     setJson("");
-    if (handleDefaultValue().body && handleDefaultValue().body.length) {
+    if (body) {
       const newPathname = pathname.split("/").slice(0, -1).join("/");
       router.push(newPathname);
     }
@@ -200,14 +186,15 @@ const RestForm = (): React.ReactNode => {
     }
   };
 
-  const isDisabledAddBodyButton = (): boolean => {
-    return (
-      (typeof urlParams.method === "string" &&
-        !METHODS_WITH_BODY.includes(urlParams.method)) ||
-      bodyFields.length !== 1 ||
-      !urlParams.requestUrl ||
-      !!handleDefaultValue().body
-    );
+  const isAddBodyButtonDisabled = (): boolean => {
+    const { method: requestMethod } = urlParams;
+    const isMethodWithoutBody =
+      typeof requestMethod === "string" &&
+      !METHODS_WITH_BODY.includes(requestMethod);
+    const isUrlEmpty = !url;
+    const isBodyAlreadySet = !!body;
+
+    return isMethodWithoutBody || isUrlEmpty || isBodyAlreadySet;
   };
 
   return (
@@ -261,10 +248,9 @@ const RestForm = (): React.ReactNode => {
             <input
               {...register("url")}
               className="input"
-              type="text"
               name="url"
               id="url"
-              defaultValue={handleDefaultValue().url || ""}
+              defaultValue={url || ""}
               placeholder="https://example.com"
               onBlur={(event) => {
                 handleUrlBlur(event);
@@ -287,8 +273,7 @@ const RestForm = (): React.ReactNode => {
                   <textarea
                     className="textarea"
                     {...register(`body.${index}.value`, {
-                      validate: (value) =>
-                        (value && isJson(value)) || "Invalid JSON",
+                      validate: (value) => isJson(value),
                       onChange: (event) => handleBodyChange(event),
                       onBlur: (event) => handleBodyBlur(event),
                     })}
@@ -312,31 +297,28 @@ const RestForm = (): React.ReactNode => {
             <button
               className="button"
               type="button"
-              disabled={isDisabledAddBodyButton()}
+              disabled={isAddBodyButtonDisabled()}
               title="Please, first fill the url field"
               onClick={() => bodyAppend({ value: " " })}
             >
               {t("addBody")}
             </button>
-            {bodyFields.length > 1 || !!handleDefaultValue().body ? (
-              <>
-                <button
-                  className="button"
-                  type="button"
-                  onClick={() => handleDeleteBody()}
-                >
-                  {t("deleteBody")}
-                </button>
-                <button
-                  type="button"
-                  className="button"
-                  onClick={handlePrettyButtonClick}
-                  disabled={!!errors.body}
-                >
-                  {t("prettyJson")}
-                </button>
-              </>
-            ) : null}
+            <button
+              className="button"
+              type="button"
+              disabled={!json && !body}
+              onClick={() => handleDeleteBody()}
+            >
+              {t("deleteBody")}
+            </button>
+            <button
+              type="button"
+              className="button"
+              onClick={handlePrettyButtonClick}
+              disabled={!!errors.body || (!json && !body)}
+            >
+              {t("prettyJson")}
+            </button>
           </div>
         </div>
         <div className={`${styles.form__headers} ${styles.headers}`}>
@@ -394,7 +376,7 @@ const RestForm = (): React.ReactNode => {
           <button
             className={`${styles.form__button} button`}
             type="button"
-            disabled={handleDefaultValue().url.length < 1}
+            disabled={url.length < 1}
             onClick={() => headersAppend({ key: "", value: "" })}
           >
             {t("addHeader")}

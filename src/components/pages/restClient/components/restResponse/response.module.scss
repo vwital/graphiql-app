@@ -1,5 +1,7 @@
 .response {
   display: flex;
+  width: clamp(320px, 90vw, 768px);
+  margin: 0 auto;
   flex-direction: column;
   gap: 0.5em;
 

@@ -1,3 +1,4 @@
 const METHODS = ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS"];
+const METHODS_WITH_BODY = ["POST", "PUT", "PATCH", "DELETE"];
 
-export { METHODS };
+export { METHODS, METHODS_WITH_BODY };

@@ -8,7 +8,7 @@ import { useParams, useSearchParams } from "next/navigation";
 import { convertFromBase64, convertToBase64 } from "@/utils/convertBase64";
 import { useEffect, useState } from "react";
 import isJson from "@/utils/isJson";
-import { METHODS } from "./constants";
+import { METHODS, METHODS_WITH_BODY } from "./constants";
 import restClientFormAction from "@/app/actions/restClientFormAction";
 import { useFormState } from "react-dom";
 import { addResponse } from "@/app/lib/features/restClient/slice";
@@ -76,9 +76,21 @@ const RestForm = (): React.ReactNode => {
   const handleMethodChange = (
     event: React.ChangeEvent<HTMLSelectElement>
   ): void => {
-    const newPathname = urlParams.method
-      ? pathname.replace(`/${urlParams.method}`, `/${event.target.value}`)
-      : `${pathname}/${event.target.value}`;
+    let newPathname = "";
+    if (
+      !METHODS_WITH_BODY.includes(event.target.value) &&
+      handleDefaultValue().body
+    ) {
+      newPathname = pathname
+        .split("/")
+        .slice(0, -1)
+        .join("/")
+        .replace(`/${urlParams.method}`, `/${event.target.value}`);
+    } else {
+      newPathname = urlParams.method
+        ? pathname.replace(`/${urlParams.method}`, `/${event.target.value}`)
+        : `${pathname}/${event.target.value}`;
+    }
 
     router.push(newPathname);
   };
@@ -188,6 +200,16 @@ const RestForm = (): React.ReactNode => {
     }
   };
 
+  const isDisabledAddBodyButton = (): boolean => {
+    return (
+      (typeof urlParams.method === "string" &&
+        !METHODS_WITH_BODY.includes(urlParams.method)) ||
+      bodyFields.length !== 1 ||
+      !urlParams.requestUrl ||
+      !!handleDefaultValue().body
+    );
+  };
+
   return (
     <>
       <h2>{t("title")}</h2>
@@ -290,11 +312,7 @@ const RestForm = (): React.ReactNode => {
             <button
               className="button"
               type="button"
-              disabled={
-                bodyFields.length !== 1 ||
-                !urlParams.requestUrl ||
-                !!handleDefaultValue().body
-              }
+              disabled={isDisabledAddBodyButton()}
               title="Please, first fill the url field"
               onClick={() => bodyAppend({ value: " " })}
             >

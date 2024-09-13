@@ -7,9 +7,9 @@ const AuthorsSection = (): React.ReactNode => {
 
   return (
     <>
-      <h2>{t("authors")}</h2>
+      <h2 className={styles.welcome__title}>{t("authors")}</h2>
       <AuthorsSlider />
-      <h2>{t("aboutCourse")}</h2>
+      <h2 className={styles.welcome__title}>{t("aboutCourse")}</h2>
       <p className={styles.welcome__text}>{t("courseDescription")}</p>
       <a
         className={styles.welcome__link + " link"}

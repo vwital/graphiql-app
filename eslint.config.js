@@ -86,5 +86,11 @@ export default tseslint.config(
         },
       ],
     },
+  },
+  {
+    files: ["src/components/pages/notFound/NotFoundGeneral.tsx"],
+    rules: {
+      "no-restricted-imports": "off",
+    },
   }
 );

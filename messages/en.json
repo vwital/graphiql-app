@@ -29,7 +29,16 @@
   "ErrorPage": {
     "errorHeader": "Oops...",
     "errorMessage": "Something went wrong",
-    "errorButton": "Return to main"
+    "errorButton": "Return to main",
+    "error": "Error"
+  },
+  "NotFoundPage": {
+    "notFound": "Page not found",
+    "mainPage": "Go to main page",
+    "notFoundText": "Oops! The page you are looking for does not exist"
+  },
+  "Loading": {
+    "loadingText": "Loading..."
   },
   "Author": {
     "name": "name",

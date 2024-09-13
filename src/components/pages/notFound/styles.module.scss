@@ -1,0 +1,53 @@
+@import "@/assets/styles/abstracts/_constants.scss";
+@import "@/assets/styles/abstracts/_placeholders.scss";
+
+.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  &__title {
+    font-size: 128px;
+    margin: 0;
+  }
+
+  &__subtitle {
+    font-weight: $font-bold;
+    font-family: $font-poppins;
+    font-size: 40px;
+    line-height: 60px;
+    margin-top: 0;
+  }
+
+  &__text {
+    font-weight: $font-bold;
+    font-family: $font-poppins;
+    font-size: 30px;
+    line-height: 45px;
+    margin-top: 0;
+  }
+
+  &__link {
+    display: block;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 20px;
+    background-color: $color-button;
+    color: inherit;
+    border: 1px solid transparent;
+    padding: 1em 1.5em;
+    border-radius: 8px;
+    outline: none;
+
+    @extend %transition;
+
+    &:hover {
+      background-color: $color-hover;
+    }
+
+    &:disabled {
+      background-color: $color-disabled;
+    }
+  }
+}

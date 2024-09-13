@@ -1,27 +1,44 @@
 {
   "Header": {
-    "login": "Login",
-    "register": "Register"
+    "login": "Sign In",
+    "register": "Sign Up",
+    "logout": "Sign Out",
+    "mainPage": "Main Page"
   },
   "Main": {
     "welcome": "Welcome!",
+    "welcome-back": "Welcome Back",
     "description": "This application combines the functionality of REST and GraphiQL client. Created as part of the final task of the RS School React course",
-    "signIn": "Login",
+    "signIn": "Sign In",
     "signUp": "Sign Up",
+    "rest": "REST Client",
+    "graphiql": "GraphiQL Client",
+    "history": "History",
     "authors": "Authors",
     "aboutCourse": "About course",
     "courseDescription": "The ReactJS course from RS School is designed for both beginners and experienced developers who want to master modern web application development. The curriculum covers React fundamentals, working with components, state management, event handling, routing, and API integration. The course includes practical assignments and projects to solidify theoretical knowledge and apply it in real-world scenarios. Students will learn to build scalable and high-performance interfaces and enhance their skills with contemporary frontend development tools."
   },
   "SignInPage": {
-    "signIn": "Sign In"
+    "signIn": "Sign In",
+    "loading": "Loading..."
   },
   "SignUpPage": {
-    "signUp": "Sign Up"
+    "signUp": "Sign Up",
+    "loading": "Loading..."
   },
   "ErrorPage": {
     "errorHeader": "Oops...",
     "errorMessage": "Something went wrong",
-    "errorButton": "Return to main"
+    "errorButton": "Return to main",
+    "error": "Error"
+  },
+  "NotFoundPage": {
+    "notFound": "Page not found",
+    "mainPage": "Go to main page",
+    "notFoundText": "Oops! The page you are looking for does not exist"
+  },
+  "Loading": {
+    "loadingText": "Loading..."
   },
   "Author": {
     "name": "name",
@@ -31,17 +48,17 @@
   "Vwital": {
     "name": "Vital Ilyuchyk",
     "role": "Developer",
-    "bio": "Master in Ecology, School Teacher, Junior Frontend Developer"
+    "bio": "Master in Ecology, School Teacher, Frontend Developer"
   },
   "Panakir": {
     "name": "Kiryl Panamarou",
     "role": "Developer",
-    "bio": "Junior Frontend Developer"
+    "bio": "Frontend Developer"
   },
   "Dzehil02": {
     "name": "Aleh Dzehil",
     "role": "Developer",
-    "bio": "Junior Frontend Developer"
+    "bio": "Frontend Developer"
   },
   "GraphiQL": {
     "header": "GraphiQL Client",
@@ -72,11 +89,32 @@
     "title": "REST Client",
     "method": "Method",
     "url": "URL",
+    "responseBody": "Response body",
     "body": "Body",
     "header": "Header",
     "addHeader": "Add header",
+    "headerKey": "Header key",
+    "headerValue": "Header value",
+    "addBody": "Add body",
+    "deleteBody": "Delete body",
+    "prettyJson": "Pretty",
     "send": "Send",
+    "sending": "Sending...",
     "response": "Response",
-    "statusCode": "Status code"
+    "statusCode": "Status code",
+    "delete": "Delete",
+    "apply": "Apply"
+  },
+  "Form": {
+    "email": "Email",
+    "password": "Password",
+    "submit": "Submit",
+    "username": "Username",
+    "usernameRequired": "Name is required",
+    "usernameInvalid": "Name should start with an uppercase letter",
+    "emailRequired": "Email is required",
+    "emailInvalid": "Email is not valid",
+    "passwordRequired": "Password is required",
+    "passwordInvalid": "Password strength requirements: minimum 8 symbols, at least one letter, one digit, one special character"
   }
 }

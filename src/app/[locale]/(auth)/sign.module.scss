@@ -1,0 +1,12 @@
+@import "@/assets/styles/abstracts/constants";
+
+.sign {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__block {
+    text-align: start;
+    margin-bottom: 10px;
+  }
+}

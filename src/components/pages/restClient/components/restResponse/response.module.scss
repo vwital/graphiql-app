@@ -1,9 +1,15 @@
 .response {
   display: flex;
+  width: clamp(320px, 90vw, 768px);
+  margin: 0 auto;
   flex-direction: column;
   gap: 0.5em;
 
   &__wrapper {
     margin: 2em 0;
+  }
+
+  &__text {
+    display: inline-block;
   }
 }

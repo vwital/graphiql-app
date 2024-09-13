@@ -1,6 +1,3 @@
-import { useTranslations } from "next-intl";
-import styles from "./graphi-page.module.scss";
-
 const GraphiQlClientPage = (): React.ReactNode => {
   const t = useTranslations("GraphiQL");
   return (
@@ -72,6 +69,7 @@ const GraphiQlClientPage = (): React.ReactNode => {
       </div>
     </div>
   );
+  return <h2>GraphiQL Client Page</h2>;
 };
 
 export default GraphiQlClientPage;

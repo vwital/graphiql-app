@@ -1,8 +1,9 @@
 .welcome {
+
   &__title {
     margin: 30px;
   }
-
+  
   &__text {
     width: clamp(320px, 90%, 700px);
     text-align: center;

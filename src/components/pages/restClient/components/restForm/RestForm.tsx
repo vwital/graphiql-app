@@ -182,9 +182,14 @@ const RestForm = (): React.ReactNode => {
       const params = new URLSearchParams(searchParams);
       params.set(headerKey, headerValue);
       router.push(`${pathname}?${params.toString()}`);
-      setHeaderKey("");
-      setHeaderValue("");
     }
+  };
+
+  const handleHeaderDelete = (index: number): void => {
+    const params = new URLSearchParams(searchParams);
+    params.delete(headerKey);
+    router.push(`${pathname}?${params.toString()}`);
+    headersRemove(index);
   };
 
   const isAddBodyButtonDisabled = (): boolean => {
@@ -365,7 +370,7 @@ const RestForm = (): React.ReactNode => {
                 <button
                   className={`${styles.headers__button} button`}
                   type="button"
-                  onClick={() => headersRemove(index)}
+                  onClick={() => handleHeaderDelete(index)}
                 >
                   {t("delete")}
                 </button>

@@ -17,7 +17,8 @@ const getDefaultValue = (urlParams: Params): ReturnType => {
     defaultValues.url = convertFromBase64(url);
     defaultValues.body = body && convertFromBase64(body);
   }
-  const queryParams = new URLSearchParams(window.location.search);
+
+  const queryParams = new URLSearchParams();
   const headers: Record<string, string>[] = [];
   queryParams.forEach((value, key) => {
     headers.push({ key, value });

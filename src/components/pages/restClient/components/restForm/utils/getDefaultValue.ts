@@ -1,7 +1,13 @@
 import { convertFromBase64 } from "@/utils/convertBase64";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 
-const getDefaultValue = (urlParams: Params): { url: string; body: string } => {
+type ReturnType = {
+  headers: Record<string, string>[];
+  url: string;
+  body: string;
+};
+
+const getDefaultValue = (urlParams: Params): ReturnType => {
   const defaultValues = {
     url: "",
     body: "",
@@ -11,6 +17,11 @@ const getDefaultValue = (urlParams: Params): { url: string; body: string } => {
     defaultValues.url = convertFromBase64(url);
     defaultValues.body = body && convertFromBase64(body);
   }
-  return defaultValues;
+  const queryParams = new URLSearchParams(window.location.search);
+  const headers: Record<string, string>[] = [];
+  queryParams.forEach((value, key) => {
+    headers.push({ key, value });
+  });
+  return { ...defaultValues, headers };
 };
 export default getDefaultValue;

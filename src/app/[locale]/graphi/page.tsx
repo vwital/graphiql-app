@@ -61,7 +61,7 @@ const GraphiQlClientPage = (): React.ReactNode => {
             placeholder=""
             rows={5}
           />
-          <button>Send</button>
+          <button className="button">{t("send")}</button>
         </div>
         <h2>{t("response")}</h2>
         <p>{t("stausCode")}:</p>

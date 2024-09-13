@@ -1,0 +1,28 @@
+@import "@/assets/styles/abstracts/_constants.scss";
+
+.error-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  &__title {
+    font-size: 128px;
+    margin: 0;
+  }
+
+  &__subtitle {
+    font-weight: $font-bold;
+    font-family: $font-poppins;
+    font-size: 40px;
+    line-height: 60px;
+  }
+
+  &__text {
+    font-weight: $font-bold;
+    font-family: $font-poppins;
+    font-size: 30px;
+    line-height: 45px;
+    margin-top: 0;
+  }
+}

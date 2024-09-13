@@ -79,12 +79,21 @@
     "title": "REST Client",
     "method": "Method",
     "url": "URL",
+    "responseBody": "Response body",
     "body": "Body",
     "header": "Header",
     "addHeader": "Add header",
+    "headerKey": "Header key",
+    "headerValue": "Header value",
+    "addBody": "Add body",
+    "deleteBody": "Delete body",
+    "prettyJson": "Pretty",
     "send": "Send",
+    "sending": "Sending...",
     "response": "Response",
-    "statusCode": "Status code"
+    "statusCode": "Status code",
+    "delete": "Delete",
+    "apply": "Apply"
   },
   "Form": {
     "email": "Email",

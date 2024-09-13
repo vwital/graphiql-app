@@ -259,7 +259,7 @@ const RestForm = (): React.ReactNode => {
           </div>
         </div>
 
-        <div className={`${styles.form__body} ${styles.form__body} `}>
+        <div className={`${styles.body}`}>
           {bodyFields.map((field, index) =>
             !field.value ? null : (
               <div

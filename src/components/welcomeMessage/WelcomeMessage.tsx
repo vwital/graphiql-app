@@ -14,7 +14,9 @@ const WelcomeMessage = ({
 
   return (
     <>
-      <h2>{isAuth ? `${t("welcome-back")}, ${userName}` : t("welcome")}</h2>
+      <h2 className={styles.welcome__title}>
+        {isAuth ? `${t("welcome-back")}, ${userName}` : t("welcome")}
+      </h2>
       <p className={styles.welcome__text}>{t("description")}</p>
     </>
   );

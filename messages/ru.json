@@ -29,7 +29,16 @@
   "ErrorPage": {
     "errorHeader": "Упс...",
     "errorMessage": "Что-то пошло не так",
-    "errorButton": "На главную"
+    "errorButton": "На главную",
+    "error": "Ошибка"
+  },
+  "NotFoundPage": {
+    "notFound": "Страница не найдена",
+    "mainPage": "Вернуться на главную",
+    "notFoundText": "Упс! Страница, которую вы ищете, не существует"
+  },
+  "Loading": {
+    "loadingText": "Загрузка..."
   },
   "Author": {
     "name": "имя",

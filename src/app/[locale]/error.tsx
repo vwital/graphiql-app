@@ -1,19 +1,8 @@
 "use client";
-import { useTranslations } from "next-intl";
-import { Link } from "@/navigation";
+import ErrorPageLocale from "@/components/pages/errorPageLocale/ErrorPageLocale";
 
-const ErrorPage = (): React.ReactNode => {
-  const t = useTranslations("ErrorPage");
-
-  return (
-    <>
-      <h2>{t("errorHeader")}</h2>
-      <p>{t("errorMessage")}</p>
-      <button>
-        <Link href={"/"}> {t("errorButton")}</Link>
-      </button>
-    </>
-  );
+const ErrorPage = ({ error }: { error: Error }): JSX.Element => {
+  return <ErrorPageLocale error={error} />;
 };
 
 export default ErrorPage;

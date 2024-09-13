@@ -1,7 +1,8 @@
+import NotFoundLocale from "@/components/pages/notFound/NotFoundLocale";
 import React from "react";
 
 const NotFoundPage = (): React.ReactNode => {
-  return <h2>Not Found Page</h2>;
+  return <NotFoundLocale />;
 };
 
 export default NotFoundPage;

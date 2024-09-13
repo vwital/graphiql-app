@@ -78,6 +78,7 @@
   "RestClientPage": {
     "title": "REST Client",
     "method": "Method",
+    "chooseMethod": "Choose method",
     "url": "URL",
     "responseBody": "Response body",
     "body": "Body",

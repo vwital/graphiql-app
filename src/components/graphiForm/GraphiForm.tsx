@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { useTranslations } from "next-intl";
+import { useRouter } from "@/navigation";
 import styles from "./graphiForm.module.scss";
 
 interface FormData {
@@ -23,22 +24,35 @@ interface ErrorResponse {
 
 type ResponseData = SuccessResponse | ErrorResponse | null;
 
+const convertToBase64 = (url: string): string => btoa(url);
+const convertFromBase64 = (base64: string): string => atob(base64);
+
 const GraphiForm = (): React.ReactNode => {
   const { register, handleSubmit, watch, setValue, control } =
-    useForm<FormData>();
-  const { fields, append } = useFieldArray({
+    useForm<FormData>({
+      defaultValues: { headers: [{ key: "", value: "" }] },
+    });
+
+  const { fields, append, remove, update } = useFieldArray({
     control,
     name: "headers",
   });
 
   const t = useTranslations("GraphiQL");
+  const router = useRouter();
+
   const endpointValue = watch("endpoint");
+  const queryValue = watch("query");
+  const variablesValue = watch("variables");
+  const headersValue = watch("headers");
+
   const sdlEndpoint = watch("sdlEndpoint") || `${endpointValue}?sdl`;
 
   const [response, setResponse] = useState<ResponseData>(null);
   const [status, setStatus] = useState<number | null>(null);
   const [schema, setSchema] = useState<string | null>(null);
   const [sdlError, setSDLError] = useState<string | null>(null);
+  const [variablesVisible, setVariablesVisible] = useState<boolean>(false);
 
   const handleFormSubmit = async (data: FormData): Promise<void> => {
     const { endpoint, query, variables, headers } = data;
@@ -87,11 +101,10 @@ const GraphiForm = (): React.ReactNode => {
       setSchema(sdlData);
       setSDLError(null);
     } catch (e) {
-      setSchema(null);
-      setSDLError("Failed to load documentation");
       if (e instanceof Error) {
-        throw new Error(e.message);
+        setSDLError("Failed to load documentation");
       }
+      setSchema(null);
     }
   };
 
@@ -109,26 +122,89 @@ const GraphiForm = (): React.ReactNode => {
     setValue("sdlEndpoint", endpointValue ? `${endpointValue}?sdl` : "");
   }, [endpointValue, setValue]);
 
-  useState(() => {
+  const toggleVariablesVisibility = (): void => {
+    setVariablesVisible((prev) => !prev);
+  };
+
+  const handleAddHeader = (): void => {
     append({ key: "", value: "" });
-  });
+  };
+
+  const handleRemoveHeader = (index: number): void => {
+    remove(index);
+  };
+
+  const handleApplyHeader = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    e.preventDefault();
+    handleEncodeURL();
+  };
+
+  const handleEncodeURL = (): void => {
+    if (endpointValue && queryValue) {
+      const encodedEndpoint = convertToBase64(endpointValue);
+      const encodedBody = convertToBase64(
+        JSON.stringify({
+          query: queryValue,
+          variables: variablesValue || "{}",
+        })
+      );
+
+      const headerParams = headersValue
+        .map(({ key, value }) =>
+          key && value
+            ? `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+            : ""
+        )
+        .filter(Boolean)
+        .join("&");
+
+      const newUrl = `/GRAPHQL/${encodedEndpoint}/${encodedBody}${
+        headerParams ? `?${headerParams}` : ""
+      }`;
+      router.push(newUrl);
+    }
+  };
+
+  useEffect(() => {
+    const { pathname, searchParams } = new URL(window.location.href);
+    const parts = pathname.split("/GRAPHQL/");
+    if (parts.length === 2) {
+      const [encodedEndpoint, encodedBody] = parts[1].split("/");
+      const decodedEndpoint = convertFromBase64(encodedEndpoint);
+      const decodedBody = convertFromBase64(encodedBody);
+
+      const bodyObject = JSON.parse(decodedBody);
+      setValue("endpoint", decodedEndpoint);
+      setValue("query", bodyObject.query);
+      setValue("variables", bodyObject.variables);
+
+      searchParams.forEach((value, key) => {
+        const index = headersValue.findIndex((header) => header.key === key);
+        if (index > -1) {
+          update(index, { key, value });
+        } else {
+          append({ key, value });
+        }
+      });
+    }
+  }, []);
 
   return (
     <form
       className={styles.graphi}
       onSubmit={handleSubmit(handleFormSubmit)}
+      onKeyDown={(e) => e.key === "Enter" && e.preventDefault()}
     >
       <div className={styles.wrapper}>
         <h2>{t("header")}</h2>
-
         <label htmlFor="endpoint">{t("endpoint")}</label>
         <input
           className="input"
           id="endpoint"
           placeholder="URL"
           {...register("endpoint", { required: true })}
+          onBlur={handleEncodeURL}
         />
-
         <label htmlFor="sdlEndpoint">SDL URL</label>
         <input
           className="input"
@@ -136,7 +212,6 @@ const GraphiForm = (): React.ReactNode => {
           placeholder="SDL URL"
           {...register("sdlEndpoint")}
         />
-
         <div className={styles.headersSection}>
           <p>{t("headers")}</p>
           <div>
@@ -148,71 +223,92 @@ const GraphiForm = (): React.ReactNode => {
                 <input
                   className="input"
                   placeholder={t("key")}
-                  {...register(`headers.${index}.key`)}
+                  {...register(`headers.${index}.key` as const)}
                 />
                 <input
                   className="input"
                   placeholder={t("value")}
-                  {...register(`headers.${index}.value`)}
+                  {...register(`headers.${index}.value` as const)}
                 />
+                <div>
+                  <button
+                    type="button"
+                    className="button"
+                    onClick={() => handleRemoveHeader(index)}
+                  >
+                    {t("removeHeader")}
+                  </button>
+                  <button
+                    type="button"
+                    className="button"
+                    onClick={(e) => handleApplyHeader(e)}
+                  >
+                    {t("applyHeader")}
+                  </button>
+                </div>
               </div>
             ))}
           </div>
           <button
             type="button"
             className="button"
-            onClick={() => append({ key: "", value: "" })}
+            onClick={handleAddHeader}
           >
             {t("addHeader")}
           </button>
         </div>
-
         <label htmlFor="query">{t("query")}</label>
         <textarea
           className="input"
           {...register("query", { required: true })}
           id="query"
           rows={5}
+          onBlur={handleEncodeURL}
         />
+        <button
+          type="button"
+          className="button"
+          onClick={toggleVariablesVisibility}
+        >
+          {variablesVisible ? t("hideVariables") : t("showVariables")}
+        </button>
 
-        <label htmlFor="variables">{t("variables")}</label>
-        <textarea
-          className="input"
-          id="variables"
-          rows={5}
-          {...register("variables")}
-        />
+        {variablesVisible && (
+          <>
+            <label htmlFor="variables">{t("variables")}</label>
+            <textarea
+              className="input"
+              id="variables"
+              rows={5}
+              {...register("variables")}
+              onBlur={handleEncodeURL}
+            />
+          </>
+        )}
 
         <button
           type="submit"
           className="button"
         >
-          Send
+          {t("submit")}
         </button>
+
+        {schema && (
+          <div className={styles.sdlSchema}>
+            <h3>{t("schema")}</h3>
+            <pre>{schema}</pre>
+          </div>
+        )}
+
+        {sdlError && <p className={styles.errorMessage}>{sdlError}</p>}
+
+        {status && (
+          <div>
+            <h3>Status: {status}</h3>
+            {response && <pre>{JSON.stringify(response, null, 2)}</pre>}
+          </div>
+        )}
       </div>
-
-      {response && (
-        <div className={styles.responseSection}>
-          <h2>{t("response")}</h2>
-          <p>
-            {t("statusCode")}: {status}
-          </p>
-          <pre>{JSON.stringify(response, null, 2)}</pre>
-        </div>
-      )}
-
-      {schema && (
-        <section className={styles.documentation}>
-          <h2>{t("documentation")}</h2>
-          <pre className={styles.documentation__text}>{schema}</pre>
-        </section>
-      )}
-
-      {sdlError && (
-        <p>
-          {t("documentationError")} {sdlError}
-        </p>
-      )}
     </form>
   );
 };

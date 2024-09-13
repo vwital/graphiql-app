@@ -1,24 +1,29 @@
-import React from "react";
-import styles from "./graphiResponse.module.scss";
+"use client";
 import { useTranslations } from "next-intl";
+import styles from "./response.module.scss";
+// import { useSelector } from "react-redux";
+// import { RootState } from "@/app/lib/store";
+import { useParams } from "next/navigation";
+// import JsonViewer from "@/components/JsonViewer/JsonViewer";
 
-interface ResponseProps {
-  status: number;
-  body: object;
-}
+const RestResponse = (): React.ReactNode => {
+  const t = useTranslations("RestClientPage");
+  // const [response] = useSelector((state: RootState) => state.restClient);
+  const params = useParams();
+  if (!params.requestUrl) return null;
 
-const GraphiResponse = ({ status, body }: ResponseProps): React.ReactNode => {
-  const t = useTranslations("GraphiQL");
-
-  return (
-    <div className={styles.responseSection}>
+  return response ? (
+    <section className={styles.response__wrapper}>
       <h2>{t("response")}</h2>
-      <p>
-        {t("statusCode")}: {status}
-      </p>
-      <pre>{JSON.stringify(body, null, 2)}</pre>
-    </div>
-  );
+      <div className={styles.response}>
+        <span className={styles.response__text}>
+          {t("statusCode")}: {response.statusCode ?? 0}
+        </span>
+        <span>{t("body")}</span>
+        <JsonViewer response={response.dataFromResponse} />
+      </div>
+    </section>
+  ) : null;
 };
 
-export default GraphiResponse;
+export default RestResponse;

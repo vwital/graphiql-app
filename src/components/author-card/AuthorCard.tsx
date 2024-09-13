@@ -13,11 +13,11 @@ const AuthorCard = ({
   className: string;
 }): React.ReactNode => {
   return (
-    <div className={className}>
+    <div className={className + " " + styles.author}>
       <Image
-        className={styles["author-img"]}
+        className={styles.author__img}
         src={src}
-        alt="author-img"
+        alt="author img"
       />
       <AuthorText authorInfo={text}></AuthorText>
     </div>

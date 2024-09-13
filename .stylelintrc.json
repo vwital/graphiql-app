@@ -2,5 +2,7 @@
   "extends": ["stylelint-config-standard-scss"],
 
   "plugins": ["stylelint-scss"],
-  "rules": {}
+  "rules": {
+    "selector-class-pattern": "(^[a-z]|[A-Z0-9])[a-z]*"
+  }
 }

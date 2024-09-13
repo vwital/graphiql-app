@@ -5,9 +5,11 @@ import { useLayoutEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/navigation";
 import LocaleSwitcherButton from "../elements/LocaleSwitcherButton";
+import { useAuth } from "@/hooks/useAuth";
 
-const Header = (): React.ReactNode => {
+const Header = ({ session }: { session: string | null }): React.ReactNode => {
   const [isSticky, setIsSticky] = useState(false);
+  const { logOut } = useAuth();
   const t = useTranslations("Header");
 
   const setSticked = (): void => {
@@ -29,12 +31,28 @@ const Header = (): React.ReactNode => {
         className={`${styles.header} ${isSticky ? `${styles.header_sticky}` : null}`}
       >
         <div className={styles.header__wrapper}>
-          <h1>REST/GraphiQL Client</h1>
+          <h1>
+            <Link href={"/"}>REST/GraphiQL Client</Link>
+          </h1>
           <div className={styles.header__controls}>
             <LocaleSwitcherButton />
             <div className={styles.header__links}>
-              <Link href={"/sign-in"}>{t("login")}</Link>
-              <Link href={"/sign-up"}>{t("register")}</Link>
+              {session ? (
+                <>
+                  <Link href={"/"}>{t("mainPage")}</Link>
+                  <button
+                    className={styles.header__logout}
+                    onClick={logOut}
+                  >
+                    {t("logout")}
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link href={"/sign-in"}>{t("login")}</Link>
+                  <Link href={"/sign-up"}>{t("register")}</Link>
+                </>
+              )}
             </div>
           </div>
         </div>

@@ -31,7 +31,18 @@ const restClientFormAction = async (
   };
 
   const response = await fetch(url.toString(), options);
-  const dataFromResponse = await response.json();
+  const contentType = response.headers.get("content-type");
+  let dataFromResponse;
+
+  if (contentType === "application/json") {
+    try {
+      dataFromResponse = await response.json();
+    } catch {
+      dataFromResponse = {};
+    }
+  } else {
+    dataFromResponse = (await response.text()).split("\n");
+  }
 
   return {
     dataFromResponse,

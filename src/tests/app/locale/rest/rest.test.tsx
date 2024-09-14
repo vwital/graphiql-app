@@ -57,4 +57,37 @@ describe("RestClientPage", () => {
     ).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Send" })).toBeInTheDocument();
   });
+
+  it("should render response section with status code and response body", () => {
+    const mockResponse = {
+      statusCode: 200,
+      statusText: "OK",
+      dataFromResponse: { message: "Success" },
+    };
+
+    (useSelector as unknown as Mock).mockReturnValue([mockResponse]);
+
+    render(
+      <IntlProviderWrapper>
+        <Page />
+      </IntlProviderWrapper>
+    );
+
+    expect(screen.getByText("Status code: 200")).toBeInTheDocument();
+    expect(screen.getByText("Response body")).toBeInTheDocument();
+    expect(screen.getByText(/Success/)).toBeInTheDocument();
+  });
+
+  it("should not render response section if there is no response", () => {
+    (useSelector as unknown as Mock).mockReturnValue([]);
+
+    render(
+      <IntlProviderWrapper>
+        <Page />
+      </IntlProviderWrapper>
+    );
+
+    expect(screen.queryByText("Status Code")).not.toBeInTheDocument();
+    expect(screen.queryByText("Response Body")).not.toBeInTheDocument();
+  });
 });

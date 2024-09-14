@@ -1,12 +1,36 @@
 "use client";
-import { RootState } from "@/app/lib/store";
-import { useSelector } from "react-redux";
 
-const HistoryList = (): React.ReactNode => {
-  const historyList = useSelector((state: RootState) => state.history);
-  if (!historyList.length) return null;
+import { Link } from "@/navigation";
+import { HistoryItem } from "../../types";
+import styles from "./historyList.module.scss";
 
-  return <div>HistoryList</div>;
+const HistoryList = ({
+  historyList,
+}: {
+  historyList: HistoryItem[];
+}): React.ReactNode => {
+  return (
+    <>
+      <h2 className={styles.history__title}>History Request</h2>
+      <div className={styles.history__container}>
+        {historyList.map((item, index) => (
+          <div
+            className={styles.history__wrapper}
+            key={index}
+          >
+            <span className={styles.history__number}>#{index + 1}</span>
+            <Link
+              className={`${styles.history__link} link`}
+              href={item.href}
+            >
+              <span className={styles.history__method}>{item.method}</span>
+              <span className={styles.history__url}>{item.url}</span>
+            </Link>
+          </div>
+        ))}
+      </div>
+    </>
+  );
 };
 
 export default HistoryList;

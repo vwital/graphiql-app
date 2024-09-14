@@ -11,7 +11,7 @@ import { RegInterface } from "./types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { schemaReg } from "./schema";
-import { createSession } from "@/actions/auth-actions";
+import { createSession } from "@/app/actions/auth-actions";
 
 const RegForm = (): React.ReactNode => {
   const t = useTranslations("Form");

@@ -1,5 +1,5 @@
 import React from "react";
-import GraphiForm from "@/components/graphiForm/GraphiForm";
+import GraphiForm from "@/components/pages/graphiClient/graphiForm/GraphiForm";
 
 const GraphiClientPage = (): React.ReactNode => {
   return (

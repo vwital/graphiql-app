@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/navigation";
+import JsonViewer from "../../../JsonViewer/JsonViewer";
 import styles from "./graphiForm.module.scss";
 
 interface FormData {
@@ -33,7 +34,7 @@ const GraphiForm = (): React.ReactNode => {
       defaultValues: { headers: [{ key: "", value: "" }] },
     });
 
-  const { fields, append, remove, update } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control,
     name: "headers",
   });
@@ -150,18 +151,17 @@ const GraphiForm = (): React.ReactNode => {
       );
 
       const headerParams = headersValue
-        .map(({ key, value }) =>
-          key && value
-            ? `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
-            : ""
+        .filter(({ key, value }) => key.trim() && value.trim())
+        .map(
+          ({ key, value }) =>
+            `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
         )
-        .filter(Boolean)
         .join("&");
 
       const newUrl = `/GRAPHQL/${encodedEndpoint}/${encodedBody}${
         headerParams ? `?${headerParams}` : ""
       }`;
-      router.push(newUrl);
+      router.push(newUrl, { scroll: false });
     }
   };
 
@@ -177,17 +177,13 @@ const GraphiForm = (): React.ReactNode => {
       setValue("endpoint", decodedEndpoint);
       setValue("query", bodyObject.query);
       setValue("variables", bodyObject.variables);
+      remove();
 
       searchParams.forEach((value, key) => {
-        const index = headersValue.findIndex((header) => header.key === key);
-        if (index > -1) {
-          update(index, { key, value });
-        } else {
-          append({ key, value });
-        }
+        append({ key, value });
       });
     }
-  }, []);
+  }, [append, remove, setValue]);
 
   return (
     <form
@@ -293,19 +289,22 @@ const GraphiForm = (): React.ReactNode => {
           {t("submit")}
         </button>
 
-        {schema && (
+        {schema && !schema.includes("<!DOCTYPE") && (
           <div className={styles.sdlSchema}>
-            <h3>{t("schema")}</h3>
+            <h2>{t("documentation")}</h2>
             <pre>{schema}</pre>
           </div>
         )}
 
-        {sdlError && <p className={styles.errorMessage}>{sdlError}</p>}
+        {sdlError && <p className={styles.error}> </p>}
 
-        {status && (
-          <div>
-            <h3>Status: {status}</h3>
-            {response && <pre>{JSON.stringify(response, null, 2)}</pre>}
+        {response && (
+          <div className={styles.response}>
+            <h2>{t("response")}</h2>
+            <h3>
+              {t("statusCode")}: {status}
+            </h3>
+            <JsonViewer response={{ response }} />
           </div>
         )}
       </div>

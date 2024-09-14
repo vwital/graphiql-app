@@ -49,6 +49,7 @@
     "name": "Виталий Ильючик",
     "role": "Разработчик. Тим лид",
     "bio": "Магистр в области экологии, Frontend разработчик"
+    "bio": "Магистр в области экологии, Frontend разработчик"
   },
   "Panakir": {
     "name": "Кирилл Пономарёв",
@@ -64,16 +65,26 @@
     "header": "GraphiQL клиент",
     "endpoint": "URL конечной точки",
     "headers": "Заголовки",
-    "key": "Ключ",
-    "value": "Значение",
+    "headerKey": "Ключ",
+    "headerValue": "Значение",
     "addHeader": "Добавить заголовок",
+    "removeHeader": "Удалить заголовок",
+    "applyHeader": "Применить заголовок",
     "query": "Запрос",
     "variables": "Переменные",
     "send": "Отправить",
     "response": "Ответ",
-    "stausCode": "Статус код",
+    "statusCode": "Статус код",
     "body": "Тело",
-    "documentation": "Документация"
+    "addBody": "Добавить тело",
+    "removeBody": "Удалить тело",
+    "prettyJson": "Притереть )",
+    "documentation": "Документация",
+    "documentationError": "Ошибка загрузки документации:",
+    "showVariables": "Показать переменные",
+    "hideVariables": "Скрыть переменные",
+    "key": "ключ",
+    "value": "значение"
   },
   "RestClientPage": {
     "title": "REST клиент",
@@ -83,6 +94,8 @@
     "responseBody": "Тело запроса",
     "body": "Тело ответа",
     "header": "Заголовок",
+    "headerKey": "Ключ заголовка",
+    "headerValue": "Значение заголовка",
     "addHeader": "Добавить заголовок",
     "headerKey": "Ключ заголовка",
     "headerValue": "Значение заголовка",
@@ -92,6 +105,9 @@
     "send": "Отправить",
     "sending": "Отправка...",
     "response": "Ответ",
+    "statusCode": "Статус код ответа",
+    "delete": "Удалить",
+    "apply": "Применить",
     "statusCode": "Статус код ответа",
     "delete": "Удалить",
     "apply": "Применить"

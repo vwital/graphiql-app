@@ -226,7 +226,7 @@ const RestForm = (): React.ReactNode => {
                 disabled
                 value="default"
               >
-                {t("chooseMethod")}
+                Choose method
               </option>
               {METHODS.map((method) => (
                 <option

@@ -63,11 +63,7 @@ const RestForm = (): React.ReactNode => {
     },
   });
 
-  const {
-    fields: headersFields,
-    append: headersAppend,
-    remove: headersRemove,
-  } = useFieldArray({
+  const { fields: headersFields, append: headersAppend } = useFieldArray({
     name: "headers",
     control,
   });
@@ -183,13 +179,6 @@ const RestForm = (): React.ReactNode => {
       params.set(headerKey, headerValue);
       router.push(`${pathname}?${params.toString()}`);
     }
-  };
-
-  const handleHeaderDelete = (index: number): void => {
-    const params = new URLSearchParams(searchParams);
-    params.delete(headerKey);
-    router.push(`${pathname}?${params.toString()}`);
-    headersRemove(index);
   };
 
   const isAddBodyButtonDisabled = (): boolean => {
@@ -366,13 +355,6 @@ const RestForm = (): React.ReactNode => {
                   onClick={handleHeaderApplyClick}
                 >
                   {t("apply")}
-                </button>
-                <button
-                  className={`${styles.headers__button} button`}
-                  type="button"
-                  onClick={() => handleHeaderDelete(index)}
-                >
-                  {t("delete")}
                 </button>
               </div>
             );

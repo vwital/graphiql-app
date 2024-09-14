@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { createSession, removeSession } from "@/actions/auth-actions";
+import { createSession, removeSession } from "@/app/actions/auth-actions";
 import { redirect } from "@/navigation";
 import {
   SESSION_COOKIE_NAME,

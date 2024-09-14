@@ -7,7 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaLogin } from "./schema";
 import { app } from "@/firebase";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { createSession } from "@/actions/auth-actions";
+import { createSession } from "@/app/actions/auth-actions";
 
 const LoginForm = (): React.ReactNode => {
   const t = useTranslations("Form");

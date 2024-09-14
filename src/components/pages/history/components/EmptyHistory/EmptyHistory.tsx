@@ -2,6 +2,7 @@
 
 import { Link } from "@/navigation";
 import styles from "./emptyHistory.module.scss";
+import { useTranslations } from "next-intl";
 
 const LinksList = [
   { href: "/rest", name: "REST Client" },
@@ -9,11 +10,11 @@ const LinksList = [
 ];
 
 const EmptyHistory = (): React.ReactNode => {
+  const t = useTranslations("HistoryPage");
+
   return (
     <section>
-      <h2 className={styles.history__title}>
-        You haven't executed any requests. It's empty here. Try:
-      </h2>
+      <h2 className={styles.history__title}>{t("historyEmptyTitle")}</h2>
       <div className={styles.history__links}>
         {LinksList.map((link, index) => (
           <Link

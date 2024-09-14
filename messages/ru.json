@@ -107,6 +107,10 @@
     "delete": "Удалить",
     "apply": "Применить"
   },
+  "HistoryPage": {
+    "historyRequestTitle": "История запросов",
+    "historyEmptyTitle": "Вы не выполнили ни одного запроса.  Попробуйте:"
+  },
   "Form": {
     "email": "Почта",
     "password": "Пароль",

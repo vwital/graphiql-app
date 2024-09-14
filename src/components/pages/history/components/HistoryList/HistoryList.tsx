@@ -3,15 +3,17 @@
 import { Link } from "@/navigation";
 import { HistoryItem } from "../../types";
 import styles from "./historyList.module.scss";
+import { useTranslations } from "next-intl";
 
 const HistoryList = ({
   historyList,
 }: {
   historyList: HistoryItem[];
 }): React.ReactNode => {
+  const t = useTranslations("HistoryPage");
   return (
     <>
-      <h2 className={styles.history__title}>History Request</h2>
+      <h2 className={styles.history__title}>{t("historyRequestTitle")}</h2>
       <div className={styles.history__container}>
         {historyList.map((item, index) => (
           <div

@@ -17,7 +17,13 @@
   &__wrapper {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     gap: 1.5em;
+  }
+
+  &__number {
+    font-weight: bold;
+    width: 1.5em;
   }
 
   &__link {

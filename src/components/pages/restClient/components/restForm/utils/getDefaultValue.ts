@@ -1,6 +1,7 @@
 import { convertFromBase64 } from "@/utils/convertBase64";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 
+
 type ReturnType = {
   headers: Record<string, string>[];
   url: string;
@@ -8,6 +9,7 @@ type ReturnType = {
 };
 
 const getDefaultValue = (urlParams: Params): ReturnType => {
+
   const defaultValues = {
     url: "",
     body: "",
@@ -24,5 +26,6 @@ const getDefaultValue = (urlParams: Params): ReturnType => {
     headers.push({ key, value });
   });
   return { ...defaultValues, headers };
+
 };
 export default getDefaultValue;

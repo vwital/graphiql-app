@@ -1,6 +1,7 @@
 const GithubLogo = (): React.ReactNode => {
   return (
     <svg
+      data-testid="github-logo"
       width="50"
       height="50"
       viewBox="0 0 50 50"

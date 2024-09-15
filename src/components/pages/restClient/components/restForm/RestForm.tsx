@@ -36,7 +36,7 @@ const RestForm = (): React.ReactNode => {
   const [state, submitAction] = useFormState(restClientFormAction, null);
   const dispatch = useDispatch();
 
-  const { body } = getDefaultValue(urlParams);
+  const { body, headers } = getDefaultValue(urlParams);
 
   useEffect(() => {
     if (state !== null) {
@@ -59,14 +59,11 @@ const RestForm = (): React.ReactNode => {
           value: body ?? null,
         },
       ],
+      headers: [...headers],
     },
   });
 
-  const {
-    fields: headersFields,
-    append: headersAppend,
-    remove: headersRemove,
-  } = useFieldArray({
+  const { fields: headersFields, append: headersAppend } = useFieldArray({
     name: "headers",
     control,
   });
@@ -181,8 +178,6 @@ const RestForm = (): React.ReactNode => {
       const params = new URLSearchParams(searchParams);
       params.set(headerKey, headerValue);
       router.push(`${pathname}?${params.toString()}`);
-      setHeaderKey("");
-      setHeaderValue("");
     }
   };
 
@@ -336,9 +331,8 @@ const RestForm = (): React.ReactNode => {
                     {...register(`headers.${index}.key`)}
                     className={`${styles.headers__input} input`}
                     type="text"
-                    name={`headerKey-${index}`}
                     id={`headerKey-${index}`}
-                    value={headerKey}
+                    defaultValue={field.key}
                     onChange={(event) => handleHeaderKeyChange(event)}
                   />
                 </label>
@@ -350,9 +344,8 @@ const RestForm = (): React.ReactNode => {
                     {...register(`headers.${index}.value`)}
                     className={`${styles.headers__input} input`}
                     type="text"
-                    name={`headerValue-${index}`}
                     id={`headerValue-${index}`}
-                    value={headerValue}
+                    defaultValue={field.value}
                     onChange={(event) => handleHeaderValueChange(event)}
                   />
                 </label>
@@ -362,13 +355,6 @@ const RestForm = (): React.ReactNode => {
                   onClick={handleHeaderApplyClick}
                 >
                   {t("apply")}
-                </button>
-                <button
-                  className={`${styles.headers__button} button`}
-                  type="button"
-                  onClick={() => headersRemove(index)}
-                >
-                  {t("delete")}
                 </button>
               </div>
             );

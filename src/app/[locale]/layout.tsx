@@ -1,11 +1,11 @@
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import "@/assets/styles/main.scss";
-import Footer from "@/components/footer/Footer";
-import Header from "@/components/header/Header";
+import Footer from "@/components/layouts/footer/Footer";
 import { cookies } from "next/headers";
 import { SESSION_COOKIE_NAME } from "@/constants/constants";
 import StoreProvider from "../StoreProvider";
+import Header from "@/components/layouts/header/Header";
 
 export const metadata = {
   title: "JSXSquad team",

@@ -1,4 +1,4 @@
-import Footer from "@/components/footer/Footer";
+import Footer from "@/components/layouts/footer/Footer";
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 

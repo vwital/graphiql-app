@@ -4,8 +4,8 @@ import styles from "./header.module.scss";
 import { useLayoutEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/navigation";
-import LocaleSwitcherButton from "../elements/LocaleSwitcherButton";
 import { useAuth } from "@/hooks/useAuth";
+import LocaleSwitcherButton from "@/components/elements/localeSwitcher/LocaleSwitcherButton";
 
 const Header = ({ session }: { session: string | null }): React.ReactNode => {
   const [isSticky, setIsSticky] = useState(false);

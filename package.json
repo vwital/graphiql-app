@@ -19,8 +19,8 @@
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
     "@reduxjs/toolkit": "^2.2.7",
-    "firebase": "^9.2.0",
     "@uiw/react-json-view": "^2.0.0-alpha.27",
+    "firebase": "^9.2.0",
     "next": "^14.2.5",
     "next-intl": "^3.17.4",
     "react": "^18.3.1",
@@ -41,7 +41,7 @@
     "eslint": "^9.9.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
-    "eslint-plugin-react-compiler": "^0.0.0-experimental-eeb1b2a-20240818",
+    "eslint-plugin-react-compiler": "^0.0.0-experimental-75b9fd4-20240912",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.9",
     "globals": "^15.9.0",

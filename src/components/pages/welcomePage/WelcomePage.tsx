@@ -1,6 +1,6 @@
-import WelcomeMessage from "@/components/welcomeMessage/WelcomeMessage";
-import ActionButtons from "@/components/actionButtons/ActionButtons";
-import AuthorsSection from "@/components/authorsSection/AuthorsSection";
+import WelcomeMessage from "@/components/pages/welcomePage/components/welcomeMessage/WelcomeMessage";
+import ActionButtons from "@/components/pages/welcomePage/components/actionButtons/ActionButtons";
+import AuthorsSection from "@/components/pages/welcomePage/components/authorsSection/AuthorsSection";
 import styles from "./styles.module.scss";
 import { cookies } from "next/headers";
 import {
@@ -27,4 +27,3 @@ const WelcomePage = (): React.ReactNode => {
 };
 
 export default WelcomePage;
-

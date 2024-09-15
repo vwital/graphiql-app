@@ -1,5 +1,5 @@
-import { GithubLogo } from "../elements/GithubLogo";
-import { RSSchoolLogo } from "../elements/RSSchoolLogo";
+import { GithubLogo } from "../../elements/GithubLogo";
+import { RSSchoolLogo } from "../../elements/RSSchoolLogo";
 import styles from "./footer.module.scss";
 
 const Footer = (): React.ReactNode => {

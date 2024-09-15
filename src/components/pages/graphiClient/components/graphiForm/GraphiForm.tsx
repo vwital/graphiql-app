@@ -44,7 +44,6 @@ const GraphForm = (): React.ReactNode => {
   const dispatch = useDispatch();
 
   const { url, headers, query } = getDefaultValue(urlParams, searchParams);
-  const { url, headers, query } = getDefaultValue(urlParams, searchParams);
   if (!url) dispatch(getDocs(null));
 
   const { register, handleSubmit, watch, setValue, control } =

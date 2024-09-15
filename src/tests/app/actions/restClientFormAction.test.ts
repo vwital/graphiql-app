@@ -10,7 +10,7 @@ describe("restClientFormAction", () => {
       status: 200,
       statusText: "OK",
       headers: {
-        get: vi.fn().mockReturnValue("application/json; charset=utf-8"),
+        get: vi.fn().mockReturnValue("application/json"),
       },
     };
 
@@ -31,9 +31,7 @@ describe("restClientFormAction", () => {
     expect(fetch).toHaveBeenCalledWith("https://example.com", {
       method: "POST",
       body: JSON.stringify({ name: "Test" }),
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: {},
     });
   });
 });

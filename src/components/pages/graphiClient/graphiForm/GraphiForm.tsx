@@ -3,9 +3,10 @@
 import React, { useEffect, useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { useTranslations } from "next-intl";
-import { useRouter } from "@/navigation";
+import { useRouter, usePathname } from "@/navigation";
 import JsonViewer from "../../../JsonViewer/JsonViewer";
 import styles from "./graphiForm.module.scss";
+import { convertFromBase64, convertToBase64 } from "@/utils/convertBase64";
 
 interface FormData {
   endpoint: string;
@@ -25,9 +26,6 @@ interface ErrorResponse {
 
 type ResponseData = SuccessResponse | ErrorResponse | null;
 
-const convertToBase64 = (url: string): string => btoa(url);
-const convertFromBase64 = (base64: string): string => atob(base64);
-
 const GraphiForm = (): React.ReactNode => {
   const { register, handleSubmit, watch, setValue, control } =
     useForm<FormData>({
@@ -41,14 +39,12 @@ const GraphiForm = (): React.ReactNode => {
 
   const t = useTranslations("GraphiQL");
   const router = useRouter();
-
+  const path = usePathname();
   const endpointValue = watch("endpoint");
   const queryValue = watch("query");
   const variablesValue = watch("variables");
   const headersValue = watch("headers");
-
   const sdlEndpoint = watch("sdlEndpoint") || `${endpointValue}?sdl`;
-
   const [response, setResponse] = useState<ResponseData>(null);
   const [status, setStatus] = useState<number | null>(null);
   const [schema, setSchema] = useState<string | null>(null);
@@ -57,6 +53,14 @@ const GraphiForm = (): React.ReactNode => {
 
   const handleFormSubmit = async (data: FormData): Promise<void> => {
     const { endpoint, query, variables, headers } = data;
+    const dataForLocalStorage = JSON.stringify({
+      url: endpoint,
+      method: "GRAPHQL",
+      href: path,
+    });
+
+    const id = `history-${Date.now().toString()}`;
+    localStorage.setItem(id, dataForLocalStorage);
 
     try {
       const headersObject = headers.reduce(

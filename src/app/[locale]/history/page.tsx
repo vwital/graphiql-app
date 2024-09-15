@@ -1,5 +1,7 @@
-const HistoryPage = (): React.ReactNode => {
-  return <h2>History Page</h2>;
+import HistoryPage from "@/components/pages/history/HistoryPage";
+
+const Page = (): React.ReactNode => {
+  return <HistoryPage />;
 };
 
-export default HistoryPage;
+export default Page;

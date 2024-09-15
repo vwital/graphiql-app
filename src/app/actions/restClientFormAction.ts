@@ -21,12 +21,12 @@ const restClientFormAction = async (
     }
     return result;
   };
-  
+
   const options = {
     method: method.toString(),
     body: body ?? null,
     headers: {
-      ...createHeader()
+      ...createHeader(),
     },
   };
 

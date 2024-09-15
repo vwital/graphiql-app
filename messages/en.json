@@ -88,6 +88,7 @@
   "RestClientPage": {
     "title": "REST Client",
     "method": "Method",
+    "chooseMethod": "Choose method",
     "url": "URL",
     "responseBody": "Response body",
     "body": "Body",
@@ -104,6 +105,10 @@
     "statusCode": "Status code",
     "delete": "Delete",
     "apply": "Apply"
+  },
+  "HistoryPage": {
+    "historyRequestTitle": "History Request",
+    "historyEmptyTitle": "You haven't executed any requests. Try:"
   },
   "Form": {
     "email": "Email",

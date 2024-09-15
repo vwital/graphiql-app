@@ -52,7 +52,7 @@ const Header = ({ session }: { session: string | null }): React.ReactNode => {
                       key={link.name}
                       href={link.href}
                     >
-                      {link.name}
+                      {t(link.name)}
                     </Link>
                   ))}
                 </>

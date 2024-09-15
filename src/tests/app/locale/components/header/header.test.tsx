@@ -1,5 +1,5 @@
 import LocaleSwitcherButton from "@/components/elements/localeSwitcher/LocaleSwitcherButton";
-import Header from "@/components/header/Header";
+import Header from "@/components/layouts/header/Header";
 import { IntlProviderWrapper } from "@/tests/utils/test-utils";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";

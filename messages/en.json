@@ -1,7 +1,7 @@
 {
   "Header": {
-    "login": "Sign In",
-    "register": "Sign Up",
+    "Sign In": "Sign In",
+    "Sign Up": "Sign Up",
     "logout": "Sign Out",
     "mainPage": "Main Page"
   },

@@ -36,13 +36,13 @@ const RestForm = (): React.ReactNode => {
   const [state, submitAction] = useFormState(restClientFormAction, null);
   const dispatch = useDispatch();
 
-  const { body, headers } = getDefaultValue(urlParams);
+  const { body, headers } = getDefaultValue(urlParams, searchParams);
 
   useEffect(() => {
     if (state !== null) {
       dispatch(addResponse(state));
     }
-    const { url } = getDefaultValue(urlParams);
+    const { url } = getDefaultValue(urlParams, searchParams);
 
     setUrl(url);
   }, [state]);
@@ -59,7 +59,7 @@ const RestForm = (): React.ReactNode => {
           value: body ?? null,
         },
       ],
-      headers: [...headers],
+      headers: headers ? [...headers] : [{ key: "", value: "" }],
     },
   });
 

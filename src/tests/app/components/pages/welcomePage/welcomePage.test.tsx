@@ -48,7 +48,7 @@ describe("WelcomePage", () => {
     );
 
     expect(screen.getByText("REST Client")).toBeInTheDocument();
-    expect(screen.getByText("GraphiQL Client")).toBeInTheDocument();
+    expect(screen.getByText("GraphQL Client")).toBeInTheDocument();
     expect(screen.getByText("History")).toBeInTheDocument();
   });
 

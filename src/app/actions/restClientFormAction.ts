@@ -13,10 +13,17 @@ const restClientFormAction = async (
 
   const createHeader = (): Record<string, string> => {
     const result: Record<string, string> = {};
-    const headerValues = Object.values(headers);
-    for (let i = 0; i < headerValues.length; i++) {
+    const arrHeaderValues: string[] = [];
+    const sorted = Object.keys(headers).filter((key) =>
+      key.startsWith("headers")
+    );
+    sorted.map((key) => {
+      arrHeaderValues.push(`${headers[key]}`.trim());
+    });
+
+    for (let i = 0; i < arrHeaderValues.length; i++) {
       if (i % 2 === 0) {
-        result[`${headerValues[i]}`] = `${headerValues[i + 1]}`;
+        result[arrHeaderValues[i]] = arrHeaderValues[i + 1];
       }
     }
     return result;
@@ -31,17 +38,18 @@ const restClientFormAction = async (
   };
 
   const response = await fetch(url.toString(), options);
-  const contentType = response.headers.get("content-type");
+  const contentType = response.headers.get("Content-Type");
   let dataFromResponse;
-
-  if (contentType === "application/json") {
+  if (contentType && contentType.includes("application/json")) {
     try {
       dataFromResponse = await response.json();
     } catch {
       dataFromResponse = {};
     }
-  } else {
+  } else if (contentType && contentType.includes("text/")) {
     dataFromResponse = (await response.text()).split("\n");
+  } else {
+    dataFromResponse = {};
   }
 
   return {

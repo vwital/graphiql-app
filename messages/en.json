@@ -8,7 +8,7 @@
   "Main": {
     "welcome": "Welcome!",
     "welcome-back": "Welcome Back",
-    "description": "This application combines the functionality of REST and GraphiQL client. Created as part of the final task of the RS School React course",
+    "description": "This application combines the functionality of REST and GraphQL client. Created as part of the final task of the RS School React course",
     "signIn": "Sign In",
     "signUp": "Sign Up",
     "rest": "REST Client",
@@ -60,8 +60,8 @@
     "role": "Developer",
     "bio": "Frontend Developer"
   },
-  "GraphiQL": {
-    "header": "GraphiQL Client",
+  "GraphQL": {
+    "header": "GraphQL Client",
     "endpoint": "Endpoint URL",
     "headers": "Headers",
     "headerKey": "Header key",

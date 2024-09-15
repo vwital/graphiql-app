@@ -1,10 +1,12 @@
 import { configureStore, EnhancedStore } from "@reduxjs/toolkit";
 import restClient from "./features/restClient/slice";
+import graphClient from "./features/graphClient/slice";
 
 const store = (): EnhancedStore =>
   configureStore({
     reducer: {
       restClient: restClient.reducer,
+      graphClient: graphClient.reducer,
     },
   });
 

@@ -43,7 +43,7 @@ const GraphForm = (): React.ReactNode => {
   const searchParams = useSearchParams();
   const dispatch = useDispatch();
 
-  const { url, headers } = getDefaultValue(urlParams, searchParams);
+  const { url, headers, query } = getDefaultValue(urlParams, searchParams);
   if (!url) dispatch(getDocs(null));
 
   const { register, handleSubmit, watch, setValue, control } =
@@ -283,7 +283,8 @@ const GraphForm = (): React.ReactNode => {
           className="input"
           {...register("query", { required: true })}
           id="query"
-          rows={5}
+          defaultValue={query.replace(/\\n/g, "\n")}
+          rows={10}
           onBlur={handleEncodeURL}
         />
         <button

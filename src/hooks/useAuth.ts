@@ -1,4 +1,4 @@
-import { removeSession } from "@/actions/auth-actions";
+import { removeSession } from "@/app/actions/auth-actions";
 import { TOKEN_EXPIRATION_SUBTRACT } from "@/constants/constants";
 import { app } from "@/firebase";
 import { useRouter } from "@/navigation";

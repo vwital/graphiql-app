@@ -71,7 +71,7 @@
     "applyHeader": "Применить заголовок",
     "query": "Запрос",
     "variables": "Переменные",
-    "submit": "Отпрвыить",
+    "send": "Отправить",
     "response": "Ответ",
     "statusCode": "Статус код",
     "body": "Тело",
@@ -83,11 +83,13 @@
     "showVariables": "Показать переменные",
     "hideVariables": "Скрыть переменные",
     "key": "ключ",
-    "value": "значение"
+    "value": "значение",
+    "submit": "Отправить"
   },
   "RestClientPage": {
     "title": "REST клиент",
     "method": "Метод",
+    "chooseMethod": "Выберите метод",
     "url": "Адрес",
     "responseBody": "Тело запроса",
     "body": "Тело ответа",
@@ -95,15 +97,19 @@
     "headerKey": "Ключ заголовка",
     "headerValue": "Значение заголовка",
     "addHeader": "Добавить заголовок",
-    "addBody": "Добавить тело запроса",
-    "deleteBody": "Удалить тело запроса",
-    "prettyJson": "Красота",
+    "addBody": "Добавить тело",
+    "deleteBody": "Удалить тело",
+    "prettyJson": "Представить в формате JSON",
     "send": "Отправить",
     "sending": "Отправка...",
     "response": "Ответ",
     "statusCode": "Статус код ответа",
     "delete": "Удалить",
     "apply": "Применить"
+  },
+  "HistoryPage": {
+    "historyRequestTitle": "История запросов",
+    "historyEmptyTitle": "Вы не выполнили ни одного запроса.  Попробуйте:"
   },
   "Form": {
     "email": "Почта",

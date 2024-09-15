@@ -15,6 +15,7 @@ const getDefaultValue = (
     url: "",
     body: "",
   };
+
   if (urlParams.requestUrl) {
     const [url, body] = urlParams.requestUrl;
     defaultValues.url = convertFromBase64(url);

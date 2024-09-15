@@ -56,6 +56,7 @@ const LoginForm = (): React.ReactNode => {
         className={styles.form__input}
         type="text"
         placeholder={t("email")}
+        defaultValue={"test@tet.tst"}
         {...register("email")}
       />
       {errors.email && (
@@ -66,6 +67,7 @@ const LoginForm = (): React.ReactNode => {
         className={styles.form__input}
         type="password"
         placeholder={t("password")}
+        defaultValue={"123!Qwerty"}
         {...register("password")}
       />
       {errors.password && (

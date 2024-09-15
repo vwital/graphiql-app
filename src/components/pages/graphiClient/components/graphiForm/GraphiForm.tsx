@@ -4,12 +4,14 @@ import React, { useEffect, useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { useTranslations } from "next-intl";
 import { useRouter, usePathname } from "@/navigation";
-import JsonViewer from "../../../JsonViewer/JsonViewer";
 import styles from "./graphiForm.module.scss";
 import { convertFromBase64, convertToBase64 } from "@/utils/convertBase64";
-import { QUERY_FOR_GRAPHQL } from "../constants";
 import { useParams, useSearchParams } from "next/navigation";
 import getDefaultValue from "./utils/getDefaultValues";
+import { useDispatch } from "react-redux";
+import { getDocs } from "@/app/lib/features/graphClient/slice";
+import JsonViewer from "@/components/JsonViewer/JsonViewer";
+import { QUERY_FOR_GRAPHQL } from "../../constants";
 
 interface FormData {
   endpoint: string;
@@ -39,9 +41,10 @@ const GraphForm = (): React.ReactNode => {
   const [variablesVisible, setVariablesVisible] = useState<boolean>(false);
   const urlParams = useParams();
   const searchParams = useSearchParams();
-  const [schema, setSchema] = useState<string | null>(null);
+  const dispatch = useDispatch();
 
   const { url, headers } = getDefaultValue(urlParams, searchParams);
+  if (!url) dispatch(getDocs(null));
 
   const { register, handleSubmit, watch, setValue, control } =
     useForm<FormData>({
@@ -117,7 +120,8 @@ const GraphForm = (): React.ReactNode => {
         throw new Error("Failed to fetch SDL");
       }
       const sdlData = await response.text();
-      setSchema(sdlData);
+      dispatch(getDocs(sdlData));
+
       setSDLError(null);
     } catch (e) {
       if (e instanceof Error) {
@@ -171,7 +175,7 @@ const GraphForm = (): React.ReactNode => {
         )
         .join("&");
 
-      const newUrl = `/GRAPHQL/${encodedEndpoint}/${encodedBody}${
+      const newUrl = `/graph/${encodedEndpoint}/${encodedBody}${
         headerParams ? `?${headerParams}` : ""
       }`;
       router.push(newUrl, { scroll: false });
@@ -310,13 +314,6 @@ const GraphForm = (): React.ReactNode => {
           {t("submit")}
         </button>
 
-        {schema && !schema.includes("<!DOCTYPE") && (
-          <div className={styles.sdlSchema}>
-            <h2>{t("documentation")}</h2>
-            <JsonViewer response={JSON.parse(schema)} />
-          </div>
-        )}
-
         {sdlError && <p className={styles.error}> </p>}
 
         {response && (
@@ -325,7 +322,10 @@ const GraphForm = (): React.ReactNode => {
             <h3>
               {t("statusCode")}: {status}
             </h3>
-            <JsonViewer response={{ response }} />
+            <JsonViewer
+              collapsed={false}
+              response={{ response }}
+            />
           </div>
         )}
       </div>

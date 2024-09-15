@@ -1,10 +1,13 @@
 import React from "react";
-import GraphForm from "@/components/pages/graphiClient/graphiForm/GraphiForm";
+import GraphDocsViewer from "./components/graphDocs/GraphDocsViewer";
+import styles from "./graph.module.scss";
+import GraphForm from "./components/graphiForm/GraphiForm";
 
 const GraphiClientPage = (): React.ReactNode => {
   return (
-    <section>
+    <section className={styles.graphClient}>
       <GraphForm />
+      <GraphDocsViewer />
     </section>
   );
 };

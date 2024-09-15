@@ -3,6 +3,9 @@ import { IntlProviderWrapper } from "@/tests/utils/test-utils";
 import { Mock } from "vitest";
 import RestForm from "@/components/pages/restClient/components/restForm/RestForm";
 import { useParams } from "next/navigation";
+import Page from "@/app/[locale]/rest/page";
+import PageUrl from "@/app/[locale]/rest/[method]/[[...requestUrl]]/page";
+import { useSelector } from "react-redux";
 
 const mockRouterPush = vi.fn();
 
@@ -43,6 +46,32 @@ describe("RestForm", () => {
       method: "GET",
       requestUrl: ["encodedUrl", "encodedBody"],
     });
+  });
+
+  it("render rest page", () => {
+    (useParams as Mock).mockReturnValue({});
+    (useSelector as unknown as Mock).mockReturnValue([]);
+
+    render(
+      <IntlProviderWrapper>
+        <Page />
+      </IntlProviderWrapper>
+    );
+
+    expect(screen.getByText("REST Client")).toBeInTheDocument();
+  });
+
+  it("render rest page with url", () => {
+    (useParams as Mock).mockReturnValue({});
+    (useSelector as unknown as Mock).mockReturnValue([]);
+
+    render(
+      <IntlProviderWrapper>
+        <PageUrl />
+      </IntlProviderWrapper>
+    );
+
+    expect(screen.getByText("REST Client")).toBeInTheDocument();
   });
 
   it("should render the form with default values", () => {

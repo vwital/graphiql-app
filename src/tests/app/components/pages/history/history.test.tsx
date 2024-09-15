@@ -5,6 +5,7 @@ import { IntlProviderWrapper } from "@/tests/utils/test-utils";
 import HistoryList from "@/components/pages/history/components/HistoryList/HistoryList";
 import { HistoryItem } from "@/components/pages/history/types";
 import { generateHistoryList } from "@/components/pages/history/utils/generateHistoryList";
+import Page from "@/app/[locale]/history/page";
 
 vi.mock("next/image", () => ({
   __esModule: true,
@@ -21,6 +22,21 @@ describe("HistoryPage", () => {
 
     expect(
       getByText("You haven't executed any requests. Try:")
+    ).toBeInTheDocument();
+  });
+
+  it("render history page", () => {
+    render(
+      <IntlProviderWrapper>
+        <Page />
+      </IntlProviderWrapper>
+    );
+
+    expect(
+      screen.getByText("You haven't executed any requests. Try:")
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: "REST Client" })
     ).toBeInTheDocument();
   });
 

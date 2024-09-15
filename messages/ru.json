@@ -43,22 +43,16 @@
   "Author": {
     "name": "имя",
     "role": "роль",
-    "bio": "о себе"
-  },
-  "Vwital": {
-    "name": "Виталий Ильючик",
-    "role": "Разработчик. Тим лид",
-    "bio": "Магистр в области экологии, Frontend разработчик"
-  },
-  "Panakir": {
-    "name": "Кирилл Пономарёв",
-    "role": "Разработчик",
-    "bio": "Frontend разработчик"
-  },
-  "Dzehil02": {
-    "name": "Олег Дегиль",
-    "role": "Разработчик",
-    "bio": "Frontend разработчик"
+    "bio": "о себе",
+    "vwitalName": "Виталий Ильючик",
+    "vwitalRole": "Разработчик. Тим лид",
+    "vwitalBio": "Магистр в области экологии, Frontend разработчик",
+    "panakirName": "Кирилл Пономарёв",
+    "panakirRole": "Разработчик",
+    "panakirBio": "Frontend разработчик",
+    "dzehil02Name": "Олег Дегиль",
+    "dzehil02Role": "Разработчик",
+    "dzehil02Bio": "Frontend разработчик"
   },
   "GraphQL": {
     "header": "GraphQL клиент",

@@ -13,7 +13,7 @@ const AuthorCard = ({
   className: string;
 }): React.ReactNode => {
   return (
-    <div className={className + " " + styles.author}>
+    <div className={`${className} ${styles.author}`}>
       <Image
         className={styles.author__img}
         src={src}

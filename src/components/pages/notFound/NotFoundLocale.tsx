@@ -6,12 +6,12 @@ import styles from "./styles.module.scss";
 const NotFoundLocale = (): React.ReactNode => {
   const t = useTranslations("NotFoundPage");
   return (
-    <div className={styles["not-found"]}>
-      <h1 className={styles["not-found__title"]}>404</h1>
-      <h2 className={styles["not-found__subtitle"]}>{t("notFound")}</h2>
-      <p className={styles["not-found__text"]}>{t("notFoundText")}</p>
+    <div className={styles.notFound}>
+      <h1 className={styles.notFound__title}>404</h1>
+      <h2 className={styles.notFound__subtitle}>{t("notFound")}</h2>
+      <p className={styles.notFound__text}>{t("notFoundText")}</p>
       <Link
-        className={styles["not-found__link"]}
+        className={styles.notFound__link}
         href="/"
       >
         {t("mainPage")}

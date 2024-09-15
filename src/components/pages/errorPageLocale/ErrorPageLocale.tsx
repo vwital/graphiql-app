@@ -7,11 +7,11 @@ const ErrorPageLocale = ({ error }: { error: Error }): JSX.Element => {
   const t = useTranslations("ErrorPage");
 
   return (
-    <div className={styles["error-page"]}>
-      <h1 className={styles["error-page__title"]}>{t("errorHeader")}</h1>
-      <h2 className={styles["error-page__subtitle"]}>{t("errorMessage")}</h2>
+    <div className={styles.errorPage}>
+      <h1 className={styles.errorPage__title}>{t("errorHeader")}</h1>
+      <h2 className={styles.errorPage__subtitle}>{t("errorMessage")}</h2>
 
-      <p className={styles["error-page__text"]}>
+      <p className={styles.errorPage__text}>
         {t("error")}: {error.message}
       </p>
 

@@ -43,22 +43,16 @@
   "Author": {
     "name": "name",
     "role": "role",
-    "bio": "bio"
-  },
-  "Vwital": {
-    "name": "Vital Ilyuchyk",
-    "role": "Developer",
-    "bio": "Master in Ecology, School Teacher, Frontend Developer"
-  },
-  "Panakir": {
-    "name": "Kiryl Panamarou",
-    "role": "Developer",
-    "bio": "Frontend Developer"
-  },
-  "Dzehil02": {
-    "name": "Aleh Dzehil",
-    "role": "Developer",
-    "bio": "Frontend Developer"
+    "bio": "bio",
+    "vwitalName": "Vital Ilyuchyk",
+    "vwitalRole": "Developer, Team Lead",
+    "vwitalBio": "Master in Ecology, School Teacher, Frontend Developer",
+    "panakirName": "Kiryl Panamarou",
+    "panakirRole": "Developer",
+    "panakirBio": "Frontend Developer",
+    "dzehil02Name": "Aleh Dzehil",
+    "dzehil02Role": "Developer",
+    "dzehil02Bio": "Frontend Developer"
   },
   "GraphQL": {
     "header": "GraphQL Client",

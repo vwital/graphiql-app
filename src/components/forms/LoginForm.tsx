@@ -53,7 +53,7 @@ const LoginForm = (): React.ReactNode => {
     >
       <label className={styles.form__label}>{t("email")}</label>
       <input
-        className={styles.form__input}
+        className={`${styles.form__input} input`}
         type="text"
         placeholder={t("email")}
         {...register("email")}
@@ -63,7 +63,7 @@ const LoginForm = (): React.ReactNode => {
       )}
       <label className={styles.form__label}>{t("password")}</label>
       <input
-        className={styles.form__input}
+        className={`${styles.form__input} input`}
         type="password"
         placeholder={t("password")}
         {...register("password")}
@@ -72,7 +72,7 @@ const LoginForm = (): React.ReactNode => {
         <p className={styles.form__error}>{t(errors.password.message)}</p>
       )}
       <button
-        className={styles.form__button}
+        className="button"
         type="submit"
       >
         {t("submit")}

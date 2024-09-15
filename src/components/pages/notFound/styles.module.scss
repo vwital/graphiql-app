@@ -1,7 +1,7 @@
-@import "@/assets/styles/abstracts/_constants.scss";
-@import "@/assets/styles/abstracts/_placeholders.scss";
+@import "@/assets/styles/abstracts/constants";
+@import "@/assets/styles/abstracts/placeholders";
 
-.not-found {
+.notFound {
   display: flex;
   flex-direction: column;
   align-items: center;

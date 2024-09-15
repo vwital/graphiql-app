@@ -4,8 +4,9 @@ import styles from "./header.module.scss";
 import { useLayoutEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/navigation";
-import LocaleSwitcherButton from "../elements/LocaleSwitcherButton";
 import { useAuth } from "@/hooks/useAuth";
+import LocaleSwitcherButton from "@/components/elements/localeSwitcher/LocaleSwitcherButton";
+import { NOT_AUTH_LINKS, STICKY_SCROLL } from "./constants";
 
 const Header = ({ session }: { session: string | null }): React.ReactNode => {
   const [isSticky, setIsSticky] = useState(false);
@@ -13,11 +14,7 @@ const Header = ({ session }: { session: string | null }): React.ReactNode => {
   const t = useTranslations("Header");
 
   const setSticked = (): void => {
-    if (window.scrollY > 50) {
-      setIsSticky(true);
-    } else {
-      setIsSticky(false);
-    }
+    setIsSticky(window.scrollY > STICKY_SCROLL);
   };
 
   useLayoutEffect(() => {
@@ -49,8 +46,15 @@ const Header = ({ session }: { session: string | null }): React.ReactNode => {
                 </>
               ) : (
                 <>
-                  <Link href={"/sign-in"}>{t("login")}</Link>
-                  <Link href={"/sign-up"}>{t("register")}</Link>
+                  {NOT_AUTH_LINKS.map((link) => (
+                    <Link
+                      className={`${styles.header__link} link`}
+                      key={link.name}
+                      href={link.href}
+                    >
+                      {link.name}
+                    </Link>
+                  ))}
                 </>
               )}
             </div>

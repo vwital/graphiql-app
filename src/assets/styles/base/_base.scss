@@ -58,8 +58,8 @@ span {
 .textarea {
   border: 1px solid transparent;
   padding: 1em 1.5em;
-  border-radius: 8px;
-  font-size: 16px;
+  border-radius: 0.5em;
+  font-size: 1em;
   font-weight: 400;
   outline: none;
 }
@@ -68,7 +68,7 @@ span {
   display: block;
   box-sizing: border-box;
   text-align: center;
-  font-size: 20px;
+  font-size: 1em;
   background-color: $color-button;
   color: inherit;
   font-family: $font-dm-sans;

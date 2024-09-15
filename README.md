@@ -33,7 +33,7 @@
 #### `test`: Runs tests using Vitest and collects code coverage reports.
 
 ## Token Expiration Configuration
-### By default, Firebase tokens are set to expire after 1 hour. In this application, the token expiration time is intentionally reduced to 10 minutes to enhance security.
+### By default, Firebase tokens are set to expire after 1 hour. In this application, the token expiration time is intentionally reduced to 30 minutes to enhance security.
 
 ### Configuration Details
 Default Token Expiration: 1 hour

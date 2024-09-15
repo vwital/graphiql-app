@@ -12,7 +12,7 @@
     "signIn": "Sign In",
     "signUp": "Sign Up",
     "rest": "REST Client",
-    "graphiql": "GraphiQL Client",
+    "graphql": "GraphQL Client",
     "history": "History",
     "authors": "Authors",
     "aboutCourse": "About course",

@@ -8,7 +8,7 @@ const ActionButtons = ({ isAuth }: { isAuth: boolean }): React.ReactNode => {
   const links = isAuth
     ? [
         { href: "/rest", text: t("rest") },
-        { href: "/graphi", text: t("graphiql") },
+        { href: "/graph", text: t("graphql") },
         { href: "/history", text: t("history") },
       ]
     : [

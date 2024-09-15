@@ -12,7 +12,7 @@
     "signIn": "Войти",
     "signUp": "Регистрация",
     "rest": "REST Клиент",
-    "graphiql": "GraphiQL Клиент",
+    "graphql": "GraphQL Клиент",
     "history": "История",
     "authors": "Авторы",
     "aboutCourse": "О курсе",

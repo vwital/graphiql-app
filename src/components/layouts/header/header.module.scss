@@ -39,7 +39,7 @@
   }
 
   &__logout {
-    font-family: "Poppins", sans-serif;
+    font-family: Poppins, sans-serif;
     font-weight: 700;
     color: inherit;
     background-color: transparent;
@@ -54,5 +54,9 @@
     @media (width <= 550px) {
       flex-direction: column;
     }
+  }
+
+  &__link {
+    text-transform: capitalize;
   }
 }

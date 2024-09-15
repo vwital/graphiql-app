@@ -8,7 +8,7 @@ const LoadingPageLocale = (): JSX.Element => {
 
   return (
     <div className={styles.loading}>
-      <h1 className={styles["loading__title"]}>{t("loadingText")}</h1>
+      <h1 className={styles.loading__title}>{t("loadingText")}</h1>
       <div className={styles.spinner}></div>
     </div>
   );

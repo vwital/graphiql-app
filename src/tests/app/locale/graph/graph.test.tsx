@@ -1,7 +1,7 @@
 import Page from "@/app/[locale]/graph/page";
 import PageEndpoint from "@/app/[locale]/graph/[endpoint]/page";
-import PageUrl from "@/app/[locale]/graph/[endpoint]/[...url]/page";
-import GraphiForm from "@/components/pages/graphiClient/graphiForm/GraphiForm";
+import PageUrl from "@/app/[locale]/graph/[endpoint]/[url]/page";
+import GraphiForm from "@/components/pages/graphiClient/components/graphiForm/GraphiForm";
 import { IntlProviderWrapper } from "@/tests/utils/test-utils";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
@@ -13,6 +13,16 @@ vi.mock("@/navigation", () => ({
   useRouter: vi.fn(() => ({
     push: mockRouterPush,
   })),
+}));
+
+vi.mock("next/navigation", () => ({
+  useParams: () => ({ endpoint: "endpoint" }),
+  useSearchParams: vi.fn(),
+}));
+
+vi.mock("react-redux", () => ({
+  useDispatch: vi.fn(),
+  useSelector: vi.fn(),
 }));
 
 vi.mock("@/utils/convertBase64", () => ({
@@ -39,7 +49,7 @@ describe("GraphQL Page", () => {
       </IntlProviderWrapper>
     );
 
-    expect(screen.getByText("GraphiQL Client")).toBeInTheDocument();
+    expect(screen.getByText("GraphQL Client")).toBeInTheDocument();
     expect(screen.getByText("Endpoint URL")).toBeInTheDocument();
     expect(screen.getByText("SDL URL")).toBeInTheDocument();
     expect(screen.getByText("Query")).toBeInTheDocument();
@@ -55,7 +65,7 @@ describe("GraphQL Page", () => {
       </IntlProviderWrapper>
     );
 
-    expect(screen.getByText("GraphiQL Client")).toBeInTheDocument();
+    expect(screen.getByText("GraphQL Client")).toBeInTheDocument();
     expect(screen.getByText("Endpoint URL")).toBeInTheDocument();
     expect(screen.getByText("SDL URL")).toBeInTheDocument();
     expect(screen.getByText("Query")).toBeInTheDocument();
@@ -71,7 +81,7 @@ describe("GraphQL Page", () => {
       </IntlProviderWrapper>
     );
 
-    expect(screen.getByText("GraphiQL Client")).toBeInTheDocument();
+    expect(screen.getByText("GraphQL Client")).toBeInTheDocument();
     expect(screen.getByText("Endpoint URL")).toBeInTheDocument();
     expect(screen.getByText("SDL URL")).toBeInTheDocument();
     expect(screen.getByText("Query")).toBeInTheDocument();

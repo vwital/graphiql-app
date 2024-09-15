@@ -1,6 +1,6 @@
 import JsonView from "@uiw/react-json-view";
 import { githubLightTheme } from "@uiw/react-json-view/githubLight";
-import styles from "./JsonViewer.module.scss";
+import styles from "./jsonViewer.module.scss";
 
 const JsonViewer = ({
   response,

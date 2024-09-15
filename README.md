@@ -37,7 +37,7 @@
 
 ### Configuration Details
 Default Token Expiration: 1 hour
-Configured Token Expiration: 10 minutes
+Configured Token Expiration: 30 minutes
 Expiration Calculation: expirationTimestamp is calculated as Date.now() - TOKEN_EXPIRATION_SUBTRACT, where TOKEN_EXPIRATION_SUBTRACT is the difference in milliseconds subtracted from the 1 hour default (located in ./src/constants/constants.ts). For instance, 60 minutes - 50 minutes = 10 minutes.
 This adjusted expiration time is stored in cookies to manage token validity and ensure enhanced security.
 

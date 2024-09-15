@@ -1,6 +1,6 @@
 # Final Task the Rolling Scopes School react course by JSXSquad team
-## Deploy [link]
-## Demo [link]
+## [Deploy]() 
+## [Demo](https://youtu.be/U7HwzInHGfI) 
 
 
 ## Description

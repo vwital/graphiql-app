@@ -32,7 +32,7 @@ const Header = ({ session }: { session: string | null }): React.ReactNode => {
       >
         <div className={styles.header__wrapper}>
           <h1>
-            <Link href={"/"}>REST/GraphiQL Client</Link>
+            <Link href={"/"}>REST/GraphQL Client</Link>
           </h1>
           <div className={styles.header__controls}>
             <LocaleSwitcherButton />

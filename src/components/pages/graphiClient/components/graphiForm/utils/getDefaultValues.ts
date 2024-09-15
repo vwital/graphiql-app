@@ -4,7 +4,7 @@ import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 type ReturnType = {
   headers: Record<string, string>[];
   url: string;
-  body: string;
+  query: string;
 };
 
 const getDefaultValue = (
@@ -13,13 +13,16 @@ const getDefaultValue = (
 ): ReturnType => {
   const defaultValues = {
     url: "",
-    body: "",
+    query: "",
   };
 
-  if (urlParams.requestUrl) {
-    const [url, body] = urlParams.requestUrl;
-    defaultValues.url = convertFromBase64(url);
-    defaultValues.body = body && convertFromBase64(body);
+  if (urlParams.endpoint) {
+    defaultValues.url = convertFromBase64(urlParams.endpoint);
+  }
+
+  if (urlParams.url) {
+    const query = convertFromBase64(urlParams.url);
+    defaultValues.query = JSON.parse(query).query;
   }
 
   const queryParams = new URLSearchParams(searchParams);

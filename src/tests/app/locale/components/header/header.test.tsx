@@ -29,7 +29,7 @@ describe("Header component", () => {
       </IntlProviderWrapper>
     );
 
-    const titleElement = screen.getByText("REST/GraphiQL Client");
+    const titleElement = screen.getByText("REST/GraphQL Client");
     expect(titleElement).toBeInTheDocument();
 
     const mainPageLink = screen.getByText("Main Page");

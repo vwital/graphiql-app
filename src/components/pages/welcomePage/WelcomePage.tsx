@@ -27,3 +27,4 @@ const WelcomePage = (): React.ReactNode => {
 };
 
 export default WelcomePage;
+

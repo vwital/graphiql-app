@@ -21,7 +21,8 @@ const getDefaultValue = (
   }
 
   if (urlParams.url) {
-    defaultValues.query = convertFromBase64(urlParams.url);
+    const query = convertFromBase64(urlParams.url);
+    defaultValues.query = JSON.parse(query).query;
   }
 
   const queryParams = new URLSearchParams(searchParams);

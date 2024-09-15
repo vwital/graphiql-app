@@ -10,6 +10,7 @@ export const pathnames: Pathnames<Locales> = {
   "/sign-up": "/sign-up",
   "/rest": "/rest",
   "/graphi": "/graphi",
+  "/graph": "/graph",
   "/history": "/history",
 };
 

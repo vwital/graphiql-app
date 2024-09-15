@@ -6,7 +6,7 @@ export const regExpPassword = new RegExp(
 );
 
 // Milliseconds to subtract from token expiration time (60 minutes)
-export const TOKEN_EXPIRATION_SUBTRACT = 3000000;
+export const TOKEN_EXPIRATION_SUBTRACT = 1800000;
 
 export const SESSION_COOKIE_NAME = "user_session";
 export const SESSION_COOKIE_DISPLAY_NAME = "user_name";

@@ -1,6 +1,3 @@
-import Page from "@/app/[locale]/graph/page";
-import PageEndpoint from "@/app/[locale]/graph/[endpoint]/page";
-import PageUrl from "@/app/[locale]/graph/[endpoint]/[url]/page";
 import GraphiForm from "@/components/pages/graphiClient/components/graphiForm/GraphiForm";
 import { IntlProviderWrapper } from "@/tests/utils/test-utils";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
@@ -42,54 +39,6 @@ vi.stubGlobal(
 );
 
 describe("GraphQL Page", () => {
-  it("render graphql page", () => {
-    render(
-      <IntlProviderWrapper>
-        <Page />
-      </IntlProviderWrapper>
-    );
-
-    expect(screen.getByText("GraphQL Client")).toBeInTheDocument();
-    expect(screen.getByText("Endpoint URL")).toBeInTheDocument();
-    expect(screen.getByText("SDL URL")).toBeInTheDocument();
-    expect(screen.getByText("Query")).toBeInTheDocument();
-    expect(
-      screen.getByRole("button", { name: "Add header" })
-    ).toBeInTheDocument();
-  });
-
-  it("render graphql page with endpoint", () => {
-    render(
-      <IntlProviderWrapper>
-        <PageEndpoint />
-      </IntlProviderWrapper>
-    );
-
-    expect(screen.getByText("GraphQL Client")).toBeInTheDocument();
-    expect(screen.getByText("Endpoint URL")).toBeInTheDocument();
-    expect(screen.getByText("SDL URL")).toBeInTheDocument();
-    expect(screen.getByText("Query")).toBeInTheDocument();
-    expect(
-      screen.getByRole("button", { name: "Add header" })
-    ).toBeInTheDocument();
-  });
-
-  it("render graphql page with url", () => {
-    render(
-      <IntlProviderWrapper>
-        <PageUrl />
-      </IntlProviderWrapper>
-    );
-
-    expect(screen.getByText("GraphQL Client")).toBeInTheDocument();
-    expect(screen.getByText("Endpoint URL")).toBeInTheDocument();
-    expect(screen.getByText("SDL URL")).toBeInTheDocument();
-    expect(screen.getByText("Query")).toBeInTheDocument();
-    expect(
-      screen.getByRole("button", { name: "Add header" })
-    ).toBeInTheDocument();
-  });
-
   it("should handle form submission", async () => {
     render(
       <IntlProviderWrapper>

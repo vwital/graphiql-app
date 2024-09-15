@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 
 const LinksList = [
   { href: "/rest", name: "REST Client" },
-  { href: "/graphi", name: "GraphQL Client" },
+  { href: "/graph", name: "GraphQL Client" },
 ];
 
 const EmptyHistory = (): React.ReactNode => {
